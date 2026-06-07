@@ -1,4 +1,3 @@
-secção legislação com links para a pgdl
 com base na lista do livro do NSS 
 
 
@@ -15,6 +14,7 @@ Fontes história do direito português - Direito de Autor
 Ver SÁ E MELLO, privilégios régios
 
 §§
+Aba apenas com as leis que transpõe directivas 
 
 §§§§§
 Adicionar aos links da pgdl uma versão em pdf do mesmo 
@@ -25,12 +25,6 @@ Lista legislação de DO/IG
 Lista legislaçao nacional de vinhos
 
 &&&
-
-Links do DL e portarias do INPI 
-Links do DL e portarias do Arbitrare
-
-Portaria n.º 326/2019 - Alteração aos Estatutos do INPI - criação da DED
-Portaria n.º 386/2012 - Estatutos do INPI
 
 
 $$
@@ -43,7 +37,3 @@ Contact me through pgp
 -$$
 
 I used to web design in high school before law school . 
-
-
-Vinculação genérica do ARBITRARE - Portaria n.º 1049/2009
-Aba apenas com as leis que transpõe directivas
