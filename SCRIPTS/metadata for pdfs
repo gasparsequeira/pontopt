@@ -1,0 +1,1 @@
+uv run --with pypdf temp/embed_tdm_xmp.py "/Users/dgs/Documents/Website/writings"

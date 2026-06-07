@@ -1,0 +1,289 @@
+@font-face {
+  font-family: "Mondwest";
+  src: url('fonts/PPMondwest-Regular.otf');
+}
+
+:root {
+  --blue: #0040ff;
+  --muted: #bcbcbc;
+  --serif: Mondwest, Georgia, serif;
+}
+
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* ── inner pages only ── */
+
+.page {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 60px 40px 80px;
+  min-height: 100vh;
+  font-family: var(--serif);
+  background-color: #f5f5f5;
+  background-image:
+    linear-gradient(rgba(160,160,160,0.22) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(160,160,160,0.22) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+.page-title {
+  font-family: var(--serif);
+  font-size: 48px;
+  font-weight: 400;
+  color: var(--blue);
+  margin-bottom: 40px;
+  line-height: 1;
+}
+
+.page-title a {
+  display: inline-block;
+  font-size: 13px;
+  color: var(--muted);
+  text-decoration: none;
+  margin-left: 16px;
+  vertical-align: middle;
+}
+
+.page-title a:hover { color: var(--blue); }
+
+.writings-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.writing-item a {
+  font-size: 17px;
+  color: #222;
+  text-decoration: none;
+}
+
+.writing-title {
+  font-size: 17px;
+  color: #222;
+}
+
+.writing-meta a {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.writing-meta a:hover {
+  color: var(--blue);
+  text-decoration: underline;
+}
+
+.writing-sublist {
+  list-style: disc;
+  margin: 8px 0 0 20px;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.writing-sublist > li {
+  font-size: 15px;
+  line-height: 1.55;
+  color: #222;
+}
+
+.writing-sublist a {
+  font-size: 15px;
+  color: #222;
+  text-decoration: none;
+}
+
+.writing-sublist a:hover {
+  color: var(--blue);
+  text-decoration: underline;
+}
+
+/* revogadas — tom arquivístico, discreto sobre a grelha */
+.writing-sublist li.is-revogado {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.2em 0.45em;
+  list-style: none;
+  margin-left: -10px;
+  padding: 5px 8px 5px 12px;
+  border-left: 2px solid rgba(188, 188, 188, 0.5);
+  background: rgba(188, 188, 188, 0.1);
+  border-radius: 0 2px 2px 0;
+}
+
+.writing-sublist li.is-revogado a {
+  color: #888;
+}
+
+.writing-sublist li.is-revogado a:hover {
+  color: var(--blue);
+}
+
+.writing-sublist li.is-revogado .revogado-sep {
+  color: var(--muted);
+  user-select: none;
+}
+
+.writing-sublist li.is-revogado .link-revogado:hover {
+  color: #c0392b;
+}
+
+.quick-access {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  padding: 0 0 16px;
+  margin: 0 0 28px;
+  border-bottom: 1px solid rgba(0,0,0,0.08);
+}
+
+.quick-access li {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+}
+
+.quick-access a {
+  font-size: 17px;
+  color: #c0392b;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.quick-access a:hover {
+  color: #8b1e10;
+  text-decoration: underline;
+}
+
+.tag-filter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0 0 20px;
+}
+
+.tag-chip {
+  font-family: inherit;
+  font-size: 12px;
+  color: var(--muted);
+  background: transparent;
+  border: 1px solid rgba(0,0,0,0.15);
+  border-radius: 999px;
+  padding: 4px 10px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.tag-chip:hover {
+  color: #222;
+  border-color: rgba(0,0,0,0.35);
+}
+
+.tag-chip.active {
+  color: #fff;
+  background: var(--blue);
+  border-color: var(--blue);
+}
+
+.writing-tags {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-left: 10px;
+  vertical-align: middle;
+}
+
+.writing-tag {
+  font-size: 10px;
+  color: var(--muted);
+  background: rgba(0,0,0,0.04);
+  padding: 2px 8px;
+  border-radius: 999px;
+  text-transform: lowercase;
+  letter-spacing: 0.02em;
+}
+
+.lex-search {
+  width: 100%;
+  max-width: 320px;
+  padding: 6px 0;
+  margin: 0 0 28px;
+  border: none;
+  border-bottom: 1px solid rgba(0,0,0,0.15);
+  background: transparent;
+  font-family: inherit;
+  font-size: 14px;
+  color: #222;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.lex-search::placeholder {
+  color: var(--muted);
+}
+
+.lex-search:focus {
+  border-bottom-color: var(--blue);
+}
+
+.quick-access .qa-meta {
+  font-size: 11px;
+  color: var(--muted);
+}
+
+.writing-subheader {
+  display: block;
+  font-size: 13px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin: 14px 0 6px;
+  line-height: 1.4;
+}
+
+.writing-subheader:first-child {
+  margin-top: 0;
+}
+
+.writing-item a:hover {
+  color: var(--blue);
+  text-decoration: underline;
+}
+
+.writing-meta {
+  margin-top: 4px;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.list-divider {
+  border-top: 1px solid var(--muted);
+  opacity: 0.3;
+  margin: 0;
+}
+
+.about-body {
+  font-size: 15px;
+  line-height: 1.85;
+  color: #222;
+}
+
+.about-body p + p { margin-top: 18px; }
+
+.about-body a { color: var(--blue); }
+
+.legal {
+  margin-top: 60px;
+  font-size: 11px;
+  color: var(--muted);
+  line-height: 1.7;
+  max-width: 560px;
+}

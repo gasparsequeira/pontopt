@@ -1,0 +1,9 @@
+<rsl xmlns="https://rslstandard.org/rsl">
+  <content url="/">
+    <license>
+      <permits type="usage">search</permits>
+      <prohibits type="usage">ai-train ai-input ai-index</prohibits>
+    </license>
+    <terms>https://gasparsequeira.pt/</terms>
+  </content>
+</rsl>

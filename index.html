@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>gasparsequeira.pt</title>
+  <!-- TDM & AI opt-out -->
+  <meta name="tdm-reservation" content="1">
+  <meta name="robots" content="noarchive,nosnippet,noai,noimageai">
+
+  <!-- Dublin Core rights -->
+  <link rel="schema.dcterms" href="http://purl.org/dc/terms/">
+  <meta name="dcterms.rights" content="© 2026 Diogo Gaspar Sequeira. All rights reserved. The rightholder expressly reserves the right to opt out of text and data mining (TDM), AI training, and generative AI training pursuant to Art. 4(3) of Directive (EU) 2019/790 (CDSM). Os atos de reprodução de material protegido, em especial para fins de prospeção de texto e dados, são expressamente reservados ao titular nos termos do art. 75.º, n.º 2, al. w) do CDADC.">
+
+  <!-- schema.org JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "gasparsequeira.pt",
+    "url": "https://gasparsequeira.pt",
+    "author": { "@type": "Person", "name": "Diogo Gaspar Sequeira" },
+    "copyrightYear": 2026,
+    "copyrightHolder": { "@type": "Person", "name": "Diogo Gaspar Sequeira" },
+    "copyrightNotice": "© 2026 Diogo Gaspar Sequeira. All rights reserved. The rightholder expressly reserves the right to opt out of text and data mining (TDM), AI training, and generative AI training pursuant to Art. 4(3) of Directive (EU) 2019/790 (CDSM). Os atos de reprodução de material protegido, em especial para fins de prospeção de texto e dados, são expressamente reservados ao titular nos termos do art. 75.º, n.º 2, al. w) do CDADC."
+  }
+  </script>
+
+  <link rel="stylesheet" href="style.css">
+
+<style>
+
+@font-face {
+  font-family: "Mondwest";
+  src: url('fonts/PPMondwest-Regular.otf');
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f5f5f5;
+  background-image:
+    linear-gradient(rgba(160,160,160,0.22) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(160,160,160,0.22) 1px, transparent 1px);
+  background-size: 20px 20px;
+  font-family: Mondwest, Georgia, serif;
+}
+
+.header {
+  font-size: 60px;
+  color: #0040ff;
+  position: absolute;
+  top: 90px;
+  z-index: 6;
+  font-family: Mondwest, Georgia, serif;
+}
+
+.container {
+  position: relative;
+  width: 300px;
+  min-height: 600px;
+  height: auto;
+  padding: 20px;
+  background: #fff;
+  color: #000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  -webkit-box-shadow: 0px 0px 192px 177px rgba(255,255,255,1);
+  -moz-box-shadow:    0px 0px 192px 177px rgba(255,255,255,1);
+  box-shadow:         0px 0px 192px 177px rgba(255,255,255,1);
+  margin-top: -30px;
+}
+
+.cross {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  flex: 1;
+  width: 100%;
+  font-size: 20px;
+  padding: 10px 0;
+}
+
+.cross span,
+.cross a {
+  white-space: nowrap;
+}
+
+.cross span:hover,
+.cross a:hover {
+  transform: scale(1.2);
+}
+
+.cross a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* nav buttons — same technique as original */
+.nav-btn {
+  background: none;
+  border: none;
+  color: #000;
+  font-family: inherit;
+  font-size: inherit;
+  cursor: pointer;
+  padding: 0;
+  position: relative;
+}
+
+/* left arm: "sobre" → hover → "about" */
+.about-btn::after  { content: "sobre"; }
+.about-btn:hover::after  { content: "get to know me"; color: #0040ff; }
+.about-btn:hover  { transform: scale(1.2); }
+
+/* right arm: "escrita" → hover → "enter?" */
+.writings-btn::after { content: "artigos"; }
+.writings-btn:hover::after { content: "writings"; color: #0040ff; }
+.writings-btn:hover { transform: scale(1.2); }
+
+/* bottom arm: "colectânea de fontes" → hover → "lex" */
+.lex-btn::after { content: "colectânea de fontes"; }
+.lex-btn:hover::after { content: "lex"; color: #0040ff; }
+.lex-btn:hover { transform: scale(1.2); }
+
+details > summary {
+  box-shadow: 0px 1px 1px #bbbbbb;
+  cursor: pointer;
+  color: #bcbcbc;
+  font-size: 14px;
+  list-style: none;
+}
+
+details > summary::-webkit-details-marker { display: none; }
+
+details > p {
+  margin: 0;
+  color: #bcbcbc;
+  font-size: 14px;
+}
+
+/* quick-access dock */
+.dock {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 14px;
+  padding: 10px 16px;
+  background: rgba(255,255,255,0.85);
+  backdrop-filter: blur(8px);
+  border-radius: 16px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+  z-index: 10;
+}
+
+.dock a {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+  color: #555;
+  font-family: Mondwest, Georgia, serif;
+  font-size: 12px;
+  transition: transform 0.15s;
+}
+
+.dock a:hover {
+  transform: scale(1.1);
+  color: #0040ff;
+}
+
+.dock img {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  margin-bottom: 4px;
+}
+
+/* CRT scanline overlay */
+.crt::before {
+  content: " ";
+  display: block;
+  position: fixed;
+  top: 0; left: 0; bottom: 0; right: 0;
+  background:
+    linear-gradient(rgba(18,16,16,0) 50%, rgba(0,0,0,0.18) 50%),
+    linear-gradient(90deg, rgba(255,0,0,0.04), rgba(0,255,0,0.02), rgba(0,0,255,0.04));
+  z-index: 20;
+  background-size: 100% 2px, 3px 100%;
+  pointer-events: none;
+}
+
+</style>
+</head>
+<body>
+
+<div class="crt"></div>
+
+<div class="header">gasparsequeira.pt</div>
+
+<div class="container">
+
+  <div class="cross">
+    <a href="https://www.linkedin.com/in/diogogasparsequeira/" target="_blank" rel="noopener">trainee lawyer</a>
+    <button class="nav-btn about-btn"    onclick="window.location.href='about.html'"></button>
+    <button class="nav-btn writings-btn" onclick="window.location.href='writings.html'"></button>
+    <button class="nav-btn lex-btn" onclick="window.location.href='lex.html'"></button>
+  </div>
+
+  <p style="font-size: 14px; color: #bcbcbc; text-align: center;">
+    hint: hover over the text...
+    <br>
+    desktop view only. sorry mobile users
+    <br><br>
+    <details>
+      <summary>&#9658; Before you enter:</summary>
+      <p>
+        1. This website hosts PDFs of my writings.
+        <br>
+        <br>
+        
+        © 2026 Diogo Gaspar Sequeira. All rights, including rights for text and data mining, AI training, and similar technologies, are reserved. This reservation covers: (i) any automated analytical technique aimed at analysing this content in digital form; (ii) the training of AI models; and (iii) the training of generative AI models. 
+
+        <br>
+        <br>
+
+        The rightholder expressly reserves the right for reproductions and extractions for the purposes of text and data mining (TDM) under Art. 4(3) of the Directive (EU) 2019/790 (on copyright and related righs in the Digital Single Market).  
+
+        <br>
+        <br>
+
+        Os actos de reprodução de material protegido, em especial para fins de prospeção de texto e dados, são expressamente reservados ao titular nos termos do art. 75.º, n.º 2, al. w) do CDADC.
+      </p>
+    </details>
+  </p>
+
+</div>
+
+<div class="dock">
+  <a href="https://www.ipglossary.com/" target="_blank" rel="noopener">
+    <img src="https://www.google.com/s2/favicons?domain=ipglossary.com&sz=64" alt="">
+    IP Glossary
+  </a>
+  <a href="https://ipcuria.eu/" target="_blank" rel="noopener">
+    <img src="https://www.google.com/s2/favicons?domain=ipcuria.eu&sz=64" alt="">
+    IP Curia
+  </a>
+  <a href="https://revistas.ucp.pt/index.php/propriedadesintelectuais/issue/archive" target="_blank" rel="noopener">
+    <img src="https://revistas.ucp.pt/public/journals/31/favicon_pt_PT.png" alt="">
+    PI UCP
+  </a>
+  <a href="https://www.apdi.pt/" target="_blank" rel="noopener">
+    <img src="https://www.google.com/s2/favicons?domain=apdi.pt&sz=64" alt="">
+    APDI
+  </a>
+  <a href="https://thehumancause.org/papers.html" target="_blank" rel="noopener">
+    <img src="https://www.google.com/s2/favicons?domain=thehumancause.org&sz=64" alt="">
+    Human Cause
+  </a>
+  <a href="https://ipdraughts.wordpress.com/author/andlaw/" target="_blank" rel="noopener">
+    <img src="https://www.google.com/s2/favicons?domain=ipdraughts.wordpress.com&sz=64" alt="">
+    IP Draughts
+  </a>
+</div>
+
+</body>
+</html>

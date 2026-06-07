@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>jurisprudência do TJUE — gasparsequeira.pt</title>
+  <!-- TDM & AI opt-out -->
+  <meta name="tdm-reservation" content="1">
+  <meta name="robots" content="noarchive,nosnippet,noai,noimageai">
+
+  <!-- Dublin Core rights -->
+  <link rel="schema.dcterms" href="http://purl.org/dc/terms/">
+  <meta name="dcterms.rights" content="© 2026 Diogo Gaspar Sequeira. All rights reserved. The rightholder expressly reserves the right to opt out of text and data mining (TDM), AI training, and generative AI training pursuant to Art. 4(3) of Directive (EU) 2019/790 (CDSM). Os atos de reprodução de material protegido, em especial para fins de prospeção de texto e dados, são expressamente reservados ao titular nos termos do art. 75.º, n.º 2, al. w) do CDADC.">
+
+  <!-- schema.org JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "name": "jurisprudência do TJUE — gasparsequeira.pt",
+    "url": "https://gasparsequeira.pt/tjue.html",
+    "author": { "@type": "Person", "name": "Diogo Gaspar Sequeira" },
+    "copyrightYear": 2026,
+    "copyrightHolder": { "@type": "Person", "name": "Diogo Gaspar Sequeira" },
+    "copyrightNotice": "© 2026 Diogo Gaspar Sequeira. All rights reserved. The rightholder expressly reserves the right to opt out of text and data mining (TDM), AI training, and generative AI training pursuant to Art. 4(3) of Directive (EU) 2019/790 (CDSM). Os atos de reprodução de material protegido, em especial para fins de prospeção de texto e dados, são expressamente reservados ao titular nos termos do art. 75.º, n.º 2, al. w) do CDADC."
+  }
+  </script>
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<main class="page">
+
+  <h1 class="page-title">
+    jurisprudência do TJUE
+    <a href="lex.html">← lex</a>
+  </h1>
+
+  <input type="search" class="lex-search" id="lexSearch" list="temaList" placeholder="filtrar ou escolher tema…" aria-label="filtrar lista">
+  <datalist id="temaList"></datalist>
+
+  <div class="tag-filter" id="tagFilter" aria-label="filtrar por tema"></div>
+
+  <ul class="writings-list" id="writingsList">
+
+    <li class="writing-item" data-tags="privacidade">
+      <a href="#" target="_blank">Acórdão exemplo — privacidade</a>
+      <span class="writing-tags"><span class="writing-tag">privacidade</span></span>
+      <p class="writing-meta">source</p>
+    </li>
+
+    <li class="writing-item" data-tags="direito de autor">
+      <a href="#" target="_blank">Acórdão exemplo — direito de autor</a>
+      <span class="writing-tags"><span class="writing-tag">direito de autor</span></span>
+      <p class="writing-meta">source</p>
+    </li>
+
+  </ul>
+
+
+</main>
+
+<script>
+  (function () {
+    const input = document.getElementById('lexSearch');
+    const filter = document.getElementById('tagFilter');
+    const items = Array.from(document.querySelectorAll('#writingsList > .writing-item'));
+
+    const itemTags = items.map(function (item) {
+      const raw = (item.dataset.tags || '').split(',').map(function (t) { return t.trim().toLowerCase(); }).filter(Boolean);
+      return new Set(raw);
+    });
+
+    const allTags = new Set();
+    itemTags.forEach(function (set) { set.forEach(function (t) { allTags.add(t); }); });
+
+    const active = new Set();
+
+    const datalist = document.getElementById('temaList');
+    Array.from(allTags).sort().forEach(function (tag) {
+      const opt = document.createElement('option');
+      opt.value = tag;
+      datalist.appendChild(opt);
+    });
+
+    Array.from(allTags).sort().forEach(function (tag) {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'tag-chip';
+      btn.textContent = tag;
+      btn.addEventListener('click', function () {
+        if (active.has(tag)) { active.delete(tag); btn.classList.remove('active'); }
+        else { active.add(tag); btn.classList.add('active'); }
+        apply();
+      });
+      filter.appendChild(btn);
+    });
+
+    function apply() {
+      const q = input.value.trim().toLowerCase();
+      items.forEach(function (item, i) {
+        const text = item.textContent.toLowerCase();
+        const matchesText = !q || text.includes(q);
+        const matchesTag = active.size === 0 || Array.from(active).some(function (t) { return itemTags[i].has(t); });
+        item.style.display = (matchesText && matchesTag) ? '' : 'none';
+      });
+    }
+
+    input.addEventListener('input', apply);
+  })();
+</script>
+
+</body>
+</html>

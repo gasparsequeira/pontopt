@@ -1,0 +1,119 @@
+# AI training opt-out — Article 4, EU DSM Directive 2019/790
+# TDM reservation — Art. 75.º/2 al. w) CDADC
+
+# ── named AI crawler bots ──────────────────────────────────────────
+
+User-agent: GPTBot
+Disallow: /
+
+User-agent: ChatGPT-User
+Disallow: /
+
+User-agent: OAI-SearchBot
+Disallow: /
+
+User-agent: CCBot
+Disallow: /
+
+User-agent: Google-Extended
+Disallow: /
+
+User-agent: Googlebot-Extended
+Disallow: /
+
+User-agent: anthropic-ai
+Disallow: /
+
+User-agent: ClaudeBot
+Disallow: /
+
+User-agent: Claude-Web
+Disallow: /
+
+User-agent: cohere-ai
+Disallow: /
+
+User-agent: PerplexityBot
+Disallow: /
+
+User-agent: Amazonbot
+Disallow: /
+
+User-agent: Applebot-Extended
+Disallow: /
+
+User-agent: Bytespider
+Disallow: /
+
+User-agent: Diffbot
+Disallow: /
+
+User-agent: FacebookBot
+Disallow: /
+
+User-agent: meta-externalagent
+Disallow: /
+
+User-agent: meta-externalfetcher
+Disallow: /
+
+User-agent: Omgilibot
+Disallow: /
+
+User-agent: omgili
+Disallow: /
+
+User-agent: img2dataset
+Disallow: /
+
+User-agent: AI2Bot
+Disallow: /
+
+User-agent: Ai2Bot-Dolma
+Disallow: /
+
+User-agent: iaskspider
+Disallow: /
+
+User-agent: YouBot
+Disallow: /
+
+User-agent: TimpiBot
+Disallow: /
+
+User-agent: PetalBot
+Disallow: /
+
+User-agent: magpie-crawler
+Disallow: /
+
+User-agent: DataForSeoBot
+Disallow: /
+
+User-agent: Kangaroo Bot
+Disallow: /
+
+User-agent: scrapy
+Disallow: /
+
+# ── Cloudflare Content Signals (IETF AI Preferences WG draft) ──────
+# Generic machine-readable AI opt-out without naming individual agents
+
+User-agent: *
+Content-Signal: ai-train=no, search=yes, ai-input=no
+Allow: /
+
+# ── Really Simple Licensing ────────────────────────────────────────
+
+License: https://gasparsequeira.pt/license.xml
+
+# ── explicit allow for legitimate search engines ───────────────────
+
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: DuckDuckBot
+Allow: /
