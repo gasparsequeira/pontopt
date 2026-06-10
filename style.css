@@ -287,3 +287,41 @@
   line-height: 1.7;
   max-width: 560px;
 }
+
+.page-note {
+  font-size: 15px;
+  line-height: 1.85;
+  color: #222;
+  max-width: 560px;
+}
+
+.page-note p {
+  text-align: justify;
+}
+
+.page-note p + p {
+  margin-top: 18px;
+}
+
+.page-note cite {
+  display: block;
+  margin-top: 10px;
+  font-size: 12px;
+  color: var(--muted);
+  font-style: normal;
+}
+
+.small-caps {
+  font-variant: small-caps;
+  letter-spacing: 0.04em;
+}
+
+.page-note--intro {
+  margin: -20px 0 36px;
+}
+
+.page-note--footer {
+  margin-top: 48px;
+  padding-top: 28px;
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+}
