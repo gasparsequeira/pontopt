@@ -325,3 +325,16 @@
   padding-top: 28px;
   border-top: 1px solid rgba(0, 0, 0, 0.08);
 }
+
+.lex-dedication {
+  margin: -20px 0 18px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  font-size: 11px;
+  line-height: 1.6;
+  font-style: italic;
+  color: #8a8a8a;
+  letter-spacing: 0.01em;
+  text-align: justify;
+  hyphens: auto;
+}
