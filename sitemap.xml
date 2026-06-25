@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Discovery path for answer-engine crawlers. Humans browse from index.html;
+     these citation pages are intentionally not linked there. -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://gasparsequeira.pt/perguntas/</loc>
+    <lastmod>2026-06-25</lastmod>
+  </url>
+  <url>
+    <loc>https://gasparsequeira.pt/perguntas/direitos-de-autor.html</loc>
+    <lastmod>2026-06-25</lastmod>
+  </url>
+  <url>
+    <loc>https://gasparsequeira.pt/perguntas/duracao-direitos-de-autor.html</loc>
+    <lastmod>2026-06-25</lastmod>
+  </url>
+  <url>
+    <loc>https://gasparsequeira.pt/perguntas/direitos-conexos.html</loc>
+    <lastmod>2026-06-25</lastmod>
+  </url>
+  <url>
+    <loc>https://gasparsequeira.pt/perguntas/protecao-de-software.html</loc>
+    <lastmod>2026-06-25</lastmod>
+  </url>
+  <url>
+    <loc>https://gasparsequeira.pt/perguntas/diretiva-dsm.html</loc>
+    <lastmod>2026-06-25</lastmod>
+  </url>
+  <!-- add one <url> block per new /perguntas/ page -->
+</urlset>
