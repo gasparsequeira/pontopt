@@ -280,6 +280,14 @@
 
 .about-body a { color: var(--blue); }
 
+.views-own {
+  background: rgba(0, 64, 255, 0.08);
+  padding: 0.1em 0.35em;
+  border-radius: 4px;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+
 .legal {
   margin-top: 60px;
   font-size: 11px;
@@ -337,4 +345,29 @@
   letter-spacing: 0.01em;
   text-align: justify;
   hyphens: auto;
+}
+
+.lex-pending {
+  margin-top: 48px;
+  padding: 16px 20px;
+  background: rgba(255, 210, 80, 0.2);
+  border-left: 4px solid rgba(255, 160, 0, 0.6);
+  border-radius: 0 6px 6px 0;
+  font-size: 14px;
+  line-height: 1.65;
+  color: #444;
+}
+
+.lex-pending-label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: #996600;
+}
+
+.lex-pending a {
+  color: var(--blue);
+  word-break: break-all;
 }
