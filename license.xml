@@ -1,9 +1,11 @@
 <rsl xmlns="https://rslstandard.org/rsl">
   <content url="/">
     <license>
-      <permits type="usage">search</permits>
-      <prohibits type="usage">ai-train ai-input ai-index</prohibits>
+      <permits type="usage">search ai-input ai-index</permits>
+      <prohibits type="usage">ai-train</prohibits>
+      <payment type="attribution"/>
     </license>
+    <copyright type="text">Diogo Gaspar Sequeira</copyright>
     <terms>https://gasparsequeira.pt/</terms>
   </content>
 </rsl>
