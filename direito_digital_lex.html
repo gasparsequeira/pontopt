@@ -1,45 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
 <!--
-//
-//  ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣀⣀⣀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-//  ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣤⠔⠚⠋⠉⠉⠉⠉⠉⠛⠓⠦⣤⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-//  ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⡴⠞⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠳⣄⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-//  ⠀⠀⠀⠀⠀⠀⠀⠀⢀⡴⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠻⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-//  ⠀⠀⠀⠀⠀⠀⠀⢠⡟⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⡀⠀⠀⠀⠀⠀⠀⠀⠈⢧⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-//  ⠀⠀⠀⠀⠀⠀⢠⡟⠀⠀⠀⠀⠀⠀⣠⣴⠿⣛⣛⠿⣾⢿⣛⡛⠻⢷⣦⡀⠀⠀⠀⠀⠈⢧⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-//  ⠀⠀⠀⠀⠀⠀⡾⠀⠀⠀⠀⠀⣠⡾⣫⠔⠚⢉⣀⣤⣿⣄⣈⡉⠓⢦⣌⠻⣦⡀⠀⠀⠀⠘⡆⠀⠀⠀⠀⠀⠀⠀⠀⠀
-//  ⠀⠀⠀⠀⠀⠀⡇⠀⠀⠀⠀⣼⢯⢟⣡⠴⠚⢉⣀⡼⠻⣦⣀⠉⠑⠲⣌⡑⢌⢻⡄⠀⠀⠀⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀
-//  ⠀⠀⠀⠀⠀⢀⡇⠀⠀⠀⣸⣷⣣⢚⣠⣴⣾⠿⠛⠁⠀⠈⠻⢿⣷⣦⣤⣉⠢⣻⣿⡄⠀⠀⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀
-//  ⠀⠀⠀⠀⠀⠸⡇⠀⠀⢰⣯⣿⠟⣫⠞⣿⠀⠀⠀⠀⠀⠀⠀⠀⠉⢹⠳⡍⠳⢯⣽⣷⠀⠀⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀
-//  ⠀⠀⠀⠀⠀⠀⢻⡄⠀⢸⡿⢁⡼⣁⣼⣏⣀⣀⣀⡀⠀⠀⣀⣀⣀⣸⣦⠈⠣⡈⠻⣿⠀⢸⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀
-//  ⠀⠀⠀⠀⠀⠀⠈⢷⣠⡟⣰⣯⢞⣿⣿⣫⣿⣿⣿⣷⡀⣰⣿⣿⣷⣾⣿⣷⣤⡘⢦⣹⣷⠏⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-//  ⠀⠀⠀⠀⠀⠀⠀⠈⣿⢸⡿⢁⡞⢠⡇⠉⠻⠿⠛⢿⡇⢹⠈⠙⠛⠋⠀⢹⡿⣝⠻⣿⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-//  ⠀⠀⠀⠀⠀⠀⠀⠀⢻⡏⢠⠎⢠⣿⡇⠀⠀⠀⠀⣤⡇⢈⣄⠀⠀⠀⠀⢻⣧⡈⢢⡘⢿⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-//  ⠀⠀⠀⠀⠀⠀⠀⢠⣿⢱⠋⡴⠋⣸⣧⣤⠀⠀⣠⠿⢷⡾⢾⣀⠀⠀⣴⡾⢿⠙⢦⣍⢧⣻⣆⠀⠀⠀⠀⠀⠀⠀⠀⠀
-//  ⠀⠀⠀⠀⠀⠀⠀⢸⣿⣣⠞⠀⣰⢻⡏⡏⣧⣼⡥⢿⣿⣿⡦⣌⣷⣰⠁⡇⣼⣷⡄⠈⠳⣝⣿⡄⠀⠀⠀⠀⠀⠀⠀⠀
-//  ⠀⠀⠀⠀⠀⠀⠀⠈⣿⠋⢀⡼⢡⡿⣷⣧⢻⢻⣷⣺⣯⣏⢧⣨⢿⢹⣤⣿⣿⠹⣟⠷⣄⠈⠻⣧⡀⠀⠀⠀⠀⠀⠀⠀
-//  ⠀⠀⠀⠀⠀⠀⠀⣼⠏⢠⠎⢠⡞⢠⢿⣿⣾⣼⡇⡟⢻⠘⡾⢻⢸⣿⡟⣿⡏⣦⠈⠳⡈⠳⣄⠘⢿⡄⠀⠀⠀⠀⠀⠀
-//  ⠀⠀⠀⠀⠀⠀⠐⣿⣠⠏⢀⡎⠀⣼⠘⣿⡌⠻⢧⣧⣸⠀⣇⣼⣾⠏⠀⣿⣧⠈⣆⠀⠘⢢⡈⠳⣜⣿⠀⠀⠀⠀⠀⠀
-//  ⠀⠀⠀⠀⠀⣀⣤⣾⣿⠀⢸⠀⠀⣿⠀⢹⣿⣄⠀⠉⠻⠶⠟⠋⠁⠀⠀⣿⣿⠀⠘⣇⠀⠀⢿⡀⣸⢿⣦⣀⠀⠀⠀⠀
-//  ⠀⢀⣠⣶⣿⠛⠁⠀⢹⡷⠾⢤⣄⣹⣄⠀⠙⠿⢷⣤⣀⠀⠀⠀⠀⢠⣴⠟⠁⠀⢀⣸⣀⣴⠟⡿⠉⠀⠈⠻⣷⣄⠀⠀
-//  ⣶⡿⠋⠁⢻⡄⠀⠀⠸⡇⠀⠀⢨⣿⠋⠛⠒⠒⠒⠛⠷⣤⣤⣤⣤⡤⠞⠛⠓⠛⢻⡏⠉⠁⢠⡇⠀⠀⢀⣶⠋⠙⣿⣄
-//  ⠻⣧⡀⠀⠈⣿⠀⠀⠀⣇⠀⠀⢸⣿⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⡇⠀⠀⣾⠀⠀⢀⡾⠁⠀⢀⣾⠟
-//  ⠀⠹⣷⡀⠀⠘⣧⠀⠀⢻⡀⠀⣾⠈⠙⢷⣤⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣠⡴⢻⡇⠀⢀⡿⠀⠀⡾⠃⠀⣰⣿⠋⠀
-//  ⠀⠀⠘⢿⣖⠀⠹⣇⠀⢸⡇⠀⣿⠀⠀⠀⠀⠉⠙⣛⣶⣶⠶⠶⠶⠚⠛⠉⠁⠀⢸⡇⠀⢸⠃⠀⣼⠃⠀⣰⡿⠁⠀⠀
-//  ⠀⠀⠀⠈⢻⣦⡀⠹⣆⠀⢻⠀⢻⡀⠀⠀⠀⠀⣾⢿⣛⢛⠷⡄⠀⠀⠀⠀⠀⠀⢸⡇⠀⡾⠀⣸⠇⠀⣸⡿⠀⠀⠀⠀
-//  ⠀⠀⠀⠀⠀⠹⣷⡄⡿⡆⠸⣆⢸⡇⠀⠀⠀⠈⠿⡾⣿⡼⣦⡝⠀⠀⠀⠀⠀⠀⢸⠃⢸⡇⢠⡏⠀⣼⡟⠀⠀⠀⠀⠀
-//  ⠀⠀⠀⠀⠀⠀⠈⢿⣮⣻⣆⣿⣸⣷⠀⠀⠀⠀⣀⣿⠿⠿⠿⣗⣀⡀⠀⠀⠀⠀⣼⠀⡾⢀⡟⢀⣾⠟⠀⠀⠀⠀⠀⠀
-//  ⠀⠀⠀⠀⠀⠀⠀⠀⠻⣿⣽⣽⣿⣿⠀⠀⠀⣾⣿⡥⣴⣤⢴⣾⡽⡇⠀⠀⠀⠀⡿⢰⢇⡞⣠⡾⠋⠀⠀⠀⠀⠀⠀⠀
-//  ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⢻⣿⣿⣿⠀⠀⠀⠉⠻⣄⠀⠉⠉⣠⠟⠁⠀⠀⠀⠀⣇⣿⣿⣿⠟⠁⠀⠀⠀⠀⠀⠀⠀⠀
-//  ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⠿⣿⣤⣀⣀⣀⣀⣈⣳⣤⣞⣁⣀⣀⣤⣤⣤⣴⣿⠿⠋⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-//  ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-//
-//  "There is a time to be silent
-//   and a time to speak."
-//        — Ecclesiastes 3:7
-//
-//
+
+                       .,,uod8B8bou,,.
+              ..,uod8BBBBBBBBBBBBBBBBRPFT?l!i:.
+         ,=m8BBBBBBBBBBBBBBBRPFT?!||||||||||||||
+         !...:!TVBBBRPFT||||||||||!!^^""'   ||||
+         !.......:!?|||||!!^^""'            ||||
+         !.........||||                     ||||
+         !.........||||  ##                 ||||
+         !.........||||                     ||||
+         !.........||||                     ||||
+         !.........||||                     ||||
+         !.........||||                     ||||
+         `.........||||                    ,||||
+          .;.......||||               _.-!!|||||
+   .,uodWBBBBb.....||||       _.-!!|||||||||!:'
+!YBBBBBBBBBBBBBBb..!|||:..-!!|||||||!iof68BBBBBb....
+!..YBBBBBBBBBBBBBBb!!||||||||!iof68BBBBBBRPFT?!::   `.
+!....YBBBBBBBBBBBBBBbaaitf68BBBBBBRPFT?!:::::::::     `.
+!......YBBBBBBBBBBBBBBBBBBBRPFT?!::::::;:!^"`;:::       `.
+!........YBBBBBBBBBBRPFT?!::::::::::^''...::::::;         iBBbo.
+`..........YBRPFT?!::::::::::::::::::::::::;iof68bo.      WBBBBbo.
+  `..........:::::::::::::::::::::::;iof688888888888b.     `YBBBP^'
+    `........::::::::::::::::;iof688888888888888888888b.     `
+      `......:::::::::;iof688888888888888888888888888888b.
+        `....:::;iof688888888888888888888888888888888899fT!
+          `..::!8888888888888888888888888888888899fT|!^"'
+            `' !!988888888888888888888888899fT|!^"'
+                `!!8888888888888888899fT|!^"'
+                  `!988888888899fT|!^"'
+                    `!9899fT|!^"'
+                      `!^"'
+
 -->
 <head>
   <meta charset="UTF-8">
@@ -73,7 +66,7 @@
 <main class="page">
 
   <p class="lex-dedication">
-    the original compilation of these sources was put together by Professor <span class="small-caps">Nuno Sousa e Silva</span> (<i>vide</i> <a href="https://www.almedina.net/licoes-de-direito-digital-1776949931.html">Lições de Direito Digital</a> for an even fuller compilation, with thoughtful commentary). inspired by his work, i built a web version based on it. 
+    the original compilation of these sources was put together by Professor <span class="small-caps">Nuno Sousa e Silva</span> (<i>vide</i> <a href="https://www.almedina.net/licoes-de-direito-digital-1776949931.html">Lições de Direito Digital</a> for an even fuller compilation, with thoughtful commentary). inspired by his work, i built a web version to serve as a "study companion".
   </p>
 
   <h1 class="page-title">
@@ -136,44 +129,48 @@
     </li>
 
     <!-- Comércio Eletrónico -->
+    <li class="writing-item">
+      <span class="writing-title" style="font-size: 19px; color: var(--blue);">Comércio Eletrónico</span>
       <p><b>digitalizar as minhas anotações</b></p>
       <p><b>ver Kanban Board</b></p>
-      <li class="writing-item">
-        <a href="https://www.pgdlisboa.pt/leis/lei_mostra_estrutura.php?tabela=leis&artigo_id=&nid=1399&nversao=&tabela=leis&so_miolo=" target="_blank" rel="noopener">DL n.º 7/2004 — Comércio Eletrónico</a>
-      </li>
-      <li class="writing-item">
-        <a href="direitodigital_lex/4. Contratos Celebrados à Distância.pdf" target="_blank" rel="noopener">DL n.º 24/2014 — Contratatos Celebrados à Distância e Fora do Estabelecimento Comercial</a>
-      </li>
-      <li class="writing-item"> 
-      <a href="direitodigital_lex/6. Conteúdos e Bens Digitais.pdf" target="_blank" rel="noopener">DL n.º 84/2021 — Direitos do Consumidor na compra e venda de Bens, Conteúdos e Serviços Digitais, transpondo as Diretivas (UE) 2019/771 e (UE) 2019/770. </a>
-      </li>
-        <ul class="writing-sublist">
-          <li>
-            <a href="https://eur-lex.europa.eu/legal-content/PT/TXT/PDF/?uri=CELEX:32019L0771 " target="_blank" rel="noopener"> Diretiva (UE) 2019/771 - "relativa a certos aspetos dos contratos de compra e venda de bens" </a>
-          </li>
-          <li>
-            <a href= "https://eur-lex.europa.eu/legal-content/PT/TXT/PDF/?uri=CELEX:32019L0770" target="_blank" rel="noopener"> Diretiva (UE) 2019/770 - "sobre certos aspetos relativos aos contratos de fornecimento de conteúdos e serviços digitais" </a>
-          </li>
-        </ul>
-        <li class="writing-item"> 
+      <ul class="writing-sublist">
+        <li>
+          <a href="https://www.pgdlisboa.pt/leis/lei_mostra_estrutura.php?tabela=leis&artigo_id=&nid=1399&nversao=&tabela=leis&so_miolo=" target="_blank" rel="noopener">DL n.º 7/2004 — Comércio Eletrónico</a>
+        </li>
+        <li>
+          <a href="direitodigital_lex/4. Contratos Celebrados à Distância.pdf" target="_blank" rel="noopener">DL n.º 24/2014 — Contratatos Celebrados à Distância e Fora do Estabelecimento Comercial</a>
+        </li>
+        <li>
+          <a href="direitodigital_lex/6. Conteúdos e Bens Digitais.pdf" target="_blank" rel="noopener">DL n.º 84/2021 — Direitos do Consumidor na compra e venda de Bens, Conteúdos e Serviços Digitais, transpondo as Diretivas (UE) 2019/771 e (UE) 2019/770. </a>
+          <ul class="writing-sublist">
+            <li>
+              <a href="https://eur-lex.europa.eu/legal-content/PT/TXT/PDF/?uri=CELEX:32019L0771 " target="_blank" rel="noopener"> Diretiva (UE) 2019/771 - "relativa a certos aspetos dos contratos de compra e venda de bens" </a>
+            </li>
+            <li>
+              <a href="https://eur-lex.europa.eu/legal-content/PT/TXT/PDF/?uri=CELEX:32019L0770" target="_blank" rel="noopener"> Diretiva (UE) 2019/770 - "sobre certos aspetos relativos aos contratos de fornecimento de conteúdos e serviços digitais" </a>
+            </li>
+          </ul>
+        </li>
+        <li>
           <a href="direitodigital_lex/7. Serviços Financeiros.pdf" target="_blank" rel="noopener">DL n.º 95/2006, de 29 de Maio - Contratos à Distância relativos a Serviços Financeiros</a>
         </li>
-        <li class="writing-item"> 
+        <li>
           <a href="direitodigital_lex/8. CCG.pdf" target="_blank" rel="noopener">DL n.º 446/85, de 25 de Outubro, Cláusulas Contratuais Gerais</a>
         </li>
-        <li class="writing-item"> 
+        <li>
           <a href="direitodigital_lex/9. Bruxelas I.pdf" target="_blank" rel="noopener">Bruxelas I</a>
         </li>
-        <li class="writing-item"> 
+        <li>
           <a href="direitodigital_lex/10. Roma I Obrigações Contratuais.pdf" target="_blank" rel="noopener">Roma I - Obrigações Contratuais</a>
         </li>
-        <li class="writing-item"> 
+        <li>
           <a href="direitodigital_lex/11. Roma II Obrigações Extracontratuais.pdf" target="_blank" rel="noopener">Roma II - Obrigações Extracontratuais</a>
         </li>
-        <li class="writing-item">
+        <li>
           <a href="https://www.pgdlisboa.pt/leis/lei_mostra_articulado.php?nid=2340&tabela=leis" target="_blank" rel="noopener">Regime Jurídico do Jogo e das Apostas Online</a>
           <p class="writing-meta">PGDL</p>
         </li>
+      </ul>
     </li>
 
 
