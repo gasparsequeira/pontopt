@@ -25,6 +25,10 @@
 // Move slow, Snailcat!
 -->
 
+<!--
+"It is no nation we inhabit, but a language. Make no mistake; our native tongue is our true fatherland."
+Emil Cioran
+-->
 <html>
 <head>
   <meta charset="UTF-8">
@@ -155,6 +159,11 @@ body {
 .lex-btn:hover::after { content: "lex"; color: #0040ff; }
 .lex-btn:hover { transform: scale(1.2); }
 
+/* bottom arm: "direito digital" → hover → "kudos to NSS" */
+.lex-digital::after { content: "direito digital"; }
+.lex-digital:hover::after { content: "kudos to NSS"; color: #0040ff; }
+.lex-digital:hover { transform: scale(1.2); }
+
 details > summary {
   box-shadow: 0px 1px 1px #bbbbbb;
   cursor: pointer;
@@ -245,6 +254,7 @@ details > p {
     <button class="nav-btn about-btn"    onclick="window.location.href='about.html'"></button>
     <button class="nav-btn writings-btn" onclick="window.location.href='writings.html'"></button>
     <button class="nav-btn lex-btn" onclick="window.location.href='lex.html'"></button>
+    <button class="nav-btn lex-digital" onclick="window.location.href='direito_digital_lex.html'"></button>
   </div>
 
   <p style="font-size: 14px; color: #bcbcbc; text-align: center;">
@@ -316,6 +326,10 @@ details > p {
   <a href="https://www.europarl.europa.eu/plenary/en/texts-adopted.html" target="_blank" rel="noopener">
     <img src="https://www.google.com/s2/favicons?domain=europarl.europa.eu&sz=64" alt="">
     EP Plenary - Texts Adopted
+  </a>
+  <a href=" https://legal-oss.com/" target="_blank" rel="noopener">
+    <img src="https://www.google.com/s2/favicons?domain=legal-oss.com/&sz=64" alt="">
+    Legal OSS
   </a>
 </div>
 
