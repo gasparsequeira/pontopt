@@ -31,6 +31,8 @@
 }
 
 .page-title {
+  display: flex;
+  align-items: center;
   font-family: var(--serif);
   font-size: 48px;
   font-weight: 400;
@@ -49,6 +51,35 @@
 }
 
 .page-title a:hover { color: var(--blue); }
+
+/* desktop-style icon in the title bar (e.g. "older writings") */
+.page-title .title-icon {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  width: 76px;
+  margin-left: auto;
+  vertical-align: middle;
+  text-decoration: none;
+  color: var(--muted);
+  font-family: var(--serif);
+  font-size: 12px;
+  line-height: 1.2;
+  transition: transform 0.15s, color 0.15s;
+}
+
+.title-icon:hover {
+  transform: scale(1.1);
+  color: var(--blue);
+}
+
+.title-icon img {
+  width: 32px;
+  height: 32px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 4px;
+}
 
 .writings-list {
   list-style: none;
