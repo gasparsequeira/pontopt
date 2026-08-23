@@ -26,6 +26,16 @@
   </script>
 
   <link rel="stylesheet" href="style.css">
+
+  <!-- Metal Gear Solid font for this page's titles only -->
+  <style>
+    @font-face {
+      font-family: "MetalGear";
+      src: url('fonts/metalgear.ttf');
+    }
+    .page-title { font-family: "MetalGear", Mondwest, Georgia, serif; }
+    .page-title a { font-family: Mondwest, Georgia, serif; }
+  </style>
 </head>
 <body>
 
@@ -56,6 +66,33 @@
     <p> im also quite active on <a href="https://x.com/dbgsequeira" target="_blank" rel="noopener"> X</a>, if that's your cup of tea*. </p> 
     <p><span class="views-own">* Views expressed are my own and do not represent those of any client, firm, or organization I am affiliated with.</span></p>
   </div>
+
+  <hr class="list-divider" style="margin: 48px 0 28px;">
+
+  <h2 class="page-title" style="font-size: 30px; justify-content: center; margin-bottom: 14px;">welcome to my guestbook</h2>
+
+  <div class="page-note" style="text-align: center; line-height: 1.7; margin: 0 auto 24px;">
+    leave a note if you'd like! <br>
+    entries are public and stored via a Google&nbsp;Form in a Sheets.<br>
+    i don't respond to messages left here but i always read them :)
+  </div>
+
+  <h3 class="page-title" style="font-size: 20px; justify-content: center; margin-bottom: 10px;">rules</h3>
+
+  <div class="page-note" style="text-align: center; line-height: 1.7; margin: 0 auto;">
+    1. don't be mean<br>
+    2. do not self advertise<br>
+    3. if you have a question, please send me an e-mail. i respond there!
+  </div>
+
+  <!-- guestbook widget (Ayano comment-widget → Google Forms + Sheets) -->
+  <div id="c_widget"></div>
+  <script src="comment-widget.js"></script>
+
+  <p class="legal" style="margin-top: 56px; font-family: 'MetalGear', Mondwest, Georgia, serif; font-size: 12px; line-height: 1.9;">
+    the font used for the titles on this page is
+    <a href="https://www.dafont.com/pt/metal-gear-solid.font" target="_blank" rel="noopener">%</a>
+  </p>
 
 </main>
 

@@ -18,6 +18,7 @@
 /* ── inner pages only ── */
 
 .page {
+  position: relative;
   max-width: 640px;
   margin: 0 auto;
   padding: 60px 40px 80px;
@@ -28,6 +29,40 @@
     linear-gradient(rgba(160,160,160,0.22) 1px, transparent 1px),
     linear-gradient(90deg, rgba(160,160,160,0.22) 1px, transparent 1px);
   background-size: 20px 20px;
+}
+
+/* decorative image + citation pinned to the top-right corner of the page */
+.corner-fig {
+  position: absolute;
+  top: 40px;
+  left: calc(50% + 340px);
+  width: min(320px, calc(50vw - 340px));
+  margin: 0;
+  z-index: 5;
+}
+
+.corner-fig img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.corner-fig figcaption {
+  margin-top: 7px;
+  font-size: 10px;
+  line-height: 1.4;
+  color: var(--muted);
+  text-align: right;
+}
+
+.corner-fig figcaption a {
+  color: var(--muted);
+  text-decoration: none;
+}
+
+.corner-fig figcaption a:hover {
+  color: var(--blue);
+  text-decoration: underline;
 }
 
 .page-title {
