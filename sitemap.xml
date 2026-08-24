@@ -30,11 +30,19 @@
     <loc>https://gasparsequeira.pt/perguntas/treino-de-ia-e-direito-de-autor.html</loc>
     <lastmod>2026-08-24</lastmod>
   </url>
+  <url>
+    <loc>https://gasparsequeira.pt/perguntas/direitos-de-autor-fotografia.html</loc>
+    <lastmod>2026-08-24</lastmod>
+  </url>
   <!-- add one <url> block per new /perguntas/ page -->
 
   <!-- Authored PDFs fronted by the citation pages above. -->
   <url>
     <loc>https://gasparsequeira.pt/writings/O%20treino%20de%20modelos%20de%20IA%20e%20o%20Direito%20de%20Autor.pdf</loc>
+    <lastmod>2026-08-24</lastmod>
+  </url>
+  <url>
+    <loc>https://gasparsequeira.pt/writings/Take%20Home%20Exam%20-%20Direito%20da%20Publicidade.pdf</loc>
     <lastmod>2026-08-24</lastmod>
   </url>
 </urlset>
