@@ -8,4 +8,26 @@
     <copyright type="text">Diogo Gaspar Sequeira</copyright>
     <terms>https://gasparsequeira.pt/</terms>
   </content>
+
+  <!-- Authored studies (PDF): attributed citation with a link back is welcome; training is not. -->
+  <content url="/writings/">
+    <license>
+      <permits type="usage">search ai-input ai-index</permits>
+      <prohibits type="usage">ai-train</prohibits>
+      <payment type="attribution"/>
+    </license>
+    <copyright type="text">Diogo Gaspar Sequeira</copyright>
+    <terms>https://gasparsequeira.pt/</terms>
+  </content>
+
+  <!-- Citation lane: pages built to be quoted and linked by answer engines. -->
+  <content url="/perguntas/">
+    <license>
+      <permits type="usage">search ai-input ai-index</permits>
+      <prohibits type="usage">ai-train</prohibits>
+      <payment type="attribution"/>
+    </license>
+    <copyright type="text">Diogo Gaspar Sequeira</copyright>
+    <terms>https://gasparsequeira.pt/</terms>
+  </content>
 </rsl>

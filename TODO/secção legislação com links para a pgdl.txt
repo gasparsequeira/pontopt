@@ -1,10 +1,6 @@
 com base na lista do livro do NSS 
 
 
-RSL de ganhar dinheiro
-
-Nota especial agradecimento a NSS por me inspirar em preparar esta colectânea, cuja muitas das fontes aproveito e reproduzo aqui
-
 FALTA:
 
 Diretivas do slide do DARIO MOURA VICENTE
@@ -17,11 +13,6 @@ VISAPRESS
 Fontes história do direito português - Direito de Autor
 Ver SÁ E MELLO, privilégios régios
 
-§§
-Aba apenas com as leis que transpõe directivas 
-
-§§§§§
-Adicionar aos links da pgdl uma versão em pdf do mesmo 
 
 §§§§
 
@@ -29,13 +20,3 @@ Lista legislação de DO/IG
 Lista legislaçao nacional de vinhos
 
 &&&
-
-
-$$
-Pay me a coffee
-- monero
-- Bitcoin 
-
-Contact me through pgp 
-
--$$
