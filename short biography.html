@@ -35,6 +35,37 @@
       font-size: 0.8em;
       color: #4d7cff;
     }
+
+    /* photo in the right-hand white space, anchored to the page's right edge */
+    .bio-photo {
+      position: absolute;
+      top: 150px;
+      left: 100%;
+      margin: 0 0 0 28px;
+      width: 270px;
+    }
+    .bio-photo img {
+      display: block;
+      width: 100%;
+      height: auto;
+      border: 1px solid rgba(0,0,0,0.15);
+    }
+    .bio-photo figcaption {
+      margin-top: 6px;
+      font-size: 11px;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    /* not enough right margin: fall back to an inline, centered figure */
+    @media (max-width: 1250px) {
+      .bio-photo {
+        position: static;
+        margin: 28px auto;
+        width: 100%;
+        max-width: 340px;
+      }
+    }
   </style>
 </head>
 <body>
@@ -43,8 +74,13 @@
 
   <h1 class="page-title">
     About Me
-    <a href="lex.html">← back</a>
+    <a href="about.html">← back</a>
   </h1>
+
+  <figure class="bio-photo">
+    <img src="about/diogo.png" alt="Diogo as a child">
+    <figcaption>me, circa 2010</figcaption>
+  </figure>
 
   <div class="about-body">
     <p>
