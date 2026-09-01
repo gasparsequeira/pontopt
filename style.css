@@ -202,6 +202,39 @@
   color: #c0392b;
 }
 
+/* notas — anotações de estudo, sem marcador e em tom discreto,
+   para não se confundirem com as fontes normativas */
+.notes-label {
+  display: block;
+  margin-top: 6px;
+  font-size: 0.8em;
+  color: #4d7cff;
+}
+
+.writing-notes {
+  list-style: none;
+  margin-top: 4px;
+}
+
+.writing-notes > li {
+  color: #6a6a6a;
+  font-size: 14px;
+}
+
+.writing-notes > li.notes-heading {
+  margin-top: 6px;
+  font-weight: 600;
+  color: #4a4a4a;
+}
+
+.writing-notes a {
+  color: #6a6a6a;
+}
+
+.writing-notes a:hover {
+  color: var(--blue);
+}
+
 .quick-access {
   list-style: none;
   display: flex;
