@@ -10,3 +10,10 @@
 
 # Windows
 Thumbs.db
+
+# Local AI/dev tooling (symlinks to ~/.lawvable — not site content)
+.agents
+.claude/
+.codex/
+.gemini/
+.vscowork/
