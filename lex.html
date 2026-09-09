@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt">
 <!--
 //
 //  ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣀⣀⣀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
@@ -70,21 +70,48 @@
   }
   </script>
 
+  <link rel="icon" href="favicon.ico" sizes="16x16">
+  <link rel="icon" type="image/png" href="favicon-32.png" sizes="32x32">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
   <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body style="--band:62px">
+
+<a class="skip-link" href="#conteudo">saltar para a lista</a>
+
+<!-- sumário lateral — construído a partir das próprias secções, em lex-outline.js -->
+<nav class="rail" id="rail" aria-label="secções da colectânea"></nav>
+
+    <!-- navegação à maneira do Australian INfront (2003): grelha de caixas com
+         maiúsculas espacejadas, e a inversão no rollover. O ▶ leva ao início. -->
+<nav class="infront" aria-label="colectânea de fontes">
+    <div class="infront-inner">
+      <ul class="infront-grid">
+        <li><a href="lex.html" aria-current="page">lex</a></li>
+        <li><a href="direito_digital_lex.html">Direito digital</a></li>
+        <li><a href="jurisprudencia.html">Jurisprudência</a></li>
+        <li><a href="industrial.html">Industrial</a></li>
+        <li><a href="tjue.html">Notas DPI</a></li>
+        <li><a href="digitalizacoes.html">Digitalizações</a></li>
+        <li class="is-blank" aria-hidden="true"><span></span></li>
+      </ul>
+
+      <div class="infront-sign">
+        <a class="infront-mark" href="index.html" title="voltar ao início" aria-label="voltar ao início">início</a>
+        <div class="infront-words">
+          <div class="infront-title">colectânea de fontes</div>
+          <div class="infront-tag">legislação e jurisprudência de direito da propriedade intelectual</div>
+        </div>
+      </div>
+    </div>
+</nav>
 
 <main class="page">
 
-  <h1 class="page-title">
-    lex
-    <a href="index.html">← back</a>
-    <a href="jurisprudencia.html">Jurisprudência →</a>
-    <a href="industrial.html">Direito Industrial →</a>
-    <a href="tjue.html">Notas sobre o DPI→</a>
-    <a href="digitalizacoes.html">Digitalizações→</a>
-  </h1>
 
+  <h1 class="page-title">lex</h1>
+
+  <div class="panel panel--tight">
   <ul class="quick-access">
     <li>
       <a href="https://www.pgdlisboa.pt/leis/lei_mostra_estrutura.php?tabela=leis&artigo_id=&nid=4&nversao=&tabela=leis&so_miolo=" target="_blank" rel="noopener">CRP</a>
@@ -107,39 +134,52 @@
       <span class="qa-meta">PGDL</span>
     </li>
         <li>
-      <a href="lex\AI Act versão consolidada 27072026.pdf" target="_blank" rel="noopener">RIA</a>
+      <a href="lex/AI Act versão consolidada 27072026.pdf" target="_blank" rel="noopener">RIA</a>
       <span class="qa-meta">27.07.2026</span>
     </li>
   </ul>
+  </div>
 
-  <input type="search" class="lex-search" id="lexSearch" placeholder="filtrar…" aria-label="filtrar lista">
+  <div class="panel panel--tight">
+    <div class="lex-toolbar">
+      <input type="search" class="lex-search" id="lexSearch"
+             placeholder="filtrar…  ( / )" aria-label="filtrar a colectânea">
+      <span class="lex-count" id="lexCount" role="status" aria-live="polite"></span>
+      <button type="button" class="btn-quiet" id="toggleAll">colapsar tudo</button>
+    </div>
+  </div>
 
+  <div id="conteudo"></div>
+
+  <div class="panel">
   <ul class="writings-list">
 
     <!-- Código da Propriedade Industrial -->
     <li class="writing-item">
-      <span class="writing-title" style="font-size: 19px; color: var(--blue);">Código da Propriedade Industrial (2018)</span>
+      <span class="writing-title">Código da Propriedade Industrial (2018)</span>
       <ul class="writing-sublist">
         <li><a href="https://aopi.pt/" target="_blank" rel="noopener">AOPI</a></li>
         <li>
           <a href="https://www.pgdlisboa.pt/leis/lei_mostra_estrutura.php?tabela=leis&artigo_id=&nid=2979&nversao=&tabela=leis&so_miolo=" target="_blank" rel="noopener">PGDL</a>
         </li>
         <li><a href="https://aopi.pt/mda_7-2020.html" target="_blank" rel="noopener">Manual de Aplicação</a></li>
-        <li><a href="https://diariodarepublica.pt/dr/detalhe/portaria/386-2012-190612" target="_blank" rel="noopener">Portaria n.º 386/2012 - Estatutos do INPI, I.P.</a></li>
+        <li><a href="https://diariodarepublica.pt/dr/detalhe/portaria/386-2012-190612" target="_blank" rel="noopener">Portaria n.º 386/2012 - Estatutos do INPI, I.P.</a>
           <ul class="writing-sublist">
             <li><a href="https://diariodarepublica.pt/dr/detalhe/portaria/326-2019-124917023" target="_blank" rel="noopener">Portaria n.º 326/2019 - Alteração dos Estatutos do INPI, I.P.</a></li>
             <li><a href="https://diariodarepublica.pt/dr/detalhe/decreto-lei/147-2012-179779" target="_blank" rel="noopener">DL n.º 147/2012 - Orgânica do INPI, I.P.</a></li>
           </ul>
-          <li><a href="https://www.arbitrare.pt/media/1307/despacho_28519-2008_22deoutubro.pdf" target="_blank" rel="noopener">Despacho n.º 28519/2008 - Autorização da Criação do ARBITRARE - Centro de Arbitragem para a Propriedade Industrial, Nomes de Domínio, Firmas e Denominações</a></li>
+          </li>
+          <li><a href="https://www.arbitrare.pt/media/1307/despacho_28519-2008_22deoutubro.pdf" target="_blank" rel="noopener">Despacho n.º 28519/2008 - Autorização da Criação do ARBITRARE - Centro de Arbitragem para a Propriedade Industrial, Nomes de Domínio, Firmas e Denominações</a>
           <ul class="writing-sublist">
             <li><a href="https://diariodarepublica.pt/dr/detalhe/portaria/1046-2009-489692" target="_blank" rel="noopener">Portaria n.º 1046/2009 - Vinculação genérica do IRN, I.P e do INPI, I.P. à jurisdição do ARBITRARE</a></li>
             <li><a href="https://www.arbitrare.pt/media/3176/estatutos-do-arbitrare-pt.pdf" target="_blank" rel="noopener">Estatutos do ARBITRARE</a></li>
             <li><a href="https://www.arbitrare.pt/media/4296/regulamento-de-arbitragem.pdf" target="_blank" rel="noopener">Regulamento de Arbitragem do ARBITRARE</a></li>
-           <li><a href="lex\LAV2011_digitalizada.pdf" target="_blank" rel="noopener">LAV 2011- sublinhada e anotada (digitalização)</a> <span style="font-size: 0.8em; color: #4d7cff;">© 2026 Diogo Gaspar Sequeira</span></li>
+           <li><a href="lex/LAV2011_digitalizada.pdf" target="_blank" rel="noopener">LAV 2011- sublinhada e anotada (digitalização)</a> <span style="font-size: 0.8em; color: #3a57c4;">© 2026 Diogo Gaspar Sequeira</span></li>
 
           </ul>
-                    <li><a href="lex\CPI2003.pdf" target="_blank" rel="noopener">Código da Propriedade Industrial 2003 - Decreto-Lei n.º 36/2003</a></li>
-                    <li><a href="lex\CPI1940.pdf" target="_blank" rel="noopener">Código da Propriedade Industrial 1940 - Decreto n.º 30679, de 24 de agosto de 1940</a>
+          </li>
+                    <li><a href="lex/CPI2003.pdf" target="_blank" rel="noopener">Código da Propriedade Industrial 2003 - Decreto-Lei n.º 36/2003</a></li>
+                    <li><a href="lex/CPI1940.pdf" target="_blank" rel="noopener">Código da Propriedade Industrial 1940 - Decreto n.º 30679, de 24 de agosto de 1940</a>
                     
                     </li>
                      <li><a href="https://aopi.pt/alteracoes_cpi.html" target="_blank" rel="noopener">Nota Histórica - AOPI</a>
@@ -150,7 +190,7 @@
 
     <!-- Direito de Autor -->
     <li class="writing-item">
-      <span class="writing-title" style="font-size: 19px; color: var(--blue);">Direito de Autor — PT</span>
+      <span class="writing-title">Direito de Autor — PT</span>
       <ul class="writing-sublist">
         <li>
           <a href="https://www.pgdlisboa.pt/leis/lei_mostra_estrutura.php?tabela=leis&artigo_id=&nid=484&nversao=&tabela=leis&so_miolo=" target="_blank" rel="noopener">DL n.º 63/85 — Código do Direito de Autor e dos Direitos Conexos (PGDL)</a>
@@ -171,13 +211,13 @@
         </li>
         <li>
           <a href="https://www.pgdlisboa.pt/leis/lei_mostra_estrutura.php?tabela=leis&artigo_id=&nid=152&nversao=&tabela=leis&so_miolo=" target="_blank" rel="noopener">DL n.º 252/94 — Protecção Jurídica de Programas de Computador (PGDL)</a>
-        </li>
         <ul class="writing-sublist">
             <li>
-                <a href="lex\Directiva2009_24_CE_programasdecomputador_digitalizada.pdf" target="_blank" rel="noopener">Directiva 2009/24/CE do Parlamento Europeu e do Conselho de 23 de Abril de 2009 - relativa à protecção jurídica dos programas de computador - sublinhada e anotada (digitalização)</a> 
-                    <span style="font-size: 0.8em; color: #4d7cff;">© 2026 Diogo Gaspar Sequeira</span>
+                <a href="lex/Directiva2009_24_CE_programasdecomputador_digitalizada.pdf" target="_blank" rel="noopener">Directiva 2009/24/CE do Parlamento Europeu e do Conselho de 23 de Abril de 2009 - relativa à protecção jurídica dos programas de computador - sublinhada e anotada (digitalização)</a> 
+                    <span style="font-size: 0.8em; color: #3a57c4;">© 2026 Diogo Gaspar Sequeira</span>
             </li>
         </ul>
+        </li>
         <li>
           <a href="https://www.pgdlisboa.pt/leis/lei_mostra_estrutura.php?tabela=leis&artigo_id=&nid=155&nversao=&tabela=leis&so_miolo=" target="_blank" rel="noopener">DL n.º 122/2000 — Protecção Jurídica das Bases de Dados (PGDL)</a>
         </li>
@@ -196,36 +236,37 @@
           <a href="https://files.diariodarepublica.pt/1s/1982/04/09900/10891090.pdf" target="_blank" rel="noopener">DL n.º 150/82 — Defesa da integridade e genuinidade das obras intelectuais caídas no domínio público</a>
         </li>
         <li><a href="https://www.igac.gov.pt/legislacao" target="_blank" rel="noopener">Coletânea IGAC</a></li>
-        <li><a href="https://www.pgdlisboa.pt/leis/lei_mostra_articulado.php?nid=1401&tabela=leis" target="_blank" rel="noopener">Lei n.º 62/98 - Compensação pela Reprodução ou Gravação de Obras <br> (Regulamentação do art. 76.º/1/b) e do art. 82.º do CDADC + art. 5.º/2 b) e Considerando 35 da Directiva InfoSoc) </a></li>
+        <li><a href="https://www.pgdlisboa.pt/leis/lei_mostra_articulado.php?nid=1401&tabela=leis" target="_blank" rel="noopener">Lei n.º 62/98 - Compensação pela Reprodução ou Gravação de Obras <br> (Regulamentação do art. 76.º/1/b) e do art. 82.º do CDADC + art. 5.º/2 b) e Considerando 35 da Directiva InfoSoc) </a>
 
           <ul class="writing-sublist writing-notes">
             <li>Ratio: compensar o titular de direitos pela diminuição (potencial) de vendas das suas obras resultantes da cópia privada.</li>
-            <li> <a href="https://www.tribunalconstitucional.pt/tc/acordaos/20030616.html" target="_blank" rel="noopener"><span style="font-size: 1em; color: #4d7cff;">Acórdão Tribunal Constitucional 616/2003</span></a> </li> 
+            <li> <a href="https://www.tribunalconstitucional.pt/tc/acordaos/20030616.html" target="_blank" rel="noopener"><span style="font-size: 1em; color: #3a57c4;">Acórdão Tribunal Constitucional 616/2003</span></a> </li> 
             
             <li> (fiscalização abstrata sucessiva da constitucionalidade do art. 3.º/1 e 2 da Lei 62/98 requerida pelo Provedor de Justiça - na redação original da lei, o critério era definido por despacho ministerial ou acordo entre as partes interessadas; tendo em conta a unilateralidade, poderia ser entendido como um imposto, logo não poderia ser fixado por despacho ministerial) </li>
             <li> cópia privada = "licença não voluntária" (desnecessidade de autorização/consentimento, mas sujeito a compensação)</li>
             <li> compensação equitativa = tributo com carácter uniteral (um imposto), i.e., faltava-lhe a bilateralidade ou comutatividade característica das taxas – não há aproveitamento individualizado por parte do sujeito passivo </li>
             <li> como tal, sujeito ao pp. da legalidade tributária (103.º/2 CRP) = a quantia (a “taxa” do imposto) só pode ser fixado por lei </li>
             <li> Arts. 3.º/1 e 2 da Lei n.º 62/98 = inconstitucionais, com força obrigatória geral, na medida em que permitiam a fixação da quantia em causa por despacho ministerial e por acordo (consoante os casos) </li> 
-            <li>Resultado: A compensação vai diretamente para a <a href="https://www.agecop.pt/" target="_blank" rel="noopener"><span style="font-size: 1em; color: #4d7cff;">AGECOP</span></a></li>
-              <li><a href="https://files.diariodarepublica.pt/1s/2004/08/199a00/56585665.pdf" target="_blank" rel="noopener"><span style="font-size: 1em; color: #4d7cff;">Tabela: Lei n.º 50/2004</span></a>- Art. 6.º, alterações à Lei n.º 62/98 - (Antes de 5 de Julho de 2015)</span></li>
-              <li><a href="https://www.pgdlisboa.pt/leis/lei_mostra_articulado.php?tabela=leis&nid=2359&pagina=1&ficha=1" target="_blank" rel="noopener"><span style="font-size: 1em; color: #4d7cff;">Tabela: Lei n.º 49/2015</span></a>- Anexo I - (Após 5 de Julho de 2015)</li>
+            <li>Resultado: A compensação vai diretamente para a <a href="https://www.agecop.pt/" target="_blank" rel="noopener"><span style="font-size: 1em; color: #3a57c4;">AGECOP</span></a></li>
+              <li><a href="https://files.diariodarepublica.pt/1s/2004/08/199a00/56585665.pdf" target="_blank" rel="noopener"><span style="font-size: 1em; color: #3a57c4;">Tabela: Lei n.º 50/2004</span></a>- Art. 6.º, alterações à Lei n.º 62/98 - (Antes de 5 de Julho de 2015)</span></li>
+              <li><a href="https://www.pgdlisboa.pt/leis/lei_mostra_articulado.php?tabela=leis&nid=2359&pagina=1&ficha=1" target="_blank" rel="noopener"><span style="font-size: 1em; color: #3a57c4;">Tabela: Lei n.º 49/2015</span></a>- Anexo I - (Após 5 de Julho de 2015)</li>
               <li>(i) 20%: custos de agência da AGECOP; (ii) 20%: promoção de atividades culturais; (iii) 60%: distribuídos pelas Entidades de Gestão Coletiva de DADC, que ,por sua vez distribuem pelos titulares de DADC.
 </li>
           </ul>
+        </li>
 
 
         <li><a href="https://www.pgdlisboa.pt/leis/lei_mostra_articulado.php?nid=1401&tabela=leis" target="_blank" rel="noopener">Lei n.º 26/2015 - Entidades de Gestão Coletiva do Direito de Autor e dos Direitos Conexos</a></li>
         <li><a href="https://diariodarepublica.pt/dr/detalhe/decreto-lei/74-1982-599921" target="_blank" rel="noopener">DL n.º 74/82 - Depósito Legal</a></li>
-        <li><a href="lex\registoobrasliterarias.pdf" target="_blank" rel="noopener">DL n.º 143/2014 - Regulamento de Registo de Obras Literárias e Artísticas</a></li>
-        <li><a href="lex\Artigo 58.º - Propriedade intelectual - Estatuto dos Benefícios Fiscais - BDJUR.pdf" target="_blank" rel="noopener">Art. 58.º - Estatuto dos Benefícios Fisciais - Propriedade Intelectual</a><a href="https://paulomarques-saberfazer-fazersaber.blogs.sapo.pt/artigo-58-o-do-estatuto-dos-beneficios-81694" target="_blank" rel="noopener"> <br>Paulo Marques - Análise</a></li>
+        <li><a href="lex/registoobrasliterarias.pdf" target="_blank" rel="noopener">DL n.º 143/2014 - Regulamento de Registo de Obras Literárias e Artísticas</a></li>
+        <li><a href="lex/Artigo 58.º - Propriedade intelectual - Estatuto dos Benefícios Fiscais - BDJUR.pdf" target="_blank" rel="noopener">Art. 58.º - Estatuto dos Benefícios Fisciais - Propriedade Intelectual</a><a href="https://paulomarques-saberfazer-fazersaber.blogs.sapo.pt/artigo-58-o-do-estatuto-dos-beneficios-81694" target="_blank" rel="noopener"> <br>Paulo Marques - Análise</a></li>
       </ul>
     </li>
 
 <!-- Direito de Autor - Comparado -->
 
  <li class="writing-item">
-      <span class="writing-title" style="font-size: 19px; color: var(--blue);">Direito de Autor — Comparado</span>
+      <span class="writing-title">Direito de Autor — Comparado</span>
       <ul class="writing-sublist">
         <li>
           <a href="lex/da - int/Angola - L1514.pdf" target="_blank" rel="noopener">🇦🇴 Angola - Lei n.º 15/14 - Lei que regula a Proteção dos Direitos de Autor e Conexos, nas áreas das Artes, Literatura, Ciência ou outras formas de conhecimento e criação</a>
@@ -252,7 +293,7 @@
 <!-- Direito de Autor - Internacional -->
 
  <li class="writing-item">
-      <span class="writing-title" style="font-size: 19px; color: var(--blue);">Direito de Autor — Internacional</span>
+      <span class="writing-title">Direito de Autor — Internacional</span>
       <ul class="writing-sublist">
         <li>
           <a href="lex/da - int/OMPI Tratado de Direito de Autor.pdf" target="_blank" rel="noopener">Tratado da Organização Mundial de Propriedade Intelectual (OMPI) sobre Direito de Autor, adoptado em Genebra em 20 de Dezembro de 1996</a>
@@ -269,31 +310,31 @@
 
     <!-- Comércio Eletrónico -->
     <li class="writing-item">
-      <span class="writing-title" style="font-size: 19px; color: var(--blue);">Comércio Eletrónico</span>
+      <span class="writing-title">Comércio Eletrónico</span>
       <ul class="writing-sublist">
         <li style="display: block; list-style: none;">
           "A contratação eletrónica ou "comércio eletrónico" pode ser definida como uma <i>transacção de bens ou serviços utilizando uma rede informática</i>."
         </li>
-        <li style="display: block; list-style: none;">"Se o ciberespaço não é um lugar à parte, continuando sujeito às regras gerais do CCiv e do Direito do Consumo, também é verdade que, por causa destas especificidades, há regras especiais" <p><span style="color: #888; font-style: italic;">- cit. <span class="small-caps">Nuno Sousa e Silva</span>, <a href="https://www.almedina.net/licoes-de-direito-digital-1776949931.html" target="_blank" rel="noopener" style="color: inherit;">"Lições de Direito Digital", p.299-300.</a></span></p>
+        <li style="display: block; list-style: none;">"Se o ciberespaço não é um lugar à parte, continuando sujeito às regras gerais do CCiv e do Direito do Consumo, também é verdade que, por causa destas especificidades, há regras especiais" <p><span style="color: #636363; font-style: italic;">- cit. <span class="small-caps">Nuno Sousa e Silva</span>, <a href="https://www.almedina.net/licoes-de-direito-digital-1776949931.html" target="_blank" rel="noopener" style="color: inherit;">"Lições de Direito Digital", p.299-300.</a></span></p>
         </li>
      
         <li>
           <a href="directivas/Diretiva 2000 31 CE - Diretiva sobre o Comércio Eletrónico.pdf" target="_blank" rel="noopener">Directiva 2000/31/CE - relativa a certos aspectos legais dos serviços da sociedade de informação, em especial do comércio electrónico, no mercado interno - "Directiva sobre Comércio Electrónico"</a>
         </li>
-        <li><a href="direitodigital_lex\DL72024_ComercioEletronico_digitalizado.pdf" target="_blank" rel="noopener">DL n.º 7/2004 — Comércio Eletrónico - sublinhado e anotado (digitalização)</a> <span style="font-size: 0.8em; color: #4d7cff;">© 2026 Diogo Gaspar Sequeira</span></li>
-        <li><a href="direitodigital_lex/DL72024_ComercioEletronico_digitalizado.pdf" target="_blank" rel="noopener">DL n.º 24/2014 — Contratatos Celebrados à Distância e Fora do Estabelecimento Comercial - sublinhado e anotado (digitalização)</a> <span style="font-size: 0.8em; color: #4d7cff;">© 2026 Diogo Gaspar Sequeira</span></li>
+        <li><a href="direitodigital_lex/DL72024_ComercioEletronico_digitalizado.pdf" target="_blank" rel="noopener">DL n.º 7/2004 — Comércio Eletrónico - sublinhado e anotado (digitalização)</a> <span style="font-size: 0.8em; color: #3a57c4;">© 2026 Diogo Gaspar Sequeira</span></li>
+        <li><a href="direitodigital_lex/DL24_2014_ContratosCelebradosDistancia_ForaEstabelecimentoComercial_digitalizado.pdf" target="_blank" rel="noopener">DL n.º 24/2014 — Contratatos Celebrados à Distância e Fora do Estabelecimento Comercial - sublinhado e anotado (digitalização)</a> <span style="font-size: 0.8em; color: #3a57c4;">© 2026 Diogo Gaspar Sequeira</span></li>
         <li>
           <a href="direitodigital_lex/6. Conteúdos e Bens Digitais.pdf" target="_blank" rel="noopener">DL n.º 84/2021 — Direitos do Consumidor na compra e venda de Bens, Conteúdos e Serviços Digitais, transpondo as Diretivas (UE) 2019/771 e (UE) 2019/770 (em especial, art. 35.º) </a>
         </li>
         <li>
-          <a href="direito_digital_lex.html" target="_blank" rel="noopener" style="color: #4d7cff;"><i>vide "Direito Digital" for a better compilation</i></a>
+          <a href="direito_digital_lex.html" target="_blank" rel="noopener" style="color: #3a57c4;"><i>vide "Direito Digital" for a better compilation</i></a>
         </li>
       </ul>
     </li>
 
     <!-- Fiscalização  -->
     <li class="writing-item">
-      <span class="writing-title" style="font-size: 19px; color: var(--blue);">Fiscalização da PI</span>
+      <span class="writing-title">Fiscalização da PI</span>
       <ul class="writing-sublist">
         <li>
           <a href="https://www.pgdlisboa.pt/leis/lei_mostra_estrutura.php?tabela=leis&artigo_id=3481A0002&nid=3481&nversao=&tabela=leis&so_miolo=" target="_blank" rel="noopener">Lei n.º 82/2021 — Fiscalização do acesso em ambiente digital a conteúdos protegidos</a>
@@ -309,13 +350,13 @@
 
         <!-- Nomes de Domínio -->
     <li class="writing-item">
-      <span class="writing-title" style="font-size: 19px; color: var(--blue);">Nomes de domínio</span>
+      <span class="writing-title">Nomes de domínio</span>
       <ul class="writing-sublist">
         <li>
-          <a href="lex\CELEX_32019R0517_PT_TXT.pdf">Regulamento (UE) n.º 608/2013, de 19 de Março de 2019 - Implementação e Funcionamento do nome de domínio de topo .eu</a>
+          <a href="lex/CELEX_32019R0517_PT_TXT.pdf">Regulamento (UE) n.º 608/2013, de 19 de Março de 2019 - Implementação e Funcionamento do nome de domínio de topo .eu</a>
         </li>
         <li>
-          <a href="lex\pt_regras_registo_2026.pdf" target="_blank" rel="noopener">Regras de Registo de .pt - 2026</a>
+          <a href="lex/pt_regras_registo_2026.pdf" target="_blank" rel="noopener">Regras de Registo de .pt - 2026</a>
         </li>
          <li>
           <a href="https://www.pt.pt/pt/dominio/regras-de-registo-de-pt-2/" target="_blank" rel="noopener">Regras de Registo de .pt - Aplicação das regras no tempo</a>
@@ -331,7 +372,7 @@
 
       <!-- Tribunal Unificado de Patentes -->
     <li class="writing-item">
-      <span class="writing-title" style="font-size: 19px; color: var(--blue);">Patente Unitária / Tribunal Unificado de Patentes</span>
+      <span class="writing-title">Patente Unitária / Tribunal Unificado de Patentes</span>
       <ul class="writing-sublist">
         <li>
           <a href="lex/TUP/ATUP.pdf" target="_blank" rel="noopener">Acordo relativo ao Tribunal Unificado de Patentes (2013/C 175/01)</a>
@@ -394,15 +435,15 @@
           <ul class="writing-sublist writing-notes">
             <li>As adopted by decision of the Administrative Committee on 8 July 2022; entry into force: 1 September 2022;</li>
             <li>Amended by decision of the Administrative Committee on 4 November 2025; entry into force: 1 January 2026</li>
-            <li><a href="https://commentedupc.com/the-rules-table-of-contents/" target="_blank" rel="noopener"><span style="color: #4d7cff;">Commented UPC - A most comprehensive UPC information source</span></a> </li>
+            <li><a href="https://commentedupc.com/the-rules-table-of-contents/" target="_blank" rel="noopener"><span style="color: #3a57c4;">Commented UPC - A most comprehensive UPC information source</span></a> </li>
           </ul>
         </li>
       </ul>
     </li>
 
     <!-- Código da Publicidade -->
-           <span class="writing-title" style="font-size: 19px; color: var(--blue);">Direito da Publicidade</span>
     <li class="writing-item">
+      <span class="writing-title">Direito da Publicidade</span>
       <a href="https://www.pgdlisboa.pt/leis/lei_mostra_estrutura.php?tabela=leis&artigo_id=&nid=390&nversao=&tabela=leis&so_miolo=" target="_blank" rel="noopener">Código da Publicidade</a>
       <p class="writing-meta">PGDL</p>
       <ul class="writing-sublist">
@@ -518,6 +559,8 @@
     </li>
 
   </ul>
+  </div>
+  <span class="panel-label panel-label--on">fontes</span>
 
   <aside class="lex-pending">
     <span class="lex-pending-label">POR ADICIONAR</span>
@@ -527,19 +570,9 @@
 
 </main>
 
-<script>
-  (function () {
-    const input = document.getElementById('lexSearch');
-    const items = document.querySelectorAll('.writings-list > .writing-item');
-    input.addEventListener('input', function () {
-      const q = input.value.trim().toLowerCase();
-      items.forEach(function (item) {
-        const text = item.textContent.toLowerCase();
-        item.style.display = !q || text.includes(q) ? '' : 'none';
-      });
-    });
-  })();
-</script>
+<!-- as marcas de proveniência primeiro: o sumário conta as fontes já marcadas -->
+<script src="lex-sources.js"></script>
+<script src="lex-outline.js"></script>
 
 <script data-goatcounter="https://gasparsequeira.goatcounter.com/count"
         async src="//gc.zgo.at/count.js"></script>

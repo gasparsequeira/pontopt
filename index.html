@@ -36,7 +36,7 @@
 //
 -->
 
-<html>
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -63,6 +63,9 @@
   }
   </script>
 
+  <link rel="icon" href="favicon.ico" sizes="16x16">
+  <link rel="icon" type="image/png" href="favicon-32.png" sizes="32x32">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
   <link rel="stylesheet" href="style.css">
 
 <style>
@@ -76,165 +79,206 @@ body {
   margin: 0;
   min-height: 100vh;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  background-color: #f5f5f5;
-  background-image:
-    linear-gradient(rgba(160,160,160,0.22) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(160,160,160,0.22) 1px, transparent 1px);
-  background-size: 20px 20px;
+  /* em baixo, espaço para o dock não tapar nada */
+  padding: 0 0 130px;
+  /* o fundo vem de style.css: papel do INfront com a geometria ténue */
   font-family: Mondwest, Georgia, serif;
 }
+
+/* ── a entrada, à maneira do INfront: três colunas, cada uma com a etiqueta
+      por baixo. A coluna estreita da direita é a tira de ícones deles, que
+      aqui guarda os favoritos que estavam no dock. ── */
+
+.home {
+  width: 100%;
+  /* 1240 de conteúdo + os 28px de recuo de cada lado, para a caixa de texto
+     cair exactamente onde cai a da faixa de navegação */
+  max-width: calc(1240px + 56px);
+  margin: 0 auto;
+  padding: 34px 28px 64px;
+}
+
+.home-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr) 108px;
+  gap: 24px;              /* os 17px deles, à escala de hoje */
+  /* As três colunas acabam à mesma altura, para as etiquetas assentarem todas
+     na mesma linha — como no INfront, onde FEATURES, NEWS e SUPPORT estavam
+     alinhadas. (Com a capa a 571px isto abria buracos de 380px; a 406px a
+     folga é de ~110px, que é o que separa uma coluna da outra de qualquer
+     maneira.) */
+  align-items: stretch;
+}
+
+.home-col { display: flex; flex-direction: column; }
+
+/* O título tem 52px e os destinos 19px: deixados a topo igual, as primeiras
+   linhas caem em alturas diferentes. Estes 31px são a diferença entre as duas
+   linhas de base — com eles, a primeira linha do meio assenta na mesma linha
+   do título, que é também onde acaba o primeiro ícone da direita.
+   (Se o título mudar de corpo, este valor muda com ele.) */
+.home-grid > .home-col:nth-child(2) { padding-top: 31px; }
+
+/* E a tira de ícones desce até o topo do primeiro quadrado assentar no topo
+   da letra de «colectânea de fontes» — 38px, que é a distância entre o topo
+   da coluna e onde a tinta do Mondwest a 19px realmente começa. */
+.home-grid > .home-col:nth-child(3) { padding-top: 38px; }
+
+/* As etiquetas do meio e da direita assentam sobre a aresta inferior da capa:
+   16px para o topo da etiqueta lhe chegar, mais 18 (a altura da caixa) para
+   ficarem inteiramente acima da linha. A da esquerda fica onde está — nomeia
+   a imagem, e vai por baixo dela. */
+.home-grid > .home-col:nth-child(2),
+.home-grid > .home-col:nth-child(3) { padding-bottom: 34px; }
+.home-col .panel { flex: 1; }
+.home-col .panel-label { align-self: flex-start; }
 
 .header {
-  font-size: 60px;
+  margin: 0 0 14px;
+  font-size: 52px;
+  line-height: 1;
   color: #0040ff;
-  position: absolute;
-  top: 90px;
-  z-index: 6;
   font-family: Mondwest, Georgia, serif;
 }
 
-.container {
-  position: relative;
-  width: 300px;
-  min-height: 600px;
-  height: auto;
-  padding: 20px;
-  background: #fff;
-  color: #000;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  -webkit-box-shadow: 0px 0px 192px 177px rgba(255,255,255,1);
-  -moz-box-shadow:    0px 0px 192px 177px rgba(255,255,255,1);
-  box-shadow:         0px 0px 192px 177px rgba(255,255,255,1);
-  margin-top: -30px;
+.home-note {
+  margin-top: 18px;
+  /* a grotesca do sistema, como no parágrafo de apresentação que aqui estava */
+  font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.65;
+  color: #5f5f5f;
 }
 
-.cross {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-around;
-  flex: 1;
+/* A troca de etiqueta ao passar o rato é dele e fica: dentro das caixas da
+   grelha, a caixa enche e a palavra muda ao mesmo tempo. */
+.about-btn::after     { content: "sobre"; }
+.writings-btn::after  { content: "artigos"; }
+.lex-btn::after       { content: "colectânea de fontes"; }
+
+.about-btn:hover::after,
+.about-btn:focus-visible::after     { content: "get to know me"; }
+.writings-btn:hover::after,
+.writings-btn:focus-visible::after  { content: "writings"; }
+.lex-btn:hover::after,
+.lex-btn:focus-visible::after       { content: "lex"; }
+
+/* o ▶ já vem escrito no summary; o nativo ficava a dobrar */
+details > summary {
+  list-style: none;
+  cursor: pointer;
+  font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.65;
+  color: #5f5f5f;
+}
+details > summary::-webkit-details-marker { display: none; }
+details > p {
+  margin-top: 10px;
+  font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 11.5px;
+  line-height: 1.6;
+  color: #5f5f5f;
+}
+
+/* A capa do disco, que abre a canção no YouTube. Sem moldura: numa coluna onde
+   tudo encosta à mesma aresta, os 6px do passe-partout eram a fotografia a
+   ficar desalinhada. */
+.home-fig {
+  /* a mesma largura que o parágrafo de apresentação ocupava (max-width: 46ch
+     a 14px), para a coluna ficar alinhada de cima a baixo */
+  max-width: 406px;
+  margin: 20px 0 0;
+}
+
+.home-fig a {
+  display: block;
+  outline-offset: 3px;
+}
+
+.home-fig img {
+  display: block;
   width: 100%;
-  font-size: 20px;
-  padding: 10px 0;
+  height: auto;
+  /* a mesma ideia dos ícones da direita: apagado em repouso, vivo ao passar */
+  filter: saturate(0.88);
+  transition: none;
 }
 
-.cross span,
-.cross a {
+.home-fig a:hover img,
+.home-fig a:focus-visible img { filter: none; }
+
+/* ── destinos ── */
+.home-dest { list-style: none; margin: 0; padding: 0; }
+
+.home-dest li + li {
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(107, 119, 128, 0.18);
+}
+
+.home-dest a {
+  display: block;
+  font-family: Mondwest, Georgia, serif;
+  font-size: 19px;
+  line-height: 1.15;
+  color: #0040ff;
+  text-decoration: none;
+}
+
+.home-dest a:hover { text-decoration: underline; text-underline-offset: 3px; }
+
+.home-dest span {
+  display: block;
+  margin-top: 3px;
+  font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 12px;
+  line-height: 1.5;
+  color: #636363;
+}
+
+/* ── tira de ícones: duas colunas, separadas por brancos, como no INfront ── */
+.home-links {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 4px;
+  margin: 0;
+  padding: 0;
+}
+
+.home-links a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  aspect-ratio: 1;
+  background: #fff;
+  border: 1px solid rgba(107, 119, 128, 0.28);
+  text-decoration: none;
+  filter: grayscale(1) opacity(0.72);
+  transition: none;
+}
+
+.home-links a:hover,
+.home-links a:focus-visible {
+  filter: none;
+  border-color: #0040ff;
+}
+
+.home-links img { display: block; width: 20px; height: 20px; }
+
+/* o nome fica para o title e para quem navega por leitor de ecrã */
+.home-links span {
+  position: absolute;
+  width: 1px; height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
   white-space: nowrap;
 }
 
-.cross span:hover,
-.cross a:hover {
-  transform: scale(1.2);
-}
-
-.cross a {
-  color: inherit;
-  text-decoration: none;
-}
-
-/* nav buttons — same technique as original */
-.nav-btn {
-  background: none;
-  border: none;
-  color: #000;
-  font-family: inherit;
-  font-size: inherit;
-  cursor: pointer;
-  padding: 0;
-  position: relative;
-}
-
-/* left arm: "sobre" → hover → "about" */
-.about-btn::after  { content: "sobre"; }
-.about-btn:hover::after  { content: "get to know me"; color: #0040ff; }
-.about-btn:hover  { transform: scale(1.2); }
-
-/* right arm: "escrita" → hover → "enter?" */
-.writings-btn::after { content: "artigos"; }
-.writings-btn:hover::after { content: "writings"; color: #0040ff; }
-.writings-btn:hover { transform: scale(1.2); }
-
-/* bottom arm: "colectânea de fontes" → hover → "lex" */
-.lex-btn::after { content: "colectânea de fontes"; }
-.lex-btn:hover::after { content: "lex"; color: #0040ff; }
-.lex-btn:hover { transform: scale(1.2); }
-
-/* bottom arm: "direito digital" → hover → "kudos to NSS" */
-.lex-digital::after { content: "direito digital"; }
-.lex-digital:hover::after { content: "kudos to NSS"; color: #0040ff; }
-.lex-digital:hover { transform: scale(1.2); }
-
-details { color: #bcbcbc; font-size: 13px; }
-
-details > summary {
-  box-shadow: 0px 1px 1px #bbbbbb;
-  cursor: pointer;
-  color: #bcbcbc;
-  font-size: 14px;
-  list-style: none;
-}
-
-details > summary::-webkit-details-marker { display: none; }
-
-details > p {
-  margin: 0;
-  color: #bcbcbc;
-  font-size: 13px;
-}
-
-/* quick-access dock */
-.dock {
-  position: fixed;
-  bottom: 24px;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 14px;
-  padding: 10px 16px;
-  background: rgba(255,255,255,0.85);
-  backdrop-filter: blur(8px);
-  border-radius: 16px;
-  box-shadow: 0 4px 24px rgba(0,0,0,0.08);
-  z-index: 10;
-}
-
-.dock a {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 76px;
-  flex-shrink: 0;
-  text-align: center;
-  text-decoration: none;
-  color: #555;
-  font-family: Mondwest, Georgia, serif;
-  font-size: 12px;
-  line-height: 1.2;
-  transition: transform 0.15s;
-}
-
-.dock a:hover {
-  transform: scale(1.1);
-  color: #0040ff;
-}
-
-.dock img {
-  width: 32px;
-  height: 32px;
-  border-radius: 8px;
-  margin-bottom: 4px;
-}
-
-/* CRT scanline overlay */
 .crt::before {
   content: " ";
   display: block;
@@ -254,124 +298,123 @@ details > p {
 
 <div class="crt"></div>
 
-<div class="header">gasparsequeira.pt</div>
+<!-- a mesma grelha do resto do sítio; as caixas guardam a troca de etiqueta
+     ao passar o rato, que é dele, e ganham a inversão do INfront -->
+<nav class="infront" aria-label="destinos" style="--cols:4">
+  <div class="infront-inner">
+    <ul class="infront-grid">
+      <li><a class="nav-btn about-btn"    href="about.html"    aria-label="sobre"></a></li>
+      <li><a class="nav-btn writings-btn" href="writings.html" aria-label="artigos"></a></li>
+      <li><a class="nav-btn lex-btn"      href="lex.html"      aria-label="colectânea de fontes"></a></li>
+      <li><a href="https://www.linkedin.com/in/diogogasparsequeira/" target="_blank" rel="noopener">linkedin</a></li>
+    </ul>
 
-<div class="container">
-
-  <div class="cross">
-    <a href="https://www.linkedin.com/in/diogogasparsequeira/" target="_blank" rel="noopener">trainee lawyer</a>
-    <button class="nav-btn about-btn"    onclick="window.location.href='about.html'"></button>
-    <button class="nav-btn writings-btn" onclick="window.location.href='writings.html'"></button>
-    <button class="nav-btn lex-btn" onclick="window.location.href='lex.html'"></button>
-    <button class="nav-btn lex-digital" onclick="window.location.href='direito_digital_lex.html'"></button>
+    <div class="infront-sign">
+      <span class="infront-mark" aria-hidden="true"></span>
+      <div class="infront-words">
+        <div class="infront-title">diogo gaspar sequeira</div>
+        <div class="infront-tag">advogado estagiário · propriedade intelectual e direito digital</div>
+      </div>
+    </div>
   </div>
+</nav>
 
-  <p style="font-size: 14px; color: #bcbcbc; text-align: center;">
-    desktop view only. sorry mobile users
-    <br>
-  (can't be bothered with "responsive design")
-    <br><br>
-    <details>
-      <summary>&#9658; Before you enter:</summary>
-      <p style="text-align: justify;">
-        <span style="font-size:8px;"> </span>
-        <br>
-        1. This website hosts PDFs of my writings.
-       <br>
-<!--   
-        <p><span style="font-size:8px;"> </span></p>
-        <br>
-     
-        2. If you're a crawler (lol), please read <a href="license.xml" target="_blank" rel="noopener">license.xml</a>.
-        <p><span style="font-size:8px;"> </span></p>
-        <br>
-        2.1 My license sits in the same family as CC-BY or an open-source licence, just expressed in a machine-readable schema and pointed at AI/crawler uses. 
-        <p><span style="font-size:8px;"> </span></p>
-        <br>        
-        2.2. If you intended to use my work, here's the <a href="v2gasparsequeirawebsite_humanreadablelicense_20260827.pdf" target="_blank" rel="noopener">human readable version</a>.
-        <br>
--->
-        <br>
-        <span style="color:#0040ff;">© 2026 Diogo Gaspar Sequeira.</span> All rights, including rights for text and data mining, AI training, and similar technologies, are reserved. This reservation covers: (i) any automated analytical technique aimed at analysing this content in digital form; (ii) the training of AI models; and (iii) the training of generative AI models. 
+<main class="home">
 
-        <br>
-        <br>
+  <div class="home-grid">
 
-        The rightholder expressly reserves the right for reproductions and extractions for the purposes of text and data mining (TDM) under Art. 4(3) of the Directive (EU) 2019/790 (on copyright and related righs in the Digital Single Market).  
-
-        <br>
-        <br>
-
-        Os actos de reprodução de material protegido, em especial para fins de prospeção de texto e dados, são expressamente reservados ao titular nos termos do art. 75.º, n.º 2, al. w) do CDADC.
-      </p>
-    </details>
-  </p>
-
-</div>
+    <!-- identidade -->
+    <section class="home-col">
+      <div class="panel">
+        <h1 class="header">gasparsequeira.pt</h1>
 
 
-<div class="dock">
-  <a href="https://www.ipglossary.com/" target="_blank" rel="noopener">
-    <img src="https://www.google.com/s2/favicons?domain=ipglossary.com&sz=64" alt="">
-    IP Glossary
-  </a>
-  <a href="https://ipcuria.eu/" target="_blank" rel="noopener">
-    <img src="https://www.google.com/s2/favicons?domain=ipcuria.eu&sz=64" alt="">
-    IP Curia
-  </a>
-  <a href="https://revistas.ucp.pt/index.php/propriedadesintelectuais/issue/archive" target="_blank" rel="noopener">
-    <img src="https://revistas.ucp.pt/public/journals/31/favicon_pt_PT.png" alt="">
-    PI UCP
-  </a>
-  <a href="https://www.apdi.pt/" target="_blank" rel="noopener">
-    <img src="https://www.google.com/s2/favicons?domain=apdi.pt&sz=64" alt="">
-    APDI
-  </a>
-  <a href="https://thehumancause.org/papers.html" target="_blank" rel="noopener">
-    <img src="https://www.google.com/s2/favicons?domain=thehumancause.org&sz=64" alt="">
-    Human Cause
-  </a>
-  <a href="https://ipdraughts.wordpress.com/author/andlaw/" target="_blank" rel="noopener">
-    <img src="https://www.google.com/s2/favicons?domain=ipdraughts.wordpress.com&sz=64" alt="">
-    IP Draughts
-  </a>
-  <a href="https://ipkitten.blogspot.com/" target="_blank" rel="noopener">
-    <img src="https://www.google.com/s2/favicons?domain=ipkitten.blogspot.com&sz=64" alt="">
-    IPKat
-  </a>
-  <a href="https://chatgptiseatingtheworld.com/" target="_blank" rel="noopener">
-    <img src="https://www.google.com/s2/favicons?domain=chatgptiseatingtheworld.com&sz=64" alt="">
-    Edward Lee
-  </a>
-  <a href="https://www.whitecase.com/insight-our-thinking/ai-watch-global-regulatory-tracker" target="_blank" rel="noopener">
-    <img src="https://www.google.com/s2/favicons?domain=whitecase.com&sz=64" alt="">
-    AI Reg Tracker
-  </a>
-  <a href="https://www.europarl.europa.eu/plenary/en/texts-adopted.html" target="_blank" rel="noopener">
-    <img src="https://www.google.com/s2/favicons?domain=europarl.europa.eu&sz=64" alt="">
-    EP Plenary - Texts Adopted
-  </a>
-  <a href="https://diariodarepublica.pt/dr/home" target="_blank" rel="noopener">
-    <img src="https://www.google.com/s2/favicons?domain=diariodarepublica.pt&sz=64" alt="">
-    Diário da República
-  </a>
-  <a href=" https://legal-oss.com/" target="_blank" rel="noopener">
-    <img src="https://www.google.com/s2/favicons?domain=legal-oss.com/&sz=64" alt="">
-    Legal OSS
-  </a>
-  <a href="https://app.practisinglaw.com.au/" target="_blank" rel="noopener">
-    <img src="https://join.practisinglaw.com.au/favicon.ico" alt="">
-    Jason Feng
-  </a>
-   <a href="https://suckless.org/" target="_blank" rel="noopener">
-    <img src="https://suckless.org/favicon.ico" alt="">
-    suckless.org
-  </a>
-   <a href="https://lainchan.org/" target="_blank" rel="noopener">
-    <img src="https://lainchan.org//favicon.ico" alt="">
-    lainchan
-  </a>
-</div>
+        <p class="home-note">
+          desktop view only. sorry mobile users<br>
+          (can&#39;t be bothered with &quot;responsive design&quot;)
+        </p>
+        <details>
+          <summary>&#9658; Before you enter:</summary>
+          <p>
+            1. This website hosts PDFs of my writings.
+            <br><br>
+            <span style="color:#0040ff;">&copy; 2026 Diogo Gaspar Sequeira.</span> All rights,
+            including rights for text and data mining, AI training, and similar
+            technologies, are reserved. This reservation covers: (i) any automated
+            analytical technique aimed at analysing this content in digital form;
+            (ii) the training of AI models; and (iii) the training of generative AI models.
+            <br><br>
+            The rightholder expressly reserves the right for reproductions and
+            extractions for the purposes of text and data mining (TDM) under
+            Art. 4(3) of the Directive (EU) 2019/790.
+            <br><br>
+            Os actos de reprodu&ccedil;&atilde;o de material protegido, em especial para fins de
+            prospe&ccedil;&atilde;o de texto e dados, s&atilde;o expressamente reservados ao titular nos
+            termos do art. 75.&ordm;, n.&ordm; 2, al. w) do CDADC.
+          </p>
+        </details>
+
+        <!-- a legenda saiu: o disco já se apresenta sozinho. o alt fica, que é
+             o que descreve a imagem a quem não a vê -->
+        <figure class="home-fig">
+          <a href="https://youtu.be/uwORril5wCQ" target="_blank" rel="noopener"
+             title="ouvir «Aquela Janela Virada P&#39;ro Mar»">
+            <img src="imagens/tristao-da-silva.jpg" width="960" height="955" loading="lazy"
+                 alt="Capa do disco «Aquela Janela Virada P&#39;ro Mar», de Tristão da Silva, na etiqueta Orfeu: fotografia do Porto, com a ponte Luís I sobre o Douro vista das Fontainhas. Abre a canção no YouTube.">
+          </a>
+        </figure>
+      </div>
+      <span class="panel-label panel-label--on">© 2026 Diogo Gaspar Sequeira</span>
+    </section>
+
+    <!-- destinos -->
+    <section class="home-col">
+      <div class="panel">
+        <ul class="home-dest">
+          <li><a href="lex.html">colect&acirc;nea de fontes</a>
+            <span>legisla&ccedil;&atilde;o de propriedade intelectual, ordenada por mat&eacute;ria</span></li>
+          <li><a href="direito_digital_lex.html">direito digital</a>
+            <span>study companion Lições de Direito Digital - NSS</span></li>
+          <li><a href="jurisprudencia.html">jurisprud&ecirc;ncia</a>
+            <span>ac&oacute;rd&atilde;os nacionais com sum&aacute;rio e descritores</span></li>
+          <li><a href="writings.html">artigos</a>
+            <span>trabalhos licenciatura/mestrado</span></li>
+          <li><a href="digitalizacoes.html">digitaliza&ccedil;&otilde;es</a>
+            <span>diplomas sublinhados e anotados &agrave; m&atilde;o</span></li>
+          <li><a href="about.html">sobre</a>
+            <span>get to know me</span></li>
+        </ul>
+      </div>
+      <span class="panel-label">onde ir</span>
+    </section>
+
+    <!-- liga&ccedil;&otilde;es -->
+    <section class="home-col home-col--links">
+      <div class="panel">
+        <ul class="home-links">
+          <li><a href="https://www.ipglossary.com/" target="_blank" rel="noopener" title="IP Glossary"><img src="https://www.google.com/s2/favicons?domain=ipglossary.com&sz=64" alt="" width="20" height="20"><span>IP Glossary</span></a></li>
+          <li><a href="https://ipcuria.eu/" target="_blank" rel="noopener" title="IP Curia"><img src="https://www.google.com/s2/favicons?domain=ipcuria.eu&sz=64" alt="" width="20" height="20"><span>IP Curia</span></a></li>
+          <li><a href="https://revistas.ucp.pt/index.php/propriedadesintelectuais/issue/archive" target="_blank" rel="noopener" title="PI UCP"><img src="https://revistas.ucp.pt/public/journals/31/favicon_pt_PT.png" alt="" width="20" height="20"><span>PI UCP</span></a></li>
+          <li><a href="https://www.apdi.pt/" target="_blank" rel="noopener" title="APDI"><img src="https://www.google.com/s2/favicons?domain=apdi.pt&sz=64" alt="" width="20" height="20"><span>APDI</span></a></li>
+          <li><a href="https://thehumancause.org/papers.html" target="_blank" rel="noopener" title="Human Cause"><img src="https://www.google.com/s2/favicons?domain=thehumancause.org&sz=64" alt="" width="20" height="20"><span>Human Cause</span></a></li>
+          <li><a href="https://ipdraughts.wordpress.com/author/andlaw/" target="_blank" rel="noopener" title="IP Draughts"><img src="https://www.google.com/s2/favicons?domain=ipdraughts.wordpress.com&sz=64" alt="" width="20" height="20"><span>IP Draughts</span></a></li>
+          <li><a href="https://ipkitten.blogspot.com/" target="_blank" rel="noopener" title="IPKat"><img src="https://www.google.com/s2/favicons?domain=ipkitten.blogspot.com&sz=64" alt="" width="20" height="20"><span>IPKat</span></a></li>
+          <li><a href="https://chatgptiseatingtheworld.com/" target="_blank" rel="noopener" title="Edward Lee"><img src="https://www.google.com/s2/favicons?domain=chatgptiseatingtheworld.com&sz=64" alt="" width="20" height="20"><span>Edward Lee</span></a></li>
+          <li><a href="https://www.whitecase.com/insight-our-thinking/ai-watch-global-regulatory-tracker" target="_blank" rel="noopener" title="AI Reg Tracker"><img src="https://www.google.com/s2/favicons?domain=whitecase.com&sz=64" alt="" width="20" height="20"><span>AI Reg Tracker</span></a></li>
+          <li><a href="https://www.europarl.europa.eu/plenary/en/texts-adopted.html" target="_blank" rel="noopener" title="EP Plenary - Texts Adopted"><img src="https://www.google.com/s2/favicons?domain=europarl.europa.eu&sz=64" alt="" width="20" height="20"><span>EP Plenary - Texts Adopted</span></a></li>
+          <li><a href="https://diariodarepublica.pt/dr/home" target="_blank" rel="noopener" title="Diário da República"><img src="https://www.google.com/s2/favicons?domain=diariodarepublica.pt&sz=64" alt="" width="20" height="20"><span>Diário da República</span></a></li>
+          <li><a href="https://legal-oss.com/" target="_blank" rel="noopener" title="Legal OSS"><img src="https://www.google.com/s2/favicons?domain=legal-oss.com/&sz=64" alt="" width="20" height="20"><span>Legal OSS</span></a></li>
+          <li><a href="https://app.practisinglaw.com.au/" target="_blank" rel="noopener" title="Jason Feng"><img src="https://join.practisinglaw.com.au/favicon.ico" alt="" width="20" height="20"><span>Jason Feng</span></a></li>
+          <li><a href="https://suckless.org/" target="_blank" rel="noopener" title="suckless.org"><img src="https://suckless.org/favicon.ico" alt="" width="20" height="20"><span>suckless.org</span></a></li>
+          <li><a href="https://lainchan.org/" target="_blank" rel="noopener" title="lainchan"><img src="https://lainchan.org//favicon.ico" alt="" width="20" height="20"><span>lainchan</span></a></li>
+        </ul>
+      </div>
+      <span class="panel-label">liga&ccedil;&otilde;es</span>
+    </section>
+
+  </div>
+</main>
+
 
 <script data-goatcounter="https://gasparsequeira.goatcounter.com/count"
         async src="//gc.zgo.at/count.js"></script>

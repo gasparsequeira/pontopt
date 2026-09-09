@@ -17,3 +17,10 @@ Thumbs.db
 .codex/
 .gemini/
 .vscowork/
+
+# Sessão de refactor (Setembro 2026) — não é conteúdo do sítio
+temp/
+_backup_*/
+
+# original da capa: pesado e não servido pelo sítio
+imagens/Tristão da Silva.png

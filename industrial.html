@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt">
 <head>
   <meta charset="UTF-8">
   <title>industrial — gasparsequeira.pt</title>
@@ -25,23 +25,49 @@
   }
   </script>
 
+  <link rel="icon" href="favicon.ico" sizes="16x16">
+  <link rel="icon" type="image/png" href="favicon-32.png" sizes="32x32">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
   <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body style="--band:62px">
+
+<a class="skip-link" href="#conteudo">saltar para a lista</a>
+
 
 <figure class="corner-fig">
   <img src="imagens/Bleistein Cartoon, Chicago 1903.gif" alt="Bleistein cartoon, Chicago 1903">
   <figcaption>Bleistein: Cartoon, Chicago (1903). <i>Chicago Record-Herald</i>, 3 Feb. 1903. Via <a href="https://www.copyrighthistory.org/cam/tools/request/showRepresentation.php?id=representation_us_1903a" target="_blank" rel="noopener">copyrighthistory.org</a>, eds. L. Bently &amp; M. Kretschmer.</figcaption>
 </figure>
 
+<nav class="infront" aria-label="colectânea de fontes" style="--cols:4">
+    <div class="infront-inner">
+      <ul class="infront-grid">
+        <li><a href="lex.html">lex</a></li>
+        <li><a href="direito_digital_lex.html">Direito digital</a></li>
+        <li><a href="jurisprudencia.html">Jurisprudência</a></li>
+        <li><a href="industrial.html" aria-current="page">Industrial</a></li>
+        <li><a href="tjue.html">Notas DPI</a></li>
+        <li><a href="digitalizacoes.html">Digitalizações</a></li>
+        <li class="is-blank" aria-hidden="true"><span></span></li>
+      </ul>
+
+      <div class="infront-sign">
+        <a class="infront-mark" href="index.html" title="voltar ao início" aria-label="voltar ao início">início</a>
+        <div class="infront-words">
+          <div class="infront-title">colectânea de fontes</div>
+          <div class="infront-tag">legislação e jurisprudência de direito da propriedade intelectual</div>
+        </div>
+      </div>
+    </div>
+</nav>
+
 <main class="page">
 
-  <h1 class="page-title">
-    industrial
-    <a href="lex.html">← lex</a>
-  </h1>
 
-  <ul class="writings-list">
+  <h1 class="page-title">industrial</h1>
+
+  <ul class="writings-list" id="conteudo">
 
     <li class="writing-item">
       <a href="industrial/1. CPE.pdf" target="_blank">CPE</a>
@@ -79,6 +105,8 @@
 
 
 </main>
+
+<script src="lex-sources.js"></script>
 
 <script data-goatcounter="https://gasparsequeira.goatcounter.com/count"
         async src="//gc.zgo.at/count.js"></script>

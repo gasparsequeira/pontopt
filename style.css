@@ -1,12 +1,71 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   gasparsequeira.pt — folha de estilo
+
+   Duas famílias, dois trabalhos:
+     Mondwest  → identidade. títulos, chrome, cabeçalhos de secção.
+     grotesca  → leitura. listas densas, sumários, notas.
+
+   A grotesca é a do sistema: não há ficheiro novo, não há pedido de rede.
+   (Helvetica sempre foi uma letra do Mac, portanto não é traição nenhuma.)
+
+   O chrome do System 7 aqui é citado, não reconstruído — uma barra pousada
+   no papel quadriculado, com ar à volta, e não uma moldura que engole a página.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
 @font-face {
   font-family: "Mondwest";
   src: url('fonts/PPMondwest-Regular.otf');
+  font-display: swap;
 }
 
 :root {
-  --blue: #0040ff;
+  /* ── letra ── */
+  --display: Mondwest, Georgia, serif;
+  --text: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --serif: var(--display);   /* nome antigo, mantido para não partir nada */
+
+  /* ── escala tipográfica ── */
+  --t-page: 48px;   /* título de página        (display) */
+  --t-sub: 30px;    /* título secundário       (display) */
+  --t-sect: 20px;   /* cabeçalho de secção     (display) */
+  --t-sect-sm: 16px;/* sub-cabeçalho de secção (display) */
+  --t-body: 15px;   /* prosa                   (texto)   */
+  --t-item: 14px;   /* entrada de lista        (texto)   */
+  --t-sub-item: 13.5px;
+  --t-small: 12px;
+  --t-meta: 11px;   /* metadados, badges       (texto)   */
+
+  /* ── tinta ── */
+  --blue: #0040ff;          /* Klein. o acento, e só ele.       */
+  --blue-soft: #3a57c4;   /* 5,06:1 sobre o papel novo (era #4d7cff, 3,41) */
+  --ink: #1a1a1a;
+  --ink-2: #3d3d3d;
+  --ink-3: #636363;      /* 4,90:1 sobre o papel novo (era 4,35) */
   --muted: #bcbcbc;
-  --serif: Mondwest, Georgia, serif;
+  --red: #c0392b;
+
+  /* ── letra de chrome ──
+     Verdana 10px em maiúsculas espacejadas é o registo do INfront (2003).
+     Serve tudo o que se percorre com os olhos: navegação, etiquetas de
+     painel, metadados, contagens. O que se lê a sério fica na grotesca. */
+  --chrome: Verdana, Geneva, "DejaVu Sans", sans-serif;
+  --t-chrome: 10px;
+  --track: 0.17em;
+
+  /* ── papel ── */
+  --paper: #E6E7E1;         /* o fundo do INfront */
+  --card: #ffffff;          /* os painéis eram brancos puros */
+  --grid-line: rgba(160, 160, 160, 0.22);
+  --rule: rgba(107, 119, 128, 0.34);
+  --rule-soft: rgba(107, 119, 128, 0.18);
+
+  /* ── espaço ── */
+  --s1: 4px;   --s2: 8px;   --s3: 12px;  --s4: 16px;
+  --s5: 24px;  --s6: 32px;  --s7: 48px;  --s8: 64px;
+
+  /* ── medida ── */
+  --measure: 680px;   /* coluna de leitura */
+  --rail: 190px;      /* carril do sumário (fase 3) */
 }
 
 *, *::before, *::after {
@@ -15,28 +74,79 @@
   box-sizing: border-box;
 }
 
-/* ── inner pages only ── */
+/* o papel quadriculado é de toda a tela, não só da coluna — senão um browser
+   em modo escuro pinta o fundo dele à volta da página */
+html {
+  color-scheme: light;
+}
+
+/* O tile do INfront punha marcas 3% mais claras que o fundo: cruzes de registo
+   numa grelha, réguas pontilhadas, diagonais compridas. O vocabulário é o
+   deles; os traços são desenhados de raiz, em SVG embutido — sem ficheiro,
+   sem pedido de rede. */
+body {
+  color: var(--ink);
+  font-family: var(--text);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  background-color: var(--paper);
+  background-image:
+    url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%271600%27%20height%3D%271100%27%20preserveAspectRatio%3D%27xMidYMin%20slice%27%3E%0A%3Cg%20fill%3D%27none%27%20stroke%3D%27%23F0F1EC%27%3E%0A%3Cpath%20d%3D%27M-40%20300%20L980%20168%27%20stroke-width%3D%271%27%2F%3E%0A%3Cpath%20d%3D%27M-40%20344%20L1120%20196%27%20stroke-width%3D%273%27%20opacity%3D%27.75%27%2F%3E%0A%3Cpath%20d%3D%27M-40%20366%20L860%20250%27%20stroke-width%3D%271%27%20opacity%3D%27.6%27%2F%3E%0A%3Cpath%20d%3D%27M700%20470%20L1640%20336%27%20stroke-width%3D%272%27%20opacity%3D%27.5%27%2F%3E%0A%3Cpath%20d%3D%27M760%20505%20L1640%20392%27%20stroke-width%3D%271%27%20opacity%3D%27.45%27%2F%3E%0A%3Cpath%20d%3D%27M1180%2044%20L1600%20470%27%20stroke-width%3D%272%27%20opacity%3D%27.5%27%2F%3E%0A%3C%2Fg%3E%0A%3Cg%20fill%3D%27%23EBECE6%27%3E%0A%3Crect%20x%3D%2796%27%20y%3D%2736%27%20width%3D%279%27%20height%3D%27120%27%2F%3E%0A%3Crect%20x%3D%27150%27%20y%3D%2736%27%20width%3D%2734%27%20height%3D%27150%27%2F%3E%0A%3Crect%20x%3D%271352%27%20y%3D%2760%27%20width%3D%277%27%20height%3D%2796%27%2F%3E%0A%3C%2Fg%3E%0A%3Cg%20fill%3D%27%23F0F1EC%27%3E%0A%3Crect%20x%3D%27214%27%20y%3D%2752%27%20width%3D%272%27%20height%3D%272%27%2F%3E%3Crect%20x%3D%27226%27%20y%3D%2758%27%20width%3D%272%27%20height%3D%272%27%2F%3E%0A%3Crect%20x%3D%271298%27%20y%3D%27300%27%20width%3D%272%27%20height%3D%272%27%2F%3E%0A%3C%2Fg%3E%3C%2Fsvg%3E"),
+    url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%27480%27%20height%3D%27480%27%3E%0A%3Cg%20stroke%3D%27%23F0F1EC%27%20stroke-width%3D%271%27%20shape-rendering%3D%27crispEdges%27%3E%0A%3Cpath%20d%3D%27M80.5%200v480%27%20stroke-dasharray%3D%271%207%27%2F%3E%0A%3Cpath%20d%3D%27M300.5%200v480%27%20stroke-dasharray%3D%271%207%27%20opacity%3D%27.55%27%2F%3E%0A%3Cpath%20d%3D%27M0%20359.5h480%27%20opacity%3D%27.5%27%2F%3E%0A%3C%2Fg%3E%3C%2Fsvg%3E"),
+    url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%27120%27%20height%3D%27120%27%3E%0A%3Cg%20stroke%3D%27%23F0F1EC%27%20stroke-width%3D%271%27%20shape-rendering%3D%27crispEdges%27%3E%0A%3Cpath%20d%3D%27M54.5%2060.5h11M60.5%2054.5v11%27%2F%3E%0A%3C%2Fg%3E%3C%2Fsvg%3E");
+  background-repeat: no-repeat, repeat, repeat;
+  background-position: top center, top left, top left;
+  background-size: 1600px 1100px, 480px 480px, 120px 120px;
+  background-attachment: scroll, scroll, scroll;
+}
+
+::selection {
+  background: var(--blue);
+  color: #fff;
+}
+
+/* anel de foco pontilhado — o do Finder */
+:focus-visible {
+  outline: 2px dotted var(--blue);
+  outline-offset: 2px;
+}
+
+/* saltar o chrome, para quem navega por teclado */
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: var(--s2);
+  padding: var(--s2) var(--s3);
+  background: #fff;
+  border: 1px solid var(--ink);
+  font-family: var(--text);
+  font-size: var(--t-small);
+  z-index: 100;
+}
+
+.skip-link:focus {
+  left: var(--s2);
+}
+
+/* ═══ a página ══════════════════════════════════════════════════════════════ */
 
 .page {
   position: relative;
-  max-width: 640px;
+  max-width: var(--measure);
   margin: 0 auto;
-  padding: 60px 40px 80px;
+  padding: var(--s7) var(--s6) var(--s8);
   min-height: 100vh;
-  font-family: var(--serif);
-  background-color: #f5f5f5;
-  background-image:
-    linear-gradient(rgba(160,160,160,0.22) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(160,160,160,0.22) 1px, transparent 1px);
-  background-size: 20px 20px;
+  font-family: var(--text);
+  font-size: var(--t-body);
+  line-height: 1.6;
 }
 
-/* decorative image + citation pinned to the top-right corner of the page */
+/* imagem decorativa + citação, encostadas ao canto superior direito */
 .corner-fig {
   position: absolute;
-  top: 40px;
-  left: calc(50% + 340px);
-  width: min(320px, calc(50vw - 340px));
+  top: var(--s6);
+  left: calc(50% + 360px);
+  width: min(320px, calc(50vw - 360px));
   margin: 0;
   z-index: 5;
 }
@@ -45,49 +155,230 @@
   display: block;
   width: 100%;
   height: auto;
+  border: 1px solid var(--rule);
 }
 
 .corner-fig figcaption {
-  margin-top: 7px;
+  margin-top: var(--s2);
+  font-family: var(--text);
   font-size: 10px;
-  line-height: 1.4;
-  color: var(--muted);
+  line-height: 1.45;
+  color: var(--ink-3);
   text-align: right;
 }
 
-.corner-fig figcaption a {
-  color: var(--muted);
-  text-decoration: none;
+.corner-fig figcaption a { color: var(--ink-3); text-decoration: none; }
+.corner-fig figcaption a:hover { color: var(--blue); text-decoration: underline; }
+
+/* O chrome do System 7 (barra de título com riscas, caixa de fecho,
+   separadores) viveu aqui entre as fases 2 e 5. Foi substituído pela grelha do
+   INfront e nenhuma página o usa — ficou fora, em vez de ficar a pesar.
+   Está inteiro em _backup_20260909/style.css, se fizer falta. */
+
+/* ═══ chrome alternativo: a grelha do Australian INfront (2003) ══════════════
+   Medidas tiradas dos próprios GIFs do arquivo, não do olho:
+     · caixa 114×11px, fundo branco, 6px de recuo à esquerda
+     · maiúsculas de 5px de altura, muito espacejadas, em #7E8B94
+     · o rollover era uma inversão pura — caixa #7E8B94, letra branca
+     · corpo do sítio: Verdana 10px #666 sobre #E6E7E1
+   Aqui as caixas crescem o suficiente para se clicarem num ecrã de hoje, mas
+   o tipo, o espacejamento e a inversão são os deles. O azul Klein entra só
+   para marcar a página onde se está.                                          */
+
+/* faixa de largura total no topo da página, como no original */
+/* O cinzento-azulado exacto do INfront é #7E8B94. Sobre branco dá 3,50:1 e
+   falha o AA — em 2003 ninguém media isto. Três tons mais escuro passa a 4,59
+   sem sair da mesma família. Para voltar ao original, troque este único valor. */
+:root { --infront-ink: #5a646c; }   /* 4,86:1 sobre o papel, 6,04 sobre branco.
+                                        INfront usava #7e8b94 (3,0:1 aqui). */
+
+.infront {
+  padding: 14px 28px 13px;
+  background: transparent;
+  border-bottom: 1px solid rgba(107, 119, 128, 0.35);
 }
 
-.corner-fig figcaption a:hover {
-  color: var(--blue);
-  text-decoration: underline;
+.infront-inner {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--s6);
+  max-width: 1240px;
+  margin: 0 auto;
 }
+
+.infront-grid {
+  display: grid;
+  grid-template-columns: repeat(var(--cols, 4), minmax(114px, 204px));
+  gap: 2px;                 /* o espaçador de 2px do original */
+  list-style: none;
+  flex: 0 1 auto;
+  min-width: 0;
+}
+
+.infront-grid li { display: flex; }
+
+.infront-grid a {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  min-height: 22px;
+  padding: 3px 6px;         /* 6px à esquerda, como no GIF */
+  background: #fff;         /* branco, como no original — e só aqui */
+  border: 1px solid rgba(107, 119, 128, 0.5);
+  font-family: Verdana, Geneva, "DejaVu Sans", sans-serif;
+  font-size: 10px;
+  line-height: 1;
+  letter-spacing: 0.17em;
+  text-transform: uppercase;
+  color: var(--infront-ink);
+  text-decoration: none;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: none;         /* 2003 não tinha transições */
+}
+
+/* a inversão do original */
+.infront-grid a:hover,
+.infront-grid a:focus-visible {
+  background: var(--infront-ink);
+  border-color: var(--infront-ink);
+  color: #fff;
+}
+
+/* onde se está: a mesma inversão, no azul dele */
+.infront-grid a[aria-current="page"] {
+  background: var(--blue);
+  border-color: var(--blue);
+  color: #fff;
+}
+
+/* célula vazia, para fechar a grelha como no original */
+.infront-grid li.is-blank { pointer-events: none; }
+.infront-grid li.is-blank span {
+  display: block;
+  width: 100%;
+  min-height: 22px;
+  border: 1px solid transparent;
+}
+
+/* o bloco da direita: ▶ e duas linhas alinhadas à direita */
+.infront-sign {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--s3);
+  flex: 1 1 auto;
+  justify-content: flex-end;
+  padding-top: 2px;
+}
+
+.infront-mark {
+  flex-shrink: 0;
+  width: 0;
+  height: 0;
+  margin-top: 2px;
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+  border-left: 7px solid var(--infront-ink);
+  text-indent: -9999px;
+  overflow: hidden;
+}
+
+a.infront-mark:hover,
+a.infront-mark:focus-visible { border-left-color: var(--blue); }
+
+.infront-words { text-align: right; }
+
+.infront-title,
+.infront-tag {
+  font-family: Verdana, Geneva, "DejaVu Sans", sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.17em;
+  line-height: 1.6;
+  color: var(--infront-ink);
+}
+
+/* uma linha cada: a grelha à esquerda encolhe primeiro (tem minmax até 114px),
+   e só se nem assim couber é que o layout parte em duas filas, abaixo dos 900px */
+.infront-title,
+.infront-tag { white-space: nowrap; }
+
+.infront-title { font-size: 10px; font-weight: 700; }
+.infront-tag   { font-size: 9px; font-weight: 400; color: var(--infront-ink); }
+
+/* Abaixo disto as caixas já estão no mínimo (114px) e a assinatura, que não
+   parte, começaria a transbordar. Antes disso, a faixa parte em duas filas. */
+@media (max-width: 1010px) {
+  .infront-inner { flex-direction: column; gap: var(--s3); }
+  .infront-sign { align-self: flex-start; justify-content: flex-start; }
+  .infront-words { text-align: left; }
+}
+
+/* ═══ painéis ═══════════════════════════════════════════════════════════════
+   A jogada característica do INfront: a caixa é branca e a etiqueta que a
+   nomeia fica POR BAIXO, não por cima — 106×11px, maiúsculas espacejadas.
+   É isso que faz a página ler-se como uma folha de especificação.            */
+
+.panel {
+  background: transparent;
+  border: 0;
+  padding: 0 0 var(--s3);
+  margin-bottom: var(--s1);
+}
+
+.panel--tight { padding: 0 0 var(--s2); }
+
+/* a etiqueta, por baixo da caixa que nomeia */
+.panel-label {
+  display: inline-block;
+  min-width: 106px;
+  margin-bottom: var(--s6);
+  padding: 3px 6px;
+  background: transparent;
+  border: 1px solid var(--rule-soft);
+  font-family: var(--chrome);
+  font-size: var(--t-chrome);
+  line-height: 1;
+  letter-spacing: var(--track);
+  text-transform: uppercase;
+  color: var(--infront-ink);
+}
+
+/* etiqueta invertida = o estado "actual", como o NEWS deles */
+.panel-label--on {
+  background: var(--infront-ink);
+  border-color: var(--infront-ink);
+  color: #fff;
+}
+
+/* ═══ títulos ═══════════════════════════════════════════════════════════════ */
 
 .page-title {
   display: flex;
   align-items: center;
-  font-family: var(--serif);
-  font-size: 48px;
+  flex-wrap: wrap;
+  gap: var(--s2) var(--s4);
+  font-family: var(--display);
+  font-size: var(--t-page);
   font-weight: 400;
   color: var(--blue);
-  margin-bottom: 40px;
+  margin-bottom: var(--s6);
   line-height: 1;
+  text-wrap: balance;
 }
 
 .page-title a {
   display: inline-block;
-  font-size: 13px;
-  color: var(--muted);
+  font-family: var(--text);
+  font-size: var(--t-small);
+  color: var(--ink-3);
   text-decoration: none;
-  margin-left: 16px;
   vertical-align: middle;
 }
 
 .page-title a:hover { color: var(--blue); }
 
-/* desktop-style icon in the title bar (e.g. "older writings") */
+/* ícone à maneira do desktop, na barra do título (ex.: "older writings") */
 .page-title .title-icon {
   display: inline-flex;
   flex-direction: column;
@@ -96,15 +387,15 @@
   margin-left: auto;
   vertical-align: middle;
   text-decoration: none;
-  color: var(--muted);
-  font-family: var(--serif);
-  font-size: 12px;
-  line-height: 1.2;
+  color: var(--ink-3);
+  font-family: var(--text);
+  font-size: var(--t-meta);
+  line-height: 1.25;
   transition: transform 0.15s, color 0.15s;
 }
 
 .title-icon:hover {
-  transform: scale(1.1);
+  transform: scale(1.08);
   color: var(--blue);
 }
 
@@ -112,57 +403,141 @@
   width: 32px;
   height: 32px;
   object-fit: cover;
-  border-radius: 8px;
-  margin-bottom: 4px;
+  border-radius: 6px;
+  margin-bottom: var(--s1);
 }
+
+/* ═══ listas ════════════════════════════════════════════════════════════════ */
 
 .writings-list {
   list-style: none;
   display: flex;
   flex-direction: column;
-  gap: 28px;
-  text-align: justify;
+  gap: var(--s6);
 }
 
-.writing-item a {
-  font-size: 17px;
-  color: #222;
-  text-decoration: none;
-}
-
+/* cabeçalho de secção — a "group box" do Aqua, reduzida ao essencial:
+   uma etiqueta pousada sobre um filete que atravessa a largura toda. */
 .writing-title {
+  display: block;
+  font-family: var(--display);
+  font-size: var(--t-sect);
+  font-weight: 400;
+  color: var(--blue);
+  line-height: 1.15;
+  padding-bottom: var(--s2);
+  margin-bottom: var(--s3);
+  border-bottom: 1px solid rgba(0, 64, 255, 0.22);
+  text-wrap: balance;
+}
+
+/* Variantes que estavam em style= inline, repetidas dezenas de vezes. As cores
+   são as dele — só mudaram de sítio, para o sistema poder governá-las (e para
+   a folha de impressão as conseguir passar a preto). */
+.writing-title--sub {
+  font-size: var(--t-sect-sm);
+  color: var(--blue-soft);
+  border-bottom-color: rgba(77, 124, 255, 0.22);
+}
+
+.writing-title--alert {
   font-size: 17px;
-  color: #222;
+  color: #C50909;   /* INfront escureceu o papel; 4,94:1 (era #EA0C0C) */
+  border-bottom-color: rgba(197, 9, 9, 0.24);
 }
 
-.writing-meta a {
-  font-size: 12px;
-  color: var(--muted);
+.writing-title--source {
+  font-size: var(--t-sect-sm);
+  color: #006400;
+  border-bottom-color: rgba(0, 100, 0, 0.22);
 }
 
-.writing-meta a:hover {
+.writing-item > a {
+  font-family: var(--text);
+  font-size: var(--t-item);
+  color: var(--ink);
+  text-decoration: none;
+  text-decoration-color: var(--rule);
+}
+
+.writing-item > a:hover {
   color: var(--blue);
   text-decoration: underline;
 }
 
+.writing-meta {
+  margin-top: var(--s1);
+  font-family: var(--text);
+  font-size: var(--t-meta);
+  color: var(--ink-3);
+  letter-spacing: 0.02em;
+}
+
+.writing-meta a { font-size: var(--t-meta); color: var(--ink-3); }
+.writing-meta a:hover { color: var(--blue); text-decoration: underline; }
+
+/* ── profundidade ──────────────────────────────────────────────────────────
+   Três sinais em vez de um: filete-guia à esquerda, escala a diminuir, e um
+   glifo diferente por nível. Um código legislativo lê-se assim.              */
+
 .writing-sublist {
-  list-style: disc;
-  margin: 8px 0 0 20px;
-  padding: 0;
+  list-style: none;
+  margin: var(--s2) 0 0;
+  padding-left: var(--s5);
+  border-left: 1px solid var(--rule);
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: var(--s3);
 }
 
 .writing-sublist > li {
-  font-size: 15px;
+  position: relative;
+  font-family: var(--text);
+  font-size: var(--t-item);
   line-height: 1.55;
-  color: #222;
+  color: var(--ink);
+}
+
+/* o glifo confirma o nível; o filete-guia à esquerda é que o mostra */
+.writing-sublist > li::before {
+  content: "";
+  position: absolute;
+  top: 0.62em;
+  left: calc(var(--s5) * -1);
+  width: var(--s5);
+  height: 5px;
+  background:
+    linear-gradient(var(--muted), var(--muted)) center / 5px 5px no-repeat;
+}
+
+/* nível 2 — quadrado vazado */
+.writing-sublist .writing-sublist > li { font-size: var(--t-sub-item); }
+.writing-sublist .writing-sublist > li::before {
+  background: none;
+  box-shadow: inset 0 0 0 1px var(--muted);
+  width: 5px;
+  height: 5px;
+  left: calc(var(--s5) * -1 + 9px);
+}
+
+/* nível 3 e abaixo — ponto */
+.writing-sublist .writing-sublist .writing-sublist > li {
+  font-size: var(--t-small);
+  color: var(--ink-2);
+}
+.writing-sublist .writing-sublist .writing-sublist > li::before {
+  background: var(--muted);
+  box-shadow: none;
+  border-radius: 50%;
+  width: 3px;
+  height: 3px;
+  top: 0.72em;
+  left: calc(var(--s5) * -1 + 10px);
 }
 
 .writing-sublist a {
-  font-size: 15px;
-  color: #222;
+  font-size: inherit;
+  color: var(--ink);
   text-decoration: none;
 }
 
@@ -171,22 +546,73 @@
   text-decoration: underline;
 }
 
-/* cabeçalhos de secção — agrupamento por país / tribunal */
+/* ═══ badges de proveniência ════════════════════════════════════════════════
+   Metadados de bloco, à maneira do Are.na: pequenos, neutros, factuais.
+   Um só sinal ganha cor — a digitalização anotada pelo próprio.               */
+
+.src {
+  display: inline-block;
+  margin-left: var(--s2);
+  font-family: var(--chrome);
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  white-space: nowrap;
+  vertical-align: 1px;
+}
+
+.src--pdf { color: #6b6152; }   /* 4,88:1 sobre o papel novo */
+
+/* a única marca com contorno: o que é dele, anotado à mão */
+.src--scan {
+  color: var(--blue);
+  border: 1px solid rgba(0, 64, 255, 0.35);
+  border-radius: 2px;
+  padding: 0 4px;
+  letter-spacing: 0.07em;
+}
+
+/* legenda do vocabulário */
+.src-legend {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s2) var(--s4);
+  margin: 0 0 var(--s5);
+  padding-bottom: var(--s3);
+  border-bottom: 1px solid var(--rule-soft);
+  font-family: var(--chrome);
+  font-size: 9px;
+  color: var(--ink-3);
+}
+
+.src-legend .src { margin-left: 0; }
+
+.src-legend dt { display: inline; }
+.src-legend dd { display: inline; margin: 0 0 0 var(--s1); color: var(--ink-3); }
+.src-legend > div { display: flex; align-items: baseline; gap: var(--s1); }
+
+/* ═══ jurisprudência ════════════════════════════════════════════════════════ */
+
 .jur-group {
   list-style: none;
-  font-family: var(--serif);
-  font-size: 22px;
+  font-family: var(--display);
+  font-size: var(--t-sub);
   color: var(--blue);
-  padding-bottom: 4px;
+  padding-bottom: var(--s1);
+  margin-top: var(--s5);
   border-bottom: 1px solid rgba(0, 64, 255, 0.2);
 }
 
 .jur-court {
   list-style: none;
-  font-family: var(--serif);
-  font-size: 17px;
+  font-family: var(--display);
+  font-size: var(--t-sect-sm);
   color: var(--blue);
-  margin-top: -14px;
+  margin-top: calc(var(--s5) * -1 + var(--s2));
+  letter-spacing: 0.01em;
 }
 
 /* descritores — trilho horizontal, separados por chevron */
@@ -195,41 +621,44 @@
   display: flex;
   flex-wrap: wrap;
   align-items: baseline;
-  margin: 8px 0 0 20px;
+  margin: var(--s2) 0 0;
   padding: 0;
 }
 
 .descritores li {
-  font-size: 13px;
-  line-height: 1.6;
-  color: #555;
+  font-family: var(--text);
+  font-size: var(--t-meta);
+  line-height: 1.7;
+  color: var(--ink-3);
 }
+
+.descritores li::before { content: none; }
 
 .descritores li:not(:last-child)::after {
   content: "›";
-  margin: 0 8px;
+  margin: 0 var(--s2);
   color: var(--muted);
 }
 
 /* sumário do acórdão — bloco citado, tom arquivístico */
 .sumario {
-  margin: 10px 0 0 0;
-  padding: 12px 16px;
+  margin: var(--s3) 0 0;
+  padding: var(--s3) var(--s4);
   border-left: 3px solid rgba(0, 64, 255, 0.25);
-  background: rgba(0, 64, 255, 0.04);
-  border-radius: 0 4px 4px 0;
-  font-size: 13.5px;
+  background: rgba(0, 64, 255, 0.035);
+  font-family: var(--text);
+  font-size: var(--t-sub-item);
   line-height: 1.7;
-  color: #444;
-  text-align: justify;
+  color: var(--ink-2);
   hyphens: auto;
 }
 
 .sumario-label {
   display: block;
-  font-size: 11px;
+  font-family: var(--chrome);
+  font-size: 10px;
   font-weight: 600;
-  letter-spacing: 0.06em;
+  letter-spacing: var(--track);
   text-transform: uppercase;
   color: var(--blue);
   cursor: pointer;
@@ -237,151 +666,207 @@
   user-select: none;
 }
 
-/* remove o triângulo nativo do <summary> (WebKit) */
-.sumario-label::-webkit-details-marker {
-  display: none;
-}
+.sumario-label::-webkit-details-marker { display: none; }
 
-/* seta própria que roda ao abrir/fechar */
+/* seta própria, que roda ao abrir/fechar */
 .sumario-label::before {
   content: "▸";
   display: inline-block;
-  margin-right: 6px;
-  font-size: 10px;
+  margin-right: var(--s1);
+  font-size: 9px;
   transition: transform 0.15s ease;
 }
 
-.sumario[open] > .sumario-label::before {
-  transform: rotate(90deg);
+.sumario[open] > .sumario-label::before { transform: rotate(90deg); }
+.sumario[open] > .sumario-label { margin-bottom: var(--s2); }
+
+.sumario p { margin: 0; }
+.sumario p + p { margin-top: var(--s2); }
+
+/* primeira linha do sumário, visível sem abrir — para se saber se vale a pena */
+.sumario-peek {
+  display: inline;
+  margin-left: var(--s2);
+  font-size: var(--t-meta);
+  font-weight: 400;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--ink-3);
 }
 
-.sumario[open] > .sumario-label {
-  margin-bottom: 6px;
+.sumario[open] > .sumario-label .sumario-peek { display: none; }
+
+/* descritores que filtram */
+.descritores li.is-clickable {
+  cursor: pointer;
+  border-bottom: 1px dotted var(--muted);
+  transition: color 0.12s, border-color 0.12s;
 }
 
-.sumario p {
-  margin: 0;
+.descritores li.is-clickable:hover,
+.descritores li.is-clickable:focus-visible {
+  color: var(--blue);
+  border-bottom-color: var(--blue);
 }
 
-.sumario p + p {
-  margin-top: 8px;
+.chip-n {
+  margin-left: var(--s1);
+  font-size: 9px;
+  color: var(--ink-3);
+  font-variant-numeric: tabular-nums;
 }
 
-/* revogadas — tom arquivístico, discreto sobre a grelha */
+.tag-chip.active .chip-n { color: rgba(255, 255, 255, 0.75); }
+
+.rail-list a.is-group {
+  font-weight: 600;
+  color: var(--ink-2);
+  letter-spacing: 0.02em;
+}
+
+/* ═══ revogadas ═════════════════════════════════════════════════════════════ */
+
 .writing-sublist li.is-revogado {
   display: flex;
   flex-wrap: wrap;
   align-items: baseline;
   gap: 0.2em 0.45em;
-  list-style: none;
-  margin-left: -10px;
-  padding: 5px 8px 5px 12px;
-  border-left: 2px solid rgba(188, 188, 188, 0.5);
+  padding: var(--s1) var(--s2);
+  border-left: 2px solid rgba(188, 188, 188, 0.55);
   background: rgba(188, 188, 188, 0.1);
-  border-radius: 0 2px 2px 0;
 }
 
-.writing-sublist li.is-revogado a {
-  color: #888;
-}
+.writing-sublist li.is-revogado::before { content: none; }
+.writing-sublist li.is-revogado a { color: var(--ink-3); }
+.writing-sublist li.is-revogado a:hover { color: var(--blue); }
+.writing-sublist li.is-revogado .revogado-sep { color: var(--muted); user-select: none; }
+.writing-sublist li.is-revogado .link-revogado { color: var(--ink-3); }
+.writing-sublist li.is-revogado .link-revogado:hover { color: var(--red); }
 
-.writing-sublist li.is-revogado a:hover {
-  color: var(--blue);
-}
+/* ═══ notas de estudo ═══════════════════════════════════════════════════════
+   Numa página de direito, isto é a distinção que nunca pode esbater-se:
+   o que é fonte normativa, e o que é anotação de quem estuda.                 */
 
-.writing-sublist li.is-revogado .revogado-sep {
-  color: var(--muted);
-  user-select: none;
-}
-
-.writing-sublist li.is-revogado .link-revogado:hover {
-  color: #c0392b;
-}
-
-/* notas — anotações de estudo, sem marcador e em tom discreto,
-   para não se confundirem com as fontes normativas */
 .notes-label {
-  display: block;
-  margin-top: 6px;
-  font-size: 0.8em;
-  color: #4d7cff;
+  display: inline-block;
+  margin-top: var(--s2);
+  font-family: var(--chrome);
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: var(--track);
+  text-transform: uppercase;
+  color: var(--blue-soft);
 }
 
-.writing-notes {
-  list-style: none;
-  margin-top: 4px;
+.writing-sublist.writing-notes {
+  margin-top: var(--s2);
+  padding: var(--s3) var(--s4);
+  border-left: 2px solid rgba(77, 124, 255, 0.3);
+  background: rgba(77, 124, 255, 0.045);
+  gap: var(--s1);
 }
 
 .writing-notes > li {
-  color: #6a6a6a;
-  font-size: 14px;
+  color: var(--ink-3);
+  font-size: var(--t-small);
+  line-height: 1.6;
+}
+
+.writing-notes > li::before {
+  content: "–";
+  color: rgba(77, 124, 255, 0.5);
+  font-size: 11px;
+  line-height: 1.5;
 }
 
 .writing-notes > li.notes-heading {
-  margin-top: 6px;
+  margin-top: var(--s2);
   font-weight: 600;
-  color: #4a4a4a;
+  color: var(--ink-2);
 }
 
-.writing-notes a {
-  color: #6a6a6a;
-}
+.writing-notes > li.notes-heading::before { content: none; }
 
-.writing-notes a:hover {
-  color: var(--blue);
-}
+.writing-notes a { color: var(--ink-3); }
+.writing-notes a:hover { color: var(--blue); }
+
+/* ═══ acesso rápido ═════════════════════════════════════════════════════════ */
 
 .quick-access {
   list-style: none;
   display: flex;
   flex-wrap: wrap;
-  gap: 24px;
-  padding: 0 0 16px;
-  margin: 0 0 28px;
-  border-bottom: 1px solid rgba(0,0,0,0.08);
+  gap: var(--s3) var(--s5);
+  padding: 0 0 var(--s4);
+  margin: 0 0 var(--s5);
+  border-bottom: 1px solid var(--rule-soft);
 }
 
 .quick-access li {
   display: flex;
   align-items: baseline;
-  gap: 6px;
+  gap: var(--s1);
 }
+
+.quick-access li::before { content: none; }
 
 .quick-access a {
-  font-size: 17px;
-  color: #c0392b;
+  font-family: var(--display);
+  font-size: var(--t-sect-sm);
+  color: #b03325;   /* 5,05:1 sobre o papel; --red dava 4,37 */
   text-decoration: none;
-  font-weight: 500;
 }
 
-.quick-access a:hover {
-  color: #8b1e10;
-  text-decoration: underline;
+.quick-access a:hover { color: #8b1e10; text-decoration: underline; }
+
+.quick-access .qa-meta {
+  font-family: var(--chrome);
+  font-size: 9px;
+  color: var(--ink-3);
+  letter-spacing: 0.12em;
 }
+
+/* ═══ filtro ════════════════════════════════════════════════════════════════ */
+
+.lex-search {
+  width: 100%;
+  max-width: 340px;
+  padding: var(--s2) 0;
+  border: none;
+  border-bottom: 1px solid var(--rule);
+  background: transparent;
+  font-family: var(--text);
+  font-size: var(--t-item);
+  color: var(--ink);
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.lex-search::placeholder { color: var(--ink-3); }
+.lex-search:focus { border-bottom-color: var(--blue); outline: none; }
 
 .tag-filter {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
-  margin: 0 0 20px;
+  gap: var(--s2);
+  margin: 0 0 var(--s5);
 }
 
 .tag-chip {
-  font-family: inherit;
-  font-size: 12px;
-  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: var(--track);
+  font-family: var(--chrome);
+  font-size: 9px;
+  color: var(--ink-3);
   background: transparent;
-  border: 1px solid rgba(0,0,0,0.15);
-  border-radius: 999px;
-  padding: 4px 10px;
+  border: 1px solid var(--rule);
+  border-radius: 0;
+  padding: 3px 9px;
   cursor: pointer;
-  transition: all 0.15s;
+  transition: color 0.15s, border-color 0.15s, background 0.15s;
 }
 
-.tag-chip:hover {
-  color: #222;
-  border-color: rgba(0,0,0,0.35);
-}
+.tag-chip:hover { color: var(--ink); border-color: var(--ink-3); }
 
 .tag-chip.active {
   color: #fff;
@@ -392,126 +877,86 @@
 .writing-tags {
   display: inline-flex;
   flex-wrap: wrap;
-  gap: 6px;
-  margin-left: 10px;
+  gap: var(--s1);
+  margin-left: var(--s2);
   vertical-align: middle;
 }
 
 .writing-tag {
-  font-size: 10px;
-  color: var(--muted);
-  background: rgba(0,0,0,0.04);
-  padding: 2px 8px;
-  border-radius: 999px;
+  font-family: var(--text);
+  font-size: 9.5px;
+  color: var(--ink-3);
+  background: rgba(0, 0, 0, 0.04);
+  padding: 1px 6px;
+  border-radius: 2px;
   text-transform: lowercase;
   letter-spacing: 0.02em;
 }
 
-.lex-search {
-  width: 100%;
-  max-width: 320px;
-  padding: 6px 0;
-  margin: 0 0 28px;
-  border: none;
-  border-bottom: 1px solid rgba(0,0,0,0.15);
-  background: transparent;
-  font-family: inherit;
-  font-size: 14px;
-  color: #222;
-  outline: none;
-  transition: border-color 0.2s;
-}
-
-.lex-search::placeholder {
-  color: var(--muted);
-}
-
-.lex-search:focus {
-  border-bottom-color: var(--blue);
-}
-
-.quick-access .qa-meta {
-  font-size: 11px;
-  color: var(--muted);
-}
+/* ═══ prosa ═════════════════════════════════════════════════════════════════ */
 
 .writing-subheader {
   display: block;
-  font-size: 13px;
-  color: var(--muted);
+  font-family: var(--chrome);
+  font-size: 9px;
+  color: var(--ink-3);
   text-transform: uppercase;
-  letter-spacing: 0.04em;
-  margin: 14px 0 6px;
+  letter-spacing: var(--track);
+  margin: var(--s4) 0 var(--s2);
   line-height: 1.4;
 }
 
-.writing-subheader:first-child {
-  margin-top: 0;
-}
-
-.writing-item a:hover {
-  color: var(--blue);
-  text-decoration: underline;
-}
-
-.writing-meta {
-  margin-top: 4px;
-  font-size: 12px;
-  color: var(--muted);
-}
+.writing-subheader:first-child { margin-top: 0; }
 
 .list-divider {
-  border-top: 1px solid var(--muted);
-  opacity: 0.3;
+  border: 0;
+  border-top: 1px solid var(--rule-soft);
   margin: 0;
 }
 
 .about-body {
-  font-size: 15px;
-  line-height: 1.85;
-  color: #222;
+  font-family: var(--text);
+  font-size: var(--t-body);
+  line-height: 1.8;
+  color: var(--ink);
 }
 
-.about-body p + p { margin-top: 18px; }
-
+.about-body p + p { margin-top: var(--s4); }
 .about-body a { color: var(--blue); }
 
 .views-own {
   background: rgba(0, 64, 255, 0.08);
   padding: 0.1em 0.35em;
-  border-radius: 4px;
+  border-radius: 2px;
   box-decoration-break: clone;
   -webkit-box-decoration-break: clone;
 }
 
 .legal {
-  margin-top: 60px;
-  font-size: 11px;
-  color: var(--muted);
+  margin-top: var(--s8);
+  font-family: var(--text);
+  font-size: var(--t-meta);
+  color: var(--ink-3);
   line-height: 1.7;
   max-width: 560px;
 }
 
 .page-note {
-  font-size: 15px;
-  line-height: 1.85;
-  color: #222;
-  max-width: 560px;
+  font-family: var(--text);
+  font-size: var(--t-body);
+  line-height: 1.8;
+  color: var(--ink);
+  max-width: 580px;
 }
 
-.page-note p {
-  text-align: justify;
-}
-
-.page-note p + p {
-  margin-top: 18px;
-}
+.page-note p { hyphens: auto; }
+.page-note p + p { margin-top: var(--s4); }
 
 .page-note cite {
   display: block;
-  margin-top: 10px;
-  font-size: 12px;
-  color: var(--muted);
+  margin-top: var(--s3);
+  font-size: var(--t-small);
+  color: var(--ink-3);
   font-style: normal;
 }
 
@@ -520,50 +965,367 @@
   letter-spacing: 0.04em;
 }
 
-.page-note--intro {
-  margin: -20px 0 36px;
-}
+.page-note--intro { margin: calc(var(--s5) * -1) 0 var(--s6); }
 
 .page-note--footer {
-  margin-top: 48px;
-  padding-top: 28px;
-  border-top: 1px solid rgba(0, 0, 0, 0.08);
+  margin-top: var(--s7);
+  padding-top: var(--s5);
+  border-top: 1px solid var(--rule-soft);
 }
 
 .lex-dedication {
-  margin: -20px 0 18px;
-  padding-bottom: 10px;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
-  font-size: 11px;
-  line-height: 1.6;
+  margin: 0 0 var(--s5);
+  padding-bottom: var(--s3);
+  border-bottom: 1px solid var(--rule-soft);
+  font-family: var(--text);
+  font-size: var(--t-meta);
+  line-height: 1.7;
   font-style: italic;
-  color: #8a8a8a;
-  letter-spacing: 0.01em;
-  text-align: justify;
+  color: var(--ink-3);
   hyphens: auto;
 }
 
+.lex-dedication a { color: var(--ink-3); }
+.lex-dedication a:hover { color: var(--blue); }
+
+/* ═══ por adicionar ═════════════════════════════════════════════════════════ */
+
 .lex-pending {
-  margin-top: 48px;
-  padding: 16px 20px;
-  background: rgba(255, 210, 80, 0.2);
-  border-left: 4px solid rgba(255, 160, 0, 0.6);
-  border-radius: 0 6px 6px 0;
-  font-size: 14px;
+  margin-top: var(--s7);
+  padding: var(--s4) var(--s5);
+  background: rgba(255, 210, 80, 0.18);
+  border-left: 3px solid rgba(255, 160, 0, 0.55);
+  font-family: var(--text);
+  font-size: var(--t-sub-item);
   line-height: 1.65;
-  color: #444;
+  color: var(--ink-2);
 }
 
 .lex-pending-label {
   display: block;
-  margin-bottom: 8px;
-  font-size: 11px;
+  margin-bottom: var(--s2);
+  font-size: 10px;
   font-weight: 600;
-  letter-spacing: 0.08em;
-  color: #996600;
+  letter-spacing: var(--track);
+  text-transform: uppercase;
+  color: #6d5600;
 }
 
-.lex-pending a {
+.lex-pending a { color: var(--blue); word-break: break-word; }
+
+/* ═══ estado vazio ══════════════════════════════════════════════════════════ */
+
+.empty-state {
+  margin: var(--s6) 0;
+  padding: var(--s6) var(--s5);
+  border: 1px dashed var(--rule);
+  background: transparent;
+  text-align: center;
+  font-family: var(--text);
+  font-size: var(--t-item);
+  color: var(--ink-3);
+  line-height: 1.7;
+}
+
+.empty-state strong {
+  display: block;
+  margin-bottom: var(--s2);
+  font-family: var(--display);
+  font-size: var(--t-sect);
+  font-weight: 400;
   color: var(--blue);
-  word-break: break-all;
+}
+
+.empty-state p { max-width: 44ch; margin: 0 auto; }
+
+.empty-todo {
+  display: inline-block;
+  margin: var(--s4) 0 0;
+  padding: 0;
+  list-style: none;
+  text-align: left;
+}
+
+.empty-todo li {
+  position: relative;
+  padding-left: var(--s4);
+  line-height: 1.9;
+  color: var(--ink-2);
+}
+
+.empty-todo li::before {
+  content: "☐";
+  position: absolute;
+  left: 0;
+  color: var(--muted);
+}
+
+/* ═══ carril do sumário ═════════════════════════════════════════════════════
+   Vive na margem que estava vazia, à esquerda da coluna. Não empurra nada.
+   Se não houver margem que chegue, desaparece — a página lê-se na mesma.      */
+
+.rail {
+  position: fixed;
+  top: var(--band, 0px);    /* desce se houver faixa de navegação no topo */
+  left: calc(50% - var(--measure) / 2 - var(--rail) - var(--s6));
+  width: var(--rail);
+  max-height: calc(100vh - var(--band, 0px));
+  overflow-y: auto;
+  padding: var(--s5) var(--s3) var(--s6) 0;
+  font-family: var(--chrome);
+  font-size: 9.5px;
+  line-height: 1.45;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+}
+
+.rail-title {
+  margin-bottom: var(--s3);
+  padding-left: var(--s3);
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: var(--track);
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+
+.rail-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  counter-reset: sect;
+}
+
+.rail-list a {
+  display: block;
+  padding: var(--s1) var(--s2) var(--s1) var(--s3);
+  border-left: 2px solid transparent;
+  color: var(--ink-3);
+  text-decoration: none;
+  transition: color 0.12s, border-color 0.12s, background 0.12s;
+}
+
+.rail-list a:hover {
+  color: var(--ink);
+  background: rgba(0, 0, 0, 0.03);
+}
+
+.rail-list a[aria-current="true"] {
+  color: var(--blue);
+  border-left-color: var(--blue);
+  background: rgba(0, 64, 255, 0.05);
+}
+
+/* secção sem resultados durante uma filtragem */
+.rail-list a.is-empty {
+  opacity: 0.3;
+  pointer-events: none;
+}
+
+.rail-count {
+  float: right;
+  margin-left: var(--s2);
+  color: var(--ink-3);
+  font-variant-numeric: tabular-nums;
+}
+
+@media (max-width: 1140px) {
+  .rail { display: none; }
+}
+
+/* ═══ barra de filtro ═══════════════════════════════════════════════════════ */
+
+.lex-toolbar {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: var(--s3) var(--s4);
+  margin: 0 0 var(--s6);
+}
+
+.lex-toolbar .lex-search { flex: 1 1 260px; margin: 0; }
+
+.lex-count {
+  font-family: var(--chrome);
+  font-size: 9px;
+  color: var(--ink-3);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.lex-count.is-none { color: var(--red); }
+
+.btn-quiet {
+  padding: 0;
+  border: 0;
+  background: none;
+  font-family: var(--chrome);
+  font-size: 9px;
+  color: var(--ink-3);
+  text-decoration: underline;
+  text-decoration-color: var(--rule);
+  text-underline-offset: 3px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.btn-quiet:hover { color: var(--blue); text-decoration-color: currentColor; }
+
+/* ═══ secções que abrem e fecham ════════════════════════════════════════════
+   O triângulo do Finder. Fechada, a secção diz quantas fontes guarda.         */
+
+.sect-toggle {
+  display: flex;
+  align-items: baseline;
+  gap: var(--s2);
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.sect-tri {
+  flex-shrink: 0;
+  width: 0;
+  height: 0;
+  border-top: 4.5px solid transparent;
+  border-bottom: 4.5px solid transparent;
+  border-left: 6px solid var(--blue);
+  transform: rotate(90deg);
+  transform-origin: 25% 50%;
+  transition: transform 0.15s ease;
+}
+
+.sect-toggle[aria-expanded="false"] .sect-tri { transform: rotate(0deg); }
+
+.sect-toggle:hover .sect-label { text-decoration: underline; text-underline-offset: 3px; }
+
+.sect-tally {
+  margin-left: auto;
+  padding-left: var(--s3);
+  font-family: var(--chrome);
+  font-size: 9px;
+  font-weight: 400;
+  color: var(--ink-3);
+  font-variant-numeric: tabular-nums;
+  opacity: 0;
+  transition: opacity 0.15s;
+}
+
+.sect-toggle[aria-expanded="false"] .sect-tally,
+.writing-item:hover .sect-tally { opacity: 1; }
+
+.writing-item.is-collapsed > .writing-sublist,
+.writing-item.is-collapsed > .writing-meta { display: none; }
+
+/* ═══ resultados do filtro ══════════════════════════════════════════════════ */
+
+.is-filtered-out { display: none !important; }
+
+/* um item mantido só para dar contexto ao que casou fica em segundo plano */
+.is-context > a,
+.is-context > .writing-title { opacity: 0.45; }
+
+mark {
+  background: rgba(255, 214, 0, 0.45);
+  color: inherit;
+  border-radius: 1px;
+  padding: 0 1px;
+}
+
+.filter-empty {
+  margin: var(--s6) 0;
+  padding: var(--s6);
+  border: 1px dashed var(--rule);
+  text-align: center;
+  font-family: var(--text);
+  font-size: var(--t-item);
+  color: var(--ink-3);
+}
+
+.filter-empty code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  color: var(--ink);
+}
+
+/* ═══ acessibilidade ════════════════════════════════════════════════════════ */
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  /* as riscas do CRT são decorativas: quem pediu menos movimento, não as leva */
+  .crt::before { display: none !important; }
+}
+
+/* ═══ impressão ═════════════════════════════════════════════════════════════
+   Um jurista imprime uma colectânea. Que saia limpa, com os URLs à vista.     */
+
+@media print {
+  html { background: #fff; }
+
+  body {
+    background: #fff none;
+    color: #000;
+    font-size: 10pt;
+  }
+
+  .page {
+    max-width: none;
+    min-height: 0;
+    padding: 0;
+  }
+
+  .window,
+  .tabs,
+  .lex-search,
+  .tag-filter,
+  .skip-link,
+  .corner-fig,
+  .crt,
+  .dock,
+  #c_widget {
+    display: none !important;
+  }
+
+  .page-title { font-size: 24pt; color: #000; margin-bottom: 12pt; }
+  .writing-title { font-size: 13pt; color: #000 !important; border-bottom-color: #000; }
+  .writing-title--sub,
+  .writing-title--alert,
+  .writing-title--source { font-size: 11pt; }
+
+  .writings-list { gap: 14pt; }
+
+  a { color: #000; text-decoration: none; }
+
+  /* o endereço a seguir ao texto — é o que interessa no papel */
+  .writing-sublist a[href^="http"]::after,
+  .writing-item > a[href^="http"]::after {
+    content: " ⟨" attr(href) "⟩";
+    font-size: 7.5pt;
+    color: #555;
+    word-break: break-all;
+  }
+
+  /* sumários todos abertos, para o processo ir completo. A etiqueta "SUMÁRIO"
+     e a primeira linha em pré-visualização não fazem falta no papel — o texto
+     inteiro vem logo a seguir. (Selector de classe, senão .sumario-label ganha
+     por especificidade e a etiqueta continua a aparecer.) */
+  .sumario { border-left-color: #999; background: none; }
+  details { display: block; }
+  details > summary,
+  .sumario > .sumario-label,
+  .sumario-peek { display: none !important; }
+  details > *:not(summary) { display: block !important; }
+
+  .writing-item, .sumario, .writing-sublist { break-inside: avoid; }
+  .jur-group, .jur-court { break-after: avoid; }
 }

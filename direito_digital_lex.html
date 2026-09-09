@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt">
 <!--
 
                        .,,uod8B8bou,,.
@@ -112,27 +112,66 @@ of American History, Smithsonian Institute.
   }
   </script>
 
+  <link rel="icon" href="favicon.ico" sizes="16x16">
+  <link rel="icon" type="image/png" href="favicon-32.png" sizes="32x32">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
   <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body style="--band:62px">
+
+<a class="skip-link" href="#conteudo">saltar para a lista</a>
+
+<nav class="rail" id="rail" aria-label="secções"></nav>
+
+
+<nav class="infront" aria-label="colectânea de fontes" style="--cols:4">
+    <div class="infront-inner">
+      <ul class="infront-grid">
+        <li><a href="lex.html">lex</a></li>
+        <li><a href="direito_digital_lex.html" aria-current="page">Direito digital</a></li>
+        <li><a href="jurisprudencia.html">Jurisprudência</a></li>
+        <li><a href="industrial.html">Industrial</a></li>
+        <li><a href="tjue.html">Notas DPI</a></li>
+        <li><a href="digitalizacoes.html">Digitalizações</a></li>
+        <li class="is-blank" aria-hidden="true"><span></span></li>
+      </ul>
+
+      <div class="infront-sign">
+        <a class="infront-mark" href="index.html" title="voltar ao início" aria-label="voltar ao início">início</a>
+        <div class="infront-words">
+          <div class="infront-title">colectânea de fontes</div>
+          <div class="infront-tag">legislação e jurisprudência de direito da propriedade intelectual</div>
+        </div>
+      </div>
+    </div>
+</nav>
 
 <main class="page">
+
+
+  <h1 class="page-title">direito digital</h1>
 
   <p class="lex-dedication">
     the original compilation of these sources was put together by Professor <span class="small-caps">Nuno Sousa e Silva</span> (<i>vide</i> <a href="https://www.almedina.net/licoes-de-direito-digital-1776949931.html">Lições de Direito Digital</a> for an even fuller compilation, with thoughtful commentary). drawing from his work, i built a web-based version as a complementary study resource.
   </p>
 
-  <h1 class="page-title">
-    direito digital
-    <a href="index.html">← back</a>
-  </h1>
+  <dl class="src-legend" id="srcLegend" aria-label="proveniência das fontes"></dl>
+
+  <div class="lex-toolbar">
+    <input type="search" class="lex-search" id="lexSearch"
+           placeholder="filtrar…  ( / )" aria-label="filtrar a colectânea">
+    <span class="lex-count" id="lexCount" role="status" aria-live="polite"></span>
+    <button type="button" class="btn-quiet" id="toggleAll">colapsar tudo</button>
+  </div>
+
+  <div id="conteudo"></div>
 
 
   <ul class="writings-list">
 
     <!-- CRP -->
     <li class="writing-item">
-      <span class="writing-title"  style="font-size: 19px; color: var(--blue);"> Constituição da República Portuguesa</span>
+      <span class="writing-title"> Constituição da República Portuguesa</span>
       <ul class="writing-sublist">
         <li><a href="direitodigital_lex/0. CRP.pdf" target="_blank" rel="noopener">Artigos selecionados</a></li>     
       </ul>
@@ -140,13 +179,13 @@ of American History, Smithsonian Institute.
 
     <!-- Plataformas e Mercados -->
     <li class="writing-item">
-      <span class="writing-title" style="font-size: 19px; color: var(--blue);">Plataformas e Mercados</span>
+      <span class="writing-title">Plataformas e Mercados</span>
       <ul class="writing-sublist">
         <li>
           <a href="direitodigital_lex/3. DSA.pdf" target="_blank" rel="noopener">Regulamento (UE) 2022/2065</a> - RSD / DSA
            <ul class="writing-sublist">
             <li>
-              <a href="direitodigital_lex\rexecucaodsa.pdf"> Regulamento de Execução (UE) 2023/1201 da Comissão de 21 de junho de 2023 relativo a disposições pormenorizadas para a tramitação de determinados procedimentos pela Comissão nos termos do RSD/DSA</a>
+              <a href="direitodigital_lex/rexecucaodsa.pdf"> Regulamento de Execução (UE) 2023/1201 da Comissão de 21 de junho de 2023 relativo a disposições pormenorizadas para a tramitação de determinados procedimentos pela Comissão nos termos do RSD/DSA</a>
             </li>
           </ul>
         </li>
@@ -157,14 +196,14 @@ of American History, Smithsonian Institute.
           <a href="https://eur-lex.europa.eu/legal-content/PT/TXT/PDF/?uri=CELEX:32021R0784"" target="_blank" rel="noopener">Regulamento (UE) 2021/784 - Combate à difusão de conteúdos terroristas em linha</a>
         </li>
             <li>
-          <a href="direitodigital_lex\DMA_Consolidado.pdf">Regulamento (UE) 2022/1925 - Disputabilidade e Equidade dos Mercados no Setor Digital - Regulamento dos Mercados Digitais/RMD (Consolidação 2025)</a>
+          <a href="direitodigital_lex/DMA_Consolidado.pdf">Regulamento (UE) 2022/1925 - Disputabilidade e Equidade dos Mercados no Setor Digital - Regulamento dos Mercados Digitais/RMD (Consolidação 2025)</a>
         </li>
       </ul>
     </li>
 
     <!-- Comércio Eletrónico -->
     <li class="writing-item">
-      <span class="writing-title" style="font-size: 19px; color: var(--blue);">Comércio Eletrónico</span>
+      <span class="writing-title">Comércio Eletrónico</span>
       <ul class="writing-sublist">
         <li>
           <a href="https://www.pgdlisboa.pt/leis/lei_mostra_estrutura.php?tabela=leis&artigo_id=&nid=1399&nversao=&tabela=leis&so_miolo=" target="_blank" rel="noopener">DL n.º 7/2004 — Comércio Eletrónico</a>
@@ -188,6 +227,7 @@ of American History, Smithsonian Institute.
         </li>
         <li>
           <a href="direitodigital_lex/7. Serviços Financeiros.pdf" target="_blank" rel="noopener">DL n.º 95/2006 - Contratos à Distância relativos a Serviços Financeiros</a>
+          <a href="https://www.pgdlisboa.pt/leis/lei_mostra_articulado.php?artigo_id=810A0010&nid=810&tabela=leis&pagina=1&ficha=1&so_miolo=&nversao=s" target="_blank" rel="noopener">PGDL</a>
         </li>
         <li>
           <a href="direitodigital_lex/8. CCG.pdf" target="_blank" rel="noopener">DL n.º 446/85 - Cláusulas Contratuais Gerais</a>
@@ -206,10 +246,6 @@ of American History, Smithsonian Institute.
           <p class="writing-meta">PGDL</p>
         </li>
          <li>
-          <a href="https://www.pgdlisboa.pt/leis/lei_mostra_articulado.php?artigo_id=810A0010&nid=810&tabela=leis&pagina=1&ficha=1&so_miolo=&nversao=s" target="_blank" rel="noopener">DL n.º 95/2006 - Contratos à Distância relativos a Serviços Financeiros</a>
-          <p class="writing-meta">PGDL</p>
-        </li>
-         <li>
           <a href="https://www.pgdlisboa.pt/leis/lei_mostra_articulado.php?artigo_id=810A0010&nid=810&tabela=leis&pagina=1&ficha=1&so_miolo=&nversao=s" target="_blank" rel="noopener">DL n.º 12/2021, de 09 de Fevereiro - Assegura a execução na ordem jurídica interna do Regulamento (UE) 910/2014, relativo à Identificação Eletrónica e aos Serviços de Confiança para as Transações Eletrónicas</a>
           <p class="writing-meta">PGDL</p>
         </li>
@@ -219,13 +255,13 @@ of American History, Smithsonian Institute.
 
         <!-- Inteligencia Artificial -->
     <li class="writing-item">
-      <span class="writing-title" style="font-size: 19px; color: var(--blue);">Inteligência Artificial</span>
+      <span class="writing-title">Inteligência Artificial</span>
       <ul class="writing-sublist">
         <li>
           <a href="https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=OJ:L_202401689" target="_blank" rel="noopener">Regulamento (UE) 2024/1689 de 13 de junho - <i>Artificial Intelligence Act</i> / Regulamento Inteligência Artificial</a>
         </li>
        <li> 
-        <span class="writing-title" style="font-size: 15px; color: #4d7cff;">Digital Omnibus</span>
+        <span class="writing-title writing-title--sub">Digital Omnibus</span>
           <ul class="writing-sublist">
             <li>
               <a href="https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:52025PC0837" target="_blank" rel="noopener"> Digital Omnibus Regulation Proposal - COM(2025) 837 final, 19 de Novembro de 2025</a>
@@ -237,14 +273,14 @@ of American History, Smithsonian Institute.
               <a href="https://www.eesc.europa.eu/en/our-work/opinions-information-reports/opinions/digital-omnibus" target="_blank" rel="noopener"> Parecer do Comité Económico e Social Europeu – Digital Omnibus – 18 de Março 2026</a>
             </li>
             <li>
-              <a href="direitodigital_lex\P10_TA(2026)0198_EN.pdf" target="_blank" rel="noopener"> Simplificação da aplicação das regras harmonizadas em matéria de inteligência artificial (Digital Omnibus on AI) – Parlamento Europeu - Aprovado - 16 de Junho 2026 - entrada em vigor 19 de Junho 2026</a>
+              <a href="direitodigital_lex/P10_TA(2026)0198_EN.pdf" target="_blank" rel="noopener"> Simplificação da aplicação das regras harmonizadas em matéria de inteligência artificial (Digital Omnibus on AI) – Parlamento Europeu - Aprovado - 16 de Junho 2026 - entrada em vigor 19 de Junho 2026</a>
             </li>
               <li>
-              <a href="direitodigital_lex\OJ_L_202601744_PT_TXT.pdf" target="_blank" rel="noopener"> Regulamento 2026/1744 - do Parlamento e do Conselho - Simplificação da aplicação das regras harmonizadas em matéria de inteligência artificial (Regulamento Omnibus Digital em matéria de IA) - 8 de Julho de 2026 - entrada em vigor 27 de Julho de 2026</a>
+              <a href="direitodigital_lex/OJ_L_202601744_PT_TXT.pdf" target="_blank" rel="noopener"> Regulamento 2026/1744 - do Parlamento e do Conselho - Simplificação da aplicação das regras harmonizadas em matéria de inteligência artificial (Regulamento Omnibus Digital em matéria de IA) - 8 de Julho de 2026 - entrada em vigor 27 de Julho de 2026</a>
             </li>
             </li>
               <li>
-              <a href="lex\AI Act versão consolidada 27072026.pdf" target="_blank" rel="noopener"> Versão Consolidada do AI Act - 27 de Julho 2026</a>
+              <a href="lex/AI Act versão consolidada 27072026.pdf" target="_blank" rel="noopener"> Versão Consolidada do AI Act - 27 de Julho 2026</a>
             </li>
           </ul>
         </li>
@@ -254,25 +290,24 @@ of American History, Smithsonian Institute.
  <!-- Privacidade -->
 
    <li class="writing-item">
-      <span class="writing-title" style="font-size: 19px; color: var(--blue);">Privacidade</span>
+      <span class="writing-title">Privacidade</span>
       <ul class="writing-sublist">
         <li>
-          <a href="direitodigital_lex\CELEX_02016R0679-20160504_PT_TXT.pdf" target="_blank" rel="noopener">Regulamento (UE) 2016/679 de de 27 de abril de 2016 relativo à proteção das pessoas singulares no que diz respeito ao tratamento de dados pessoais e à 
+          <a href="direitodigital_lex/CELEX_02016R0679-20160504_PT_TXT.pdf" target="_blank" rel="noopener">Regulamento (UE) 2016/679 de de 27 de abril de 2016 relativo à proteção das pessoas singulares no que diz respeito ao tratamento de dados pessoais e à 
 livre circulação desses dados e que revoga a Diretiva 95/46/CE (Regulamento Geral sobre a Proteção de Dados) - RGPD</a>
         </li>
                             <li>
               
 
-             <a href="https://gdpr-info.eu/" target="_blank" rel="noopener"><span class="writing-title" style="font-size: 15px; color: #006400;">Intersoft - GDPR</a> 
+             <a href="https://gdpr-info.eu/" target="_blank" rel="noopener"><span class="writing-title writing-title--source">Intersoft - GDPR</a> 
              </span>
           
-                     </li>
-
           <ul class="writing-sublist">
             <li>
               <a href="https://www.pgdlisboa.pt/leis/lei_mostra_articulado.php?artigo_id=3118A0002&nid=3118&tabela=leis&ficha=1&nversao=" target="_blank" rel="noopener"> Lei n.º 58/2019, de 08 de Agosto - Assegura a execução, na ordem jurídica nacional, do Regulamento (UE) 2016/679 do Parlamento e do Conselho, de 27 de abril de 2016, relativo à proteção das pessoas singulares no que diz respeito ao tratamento de dados pessoais e à livre circulação desses dados</a>
             </li>
           </ul>
+          </li>
           <li>
             <a href="https://eur-lex.europa.eu/legal-content/PT/TXT/PDF/?uri=CELEX:02016L0680-20160504" target="_blank" rel="noopener">Tratamento de dados pessoais autoridades competentes – Diretiva (UE) 2016/680 do Parlamento Europeu e do Conselho, de 27 de abril de 2016 </a>
             <ul class="writing-sublist">
@@ -299,32 +334,32 @@ livre circulação desses dados e que revoga a Diretiva 95/46/CE (Regulamento Ge
             </li>
             
             <li>
-                 <a href="https://www.edpb.europa.eu/documents_en" target="_blank" rel="noopener"><span class="writing-title" style="font-size: 15px; color: #4d7cff;">EDPB Documents </a></span>
+                 <a href="https://www.edpb.europa.eu/documents_en" target="_blank" rel="noopener"><span class="writing-title writing-title--sub">EDPB Documents </a></span>
           
             </li>
 
             <li>
-                 <a href="https://www.cnpd.pt/legislacao/jurisprudencia-tjue/" target="_blank" rel="noopener"><span class="writing-title" style="font-size: 15px; color: #4d7cff;">CNPD - Jurisprudência TJUE</a></span>
+                 <a href="https://www.cnpd.pt/legislacao/jurisprudencia-tjue/" target="_blank" rel="noopener"><span class="writing-title writing-title--sub">CNPD - Jurisprudência TJUE</a></span>
           
             </li>
 
             <li>
-                 <a href="https://www.cnpd.pt/decisoes/pareceres/" target="_blank" rel="noopener"><span class="writing-title" style="font-size: 15px; color: #4d7cff;">CNPD - Pareceres</a></span>
+                 <a href="https://www.cnpd.pt/decisoes/pareceres/" target="_blank" rel="noopener"><span class="writing-title writing-title--sub">CNPD - Pareceres</a></span>
           
             </li>
 
             <li>
-                 <a href="https://www.cnil.fr/en" target="_blank" rel="noopener"><span class="writing-title" style="font-size: 15px; color: #4d7cff;">CNIL | Commission nationale de l'informatique et des libertés </a></span>
+                 <a href="https://www.cnil.fr/en" target="_blank" rel="noopener"><span class="writing-title writing-title--sub">CNIL | Commission nationale de l'informatique et des libertés </a></span>
           
             </li>
 
               <li>
-                 <a href="https://www.aepd.es/" target="_blank" rel="noopener"><span class="writing-title" style="font-size: 15px; color: #4d7cff;"> AEPD | Agencia Española de Protección de Datos</a></span>
+                 <a href="https://www.aepd.es/" target="_blank" rel="noopener"><span class="writing-title writing-title--sub"> AEPD | Agencia Española de Protección de Datos</a></span>
           
             </li>
 
             <li>
-                 <a href="https://www.garanteprivacy.it/" target="_blank" rel="noopener"><span class="writing-title" style="font-size: 15px; color: #4d7cff;"> GPDP |  Garante per la protezione dei dati personali</a></span>
+                 <a href="https://www.garanteprivacy.it/" target="_blank" rel="noopener"><span class="writing-title writing-title--sub"> GPDP |  Garante per la protezione dei dati personali</a></span>
           
             </li>
 
@@ -336,7 +371,7 @@ livre circulação desses dados e que revoga a Diretiva 95/46/CE (Regulamento Ge
 
   
    <li class="writing-item">
-      <span class="writing-title" style="font-size: 19px; color: var(--blue);">Cibersegurança</span>
+      <span class="writing-title">Cibersegurança</span>
       <ul class="writing-sublist">
         <li>
           <a href="https://eur-lex.europa.eu/legal-content/PT/TXT/PDF/?uri=OJ:L_202402847" target="_blank" rel="noopener">Regulamento (UE) 2024/2487 - Ciber-resiliência</a>
@@ -352,7 +387,6 @@ livre circulação desses dados e que revoga a Diretiva 95/46/CE (Regulamento Ge
             </li>
             <li>
               <a href="https://eur-lex.europa.eu/legal-content/PT/TXT/PDF/?uri=CELEX:32022R0868" target="_blank" rel="noopener"> Regulamento (UE) 2019/796 - Medidas restritivas contra ciberataques que constituam uma ameação para a União ou os seus Estados-Membros </a>
-            </li>
 
                   <ul class="writing-sublist">
                        <li>
@@ -364,7 +398,7 @@ livre circulação desses dados e que revoga a Diretiva 95/46/CE (Regulamento Ge
                    </ul>
             </li>
 
-            <span class="writing-title" style="font-size: 17px; color: #EA0C0C;">DORA</span>
+            <li><span class="writing-title writing-title--alert">DORA</span></li>
             <li>
               <a href="https://eur-lex.europa.eu/eli/reg/2022/2554/oj?locale=pt" target="_blank" rel="noopener"> Regulamento 2022/2554 - Resiliência Operacional Digital para o Setor Financeiro (DORA)</a>
             </li>
@@ -372,8 +406,6 @@ livre circulação desses dados e que revoga a Diretiva 95/46/CE (Regulamento Ge
             <li>
                  <a href="https://eur-lex.europa.eu/legal-content/PT/TXT/PDF/?uri=CELEX:32022L2556" target="_blank" rel="noopener">Diretiva (UE) 2022/2556 - Resiliência Operacional Digital para o Setor Financeiro (DORA) </a>
           
-            </li>
-
                     <ul class="writing-sublist">
                        <li>
               <a href="https://eur-lex.europa.eu/legal-content/PT/TXT/HTML/?uri=CELEX:02019R0796-20260513" target="_blank" rel="noopener"> Lei n.º 73/2025 - Transposição da Diretiva DORA para PT</a>
@@ -381,18 +413,15 @@ livre circulação desses dados e que revoga a Diretiva 95/46/CE (Regulamento Ge
                       <li>
               
 
-             <a href="https://www.springlex.eu/en/packages/dora/dora-regulation/" target="_blank" rel="noopener"><span class="writing-title" style="font-size: 15px; color: #006400;">Springlex - DORA</a> 
-             </span>
-          
+             <a href="https://www.springlex.eu/en/packages/dora/dora-regulation/" target="_blank" rel="noopener"><span class="writing-title writing-title--source">Springlex - DORA</span></a>
                      </li>
                    </ul>
- <span class="writing-title" style="font-size: 17px; color: #EA0C0C;">NIS-2</span>
+            </li>
+            <li><span class="writing-title writing-title--alert">NIS-2</span></li>
 
             <li>
                  <a href="https://eur-lex.europa.eu/legal-content/PT/TXT/PDF/?uri=CELEX:32022L2555" target="_blank" rel="noopener">Diretiva (UE) 2022/2555 - NIS-2 - relativa a medidas destinadas a garantir um elevado nível comum de cibersegurança na União</a>
           
-            </li>
-
                                 <ul class="writing-sublist">
                        <li>
               <a href="https://eur-lex.europa.eu/legal-content/PT/TXT/HTML/?uri=CELEX:02019R0796-20260513" target="_blank" rel="noopener"> Lei n.º 73/2025 - Transposição da Diretiva DORA para PT</a>
@@ -400,14 +429,14 @@ livre circulação desses dados e que revoga a Diretiva 95/46/CE (Regulamento Ge
                       <li>
               
 
-             <a href="direitodigital_lex\0000300006.pdf" target="_blank" rel="noopener">Lei n.º 59/2025, de 22 de outubro - Autoriza o Governo a transpor a Diretiva (UE) 2022/2555, relativa a medidas destinadas a garantir um elevado nível comum de cibersegurança na União</a> 
+             <a href="direitodigital_lex/0000300006.pdf" target="_blank" rel="noopener">Lei n.º 59/2025, de 22 de outubro - Autoriza o Governo a transpor a Diretiva (UE) 2022/2555, relativa a medidas destinadas a garantir um elevado nível comum de cibersegurança na União</a> 
           
                      </li>
                    </ul>
 
 
             <li>
-                 <a href="direitodigital_lex\0000400068.pdf" target="_blank" rel="noopener">Decreto-Lei n.º 125/2025, de 4 de dezembro - Transpõe a Diretiva (UE) 2022/2555, relativa a medidas destinadas a garantir um elevado nível comum de cibersegurança na União</a>
+                 <a href="direitodigital_lex/0000400068.pdf" target="_blank" rel="noopener">Decreto-Lei n.º 125/2025, de 4 de dezembro - Transpõe a Diretiva (UE) 2022/2555, relativa a medidas destinadas a garantir um elevado nível comum de cibersegurança na União</a>
           
             </li>
 
@@ -436,6 +465,9 @@ livre circulação desses dados e que revoga a Diretiva 95/46/CE (Regulamento Ge
     });
   })();
 </script>
+
+<script src="lex-sources.js"></script>
+<script src="lex-outline.js"></script>
 
 <script data-goatcounter="https://gasparsequeira.goatcounter.com/count"
         async src="//gc.zgo.at/count.js"></script>

@@ -1,5 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
+<!--
+  Página propositadamente fora da navegação, desde Setembro de 2026.
+
+  Não está em barra nenhuma e nada no conteúdo lhe aponta: chega-se aqui pelo
+  endereço, e mais nada. É deliberado — não é uma ligação que se perdeu.
+  (Mesmo critério de /perguntas/, que o sitemap.xml também assinala.)
+
+  A barra de navegação fica, para quem cá aterrar ter caminho de volta.
+  As cinco directivas continuam também listadas em lex.html, nas secções a
+  que dizem respeito.
+-->
+<html lang="pt">
 <head>
   <meta charset="UTF-8">
   <title>Diretivas — gasparsequeira.pt</title>
@@ -25,18 +36,44 @@
   }
   </script>
 
+  <link rel="icon" href="favicon.ico" sizes="16x16">
+  <link rel="icon" type="image/png" href="favicon-32.png" sizes="32x32">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
   <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body style="--band:62px">
+
+<a class="skip-link" href="#conteudo">saltar para a lista</a>
+
+
+<nav class="infront" aria-label="colectânea de fontes" style="--cols:4">
+    <div class="infront-inner">
+      <ul class="infront-grid">
+        <li><a href="lex.html">lex</a></li>
+        <li><a href="direito_digital_lex.html">Direito digital</a></li>
+        <li><a href="jurisprudencia.html">Jurisprudência</a></li>
+        <li><a href="industrial.html">Industrial</a></li>
+        <li><a href="tjue.html">Notas DPI</a></li>
+        <li><a href="digitalizacoes.html">Digitalizações</a></li>
+        <li class="is-blank" aria-hidden="true"><span></span></li>
+      </ul>
+
+      <div class="infront-sign">
+        <a class="infront-mark" href="index.html" title="voltar ao início" aria-label="voltar ao início">início</a>
+        <div class="infront-words">
+          <div class="infront-title">colectânea de fontes</div>
+          <div class="infront-tag">legislação e jurisprudência de direito da propriedade intelectual</div>
+        </div>
+      </div>
+    </div>
+</nav>
 
 <main class="page">
 
-  <h1 class="page-title">
-    Diretivas
-    <a href="lex.html">← lex</a>
-  </h1>
 
-  <ul class="writings-list">
+  <h1 class="page-title">Diretivas</h1>
+
+  <ul class="writings-list" id="conteudo">
 
     <li class="writing-item">
       <a href="directivas/1. Diretiva 91 250 CE - Protecção jurídica dos programas de computador - Software.pdf" target="_blank">Diretiva 91/250/CE — Proteção jurídica dos programas de computador (Software)</a>
@@ -61,6 +98,8 @@
   </ul>
 
 </main>
+
+<script src="lex-sources.js"></script>
 
 <script data-goatcounter="https://gasparsequeira.goatcounter.com/count"
         async src="//gc.zgo.at/count.js"></script>

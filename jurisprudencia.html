@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt">
 <head>
   <meta charset="UTF-8">
   <title>Jurisprudência — gasparsequeira.pt</title>
@@ -25,16 +25,55 @@
   }
   </script>
 
+  <link rel="icon" href="favicon.ico" sizes="16x16">
+  <link rel="icon" type="image/png" href="favicon-32.png" sizes="32x32">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
   <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body style="--band:62px">
+
+<a class="skip-link" href="#conteudo">saltar para a lista</a>
+
+<nav class="rail" id="rail" aria-label="secções"></nav>
+
+
+<nav class="infront" aria-label="colectânea de fontes" style="--cols:4">
+    <div class="infront-inner">
+      <ul class="infront-grid">
+        <li><a href="lex.html">lex</a></li>
+        <li><a href="direito_digital_lex.html">Direito digital</a></li>
+        <li><a href="jurisprudencia.html" aria-current="page">Jurisprudência</a></li>
+        <li><a href="industrial.html">Industrial</a></li>
+        <li><a href="tjue.html">Notas DPI</a></li>
+        <li><a href="digitalizacoes.html">Digitalizações</a></li>
+        <li class="is-blank" aria-hidden="true"><span></span></li>
+      </ul>
+
+      <div class="infront-sign">
+        <a class="infront-mark" href="index.html" title="voltar ao início" aria-label="voltar ao início">início</a>
+        <div class="infront-words">
+          <div class="infront-title">colectânea de fontes</div>
+          <div class="infront-tag">legislação e jurisprudência de direito da propriedade intelectual</div>
+        </div>
+      </div>
+    </div>
+</nav>
 
 <main class="page">
 
-  <h1 class="page-title">
-    Jurisprudência
-    <a href="lex.html">← back</a>
-  </h1>
+
+  <h1 class="page-title">Jurisprudência</h1>
+
+  <div class="lex-toolbar">
+    <input type="search" class="lex-search" id="jurSearch"
+           placeholder="filtrar acórdãos…  ( / )" aria-label="filtrar acórdãos">
+    <span class="lex-count" id="jurCount" role="status" aria-live="polite"></span>
+    <button type="button" class="btn-quiet" id="jurToggleAll">abrir sumários</button>
+  </div>
+
+  <div class="tag-filter" id="jurTags" aria-label="filtrar por descritor"></div>
+
+  <div id="conteudo"></div>
 
   <ul class="writings-list">
     <li class="jur-group">Nacional</li>
@@ -49,7 +88,7 @@
         <li>Nulidade de acórdão</li>
         <li>Excesso de pronúncia</li>
       </ul>
-      <details class="sumario" open>
+      <details class="sumario">
         <summary class="sumario-label">Sumário</summary>
         <p>Quando se aprecia a confundibilidade entre uma marca e um nome de domínio, para determinar se há concorrência desleal, deve distinguir-se a atribuição e o uso do nome de domínio — ainda que a atribuição do nome de domínio seja válida e eficaz, o uso de um nome de domínio poderá ser ilícito.</p>
       </details>
@@ -70,7 +109,7 @@
         <li>Cálculo da indemnização</li>
         <li>Princípio da proibição da dupla valoração</li>
       </ul>
-      <details class="sumario" open>
+      <details class="sumario">
         <summary class="sumario-label">Sumário</summary>
         <p>I - A nulidade do acórdão por contradição entre os fundamentos e a decisão ocorre quando a fundamentação aponta num sentido e a decisão extrai um sentido contrário, e já não quando exista erro de julgamento da matéria de facto, designadamente por se recorrer ao uso de presunções para prova de facto(s) que já constasse(m) dos autos ou que seja(m) contrário(s) a este(s).</p>
         <p>II - Não conhece de questões que lhe estejam vedadas o acórdão da Relação que, no uso dos poderes atribuídos pelo art. 712.º, n.º 4, do CPC, corrige oficiosamente a matéria de facto, sanando ambiguidades/obscuridades que dela constem.</p>
@@ -90,7 +129,7 @@
         <li>Nulidade</li>
         <li>Acto de disposição</li>
       </ul>
-      <details class="sumario" open>
+      <details class="sumario">
         <summary class="sumario-label">Sumário</summary>
         <p>I - A cláusula oitava do contrato de compra e venda celebrado entre autora e ré de acordo com a qual em caso de alienação das instalações da ré essa alienação "fica obrigatoriamente precedida de autorização da Câmara Municipal", entendida com o sentido de que a ré fica para sempre obrigada a obter a autorização da autora querendo vender o imóvel que lhe comprou, configura uma cláusula de inalienabilidade perpétua.</p>
         <p>II - Tal cláusula é nula por contrária à lei (art. 280.º do CC) pois introduz num negócio jurídico de disposição de bens uma limitação que fere o princípio da livre disponibilidade dos bens que é inerente ao estatuto real da propriedade (arts. 405.º e 1315.º do CC).</p>
@@ -109,7 +148,7 @@
         <li>Princípio da exclusividade</li>
         <li>Internet</li>
       </ul>
-      <details class="sumario" open>
+      <details class="sumario">
         <summary class="sumario-label">Sumário</summary>
         <p>I - A repetição de argumentos e conclusões, já tecidos aquando do recurso de apelação, não implica que a revista não deva ser conhecida.</p>
         <p>II - A notoriedade da marca não se pode basear em meras considerações de carácter conclusivo e desprovidas de qualquer concretização fáctica, que impossibilitem a respectiva indagação em fase de julgamento.</p>
@@ -133,7 +172,7 @@
         <li>Transposição de diretiva</li>
         <li>Responsabilidade extracontratual</li>
       </ul>
-      <details class="sumario" open>
+      <details class="sumario">
         <summary class="sumario-label">Sumário</summary>
         <p>I - O regime legal do comércio electrónico consta do DL nº 7/2004 de 07.01, que transpôs para o direito interno a Directiva 2000/31/CE do Parlamento Europeu e do Conselho de 08.06;</p>
         <p>II – Do mesmo resulta que devem ser qualificados como "prestadores intermediários de serviços em rede", as pessoas, singulares ou coletivas, que intervindo de forma autónoma, permanente e organizada, criam e disponibilizam os meios técnicos para que um determinado conteúdo circule na internet.</p>
@@ -142,7 +181,7 @@
     </li>
 
     <li class="writing-item"><a href="https://www.direitoemdia.pt/search/show/512e0b23476db4b22a500f6d8a4e20bccde915b17be04856a95fa25dd9e79663?terms=89359/10.7YIPRT.L2.S1" target="_blank" rel="noopener">Supremo Tribunal de Justiça — Acórdão (Cível)<br>Processo 89359/10.7YIPRT.L2.S1<br>25 de maio de 2021 · Relator: Pedro de Lima Gonçalves</a>
-      <details class="sumario" open>
+      <details class="sumario">
         <summary class="sumario-label">Sumário</summary>
         <p>I. A licença de software feito à medida obtém-se no quadro de um contrato de encomenda de obra intelectual, que tanto pode traduzir-se na adaptação de um programa já existente como na criação de um programa novo.</p>
         <p>II. Neste tipo de contrato, a lei atribui os direitos de autor à entidade que encomenda a obra, ressalvando que outra coisa pode resultar do contrato e, na prática, sucede com frequência que a entidade que desenvolve o software retém os direitos de autor e concede uma licença de utilização à outra parte.</p>
@@ -161,7 +200,7 @@
         <li>Nome de domínio</li>
         <li>Concorrência desleal</li>
       </ul>
-      <details class="sumario" open>
+      <details class="sumario">
         <summary class="sumario-label">Sumário</summary>
         <p>Os critérios do art. 238.º do actual Código da Propriedade Industrial devem aplicar-se, ainda que com adaptações, aos casos em que haja risco de confusão entre uma marca e um nome de domínio.</p>
       </details>
@@ -178,7 +217,7 @@
         <li>Autoria</li>
         <li>Confissão</li>
       </ul>
-      <details class="sumario" open>
+      <details class="sumario">
         <summary class="sumario-label">Sumário</summary>
         <p>I - O valor probatório dos documentos electrónicos aos quais não seja aposta uma assinatura electrónica qualificada e certificada é apreciado nos termos gerais de direito (art.º 3.º n.º5 do RJDEAD), o que significa que pode ser livremente apreciado pelo tribunal – art.º 366.º do CCiv.</p>
         <p>II – Se o "email" a que se reporta determinado facto provado foi aceite pela Ré, na respectiva oposição, nos termos em que foi enviado o dito "email", não aceitando, todavia, a Ré a interpretação confessória que lhe é dada pela Autora, a matéria em causa não era a da exigência legal de forma, para a prova tarifada do documento, à semelhança do disposto nos art.ºs 373.º n.º1 e 376.º n.º1 do CCiv, mas antes a do valor que o tribunal tivesse atribuído aos documentos escritos em causa.</p>
@@ -195,7 +234,7 @@
         <li>Telecomunicações</li>
         <li>Internet</li>
       </ul>
-      <details class="sumario" open>
+      <details class="sumario">
         <summary class="sumario-label">Sumário</summary>
         <p>I - Publicar o conteúdo de intercepções telefónicas não é o mesmo que divulgar o link que dá acesso à página onde as referidas intercepções se mostram acessíveis e não é o mesmo que ser o próprio jornal a publicá-las. Por outras palavras: a remissão que um site da internet faz para outra página da internet, tão-somente através da divulgação de um link, não integra o conceito de "publicação" a que se refere o artigo 88.º, n.º4, do CP, a menos que se recorra a uma interpretação analógica que o direito penal, em sede de incriminação, não consente.</p>
         <p>II - O crime previsto e punido no artigo 194.º, n.º3, do C.P., exige a divulgação do conteúdo das telecomunicações e não toda e qualquer divulgação, designadamente a divulgação de modos de acesso a esses mesmos conteúdos. Apenas a divulgação do conteúdo da comunicação integra a modalidade de conduta típica em causa.</p>
@@ -208,7 +247,7 @@
         <li>Programa informático</li>
         <li>Direitos de autor</li>
       </ul>
-      <details class="sumario" open>
+      <details class="sumario">
         <summary class="sumario-label">Sumário</summary>
         <p>I - Um programa de computador consiste numa pré-listagem de instruções que precede a introdução dos dados, instruções essas que são destinadas a orientar a acção do computador relativamente ao material informativo que se pretende que seja processado.</p>
         <p>II - O nº 3 do artigo 3º do Decreto-Lei nº 252/94 (que operou a transposição para a nossa ordem jurídica da Directiva n.º 91/250/CEE, do Conselho de 14 de Maio) atribui ao destinatário do programa, isto é, ao empregador ou ao cliente da encomenda, os direitos a ele relativos, salvo estipulação em contrário ou se outra coisa resultar das finalidades do contrato.</p>
@@ -226,7 +265,7 @@
         <li>Programa informático</li>
         <li>Direitos de autor</li>
       </ul>
-      <details class="sumario" open>
+      <details class="sumario">
         <summary class="sumario-label">Sumário</summary>
         <p>I - É de qualificar como "contrato de prestação de serviços inominado" o contrato em que uma parte adjudica a outra a prestação de serviços na área informática, designadamente serviços de desenvolvimento, implementação e manutenção de software e hardware, helpdesk e formação;</p>
         <p>II - O DL nº 252/04 inclui no seu âmbito de proteção todos os «programas de computador» que tiverem carácter criativo, independentemente do seu tipo funcional, do seu suporte material e da sua fase de desenvolvimento;</p>
@@ -241,7 +280,7 @@
         <li>Direitos de autor</li>
         <li>Comunicação ao público</li>
       </ul>
-      <details class="sumario" open>
+      <details class="sumario">
         <summary class="sumario-label">Sumário</summary>
         <p>I - Não há contradição entre o acórdão de uniformização de jurisprudência n.° 15/2013 e o despacho do Tribunal de Justiça de 14 de Julho de 2015 (processo n.º C-151/15);</p>
         <p>II - A viabilização da comunicação ao público de obras musicais e literário-musicais constitui direito exclusivo dos seus autores dependendo, consequentemente, da sua autorização;</p>
@@ -261,7 +300,7 @@
         <li>Interesse contratual positivo</li>
         <li>Lucro cessante</li>
       </ul>
-      <details class="sumario" open>
+      <details class="sumario">
         <summary class="sumario-label">Sumário</summary>
         <p>5.1 - O contrato de empreitada, em razão da noção dada no artigo 1207.º do CC, e tendo em atenção o respectivo regime legal que se mostra disciplinado nos arºs 1298º a 1228, do CC, encontra-se claramente pensado para a realização de obras corpóreas e materiais, que não para obras incorpóreas e imateriais;</p>
         <p>5.2 - Em face do referido em 5.1, e tendo Autor e Ré acordado que o primeiro se obrigava a realizar e a fornecer à segunda um programa informático e/ou uma plataforma WEB com determinadas e especificas características e funcionalidades direccionadas para a gestão operacional das EAS-Escolas da Academia …, porque no essencial em causa está a realização de uma "obra" que não é material, deve ao respectivo contrato aplicar-se o artigo 1156º, do CC;</p>
@@ -280,7 +319,7 @@
         <li>Incumprimento</li>
         <li>Cláusula de exclusão de responsabilidade</li>
       </ul>
-      <details class="sumario" open>
+      <details class="sumario">
         <summary class="sumario-label">Sumário</summary>
         <p>I – Tendo as partes contratualizado, em termos globais, a concepção, implementação e instalação de determinado sistema informático, concebido com total autonomia técnica pela Ré, que serviria um concreto propósito estabelecido pela A., consistente em melhorar os serviços dos jogos de Totoloto e Joker, através do desenvolvimento informático de uma solução de captura automática de dados e contratação de outros serviços, permitindo gerar condições de fiabilidade e agilidade na actividade de exploração, em todo o território de Cabo Verde do citado concurso de apostas mútuas sobre sorteio, obrigando-se conjugadamente a Ré a promover acções de formação que tinham a ver com a futura utilização do sistema informático (uma vez operacional) e a conceder a licença de utilização do respectivo software, tal contrato reveste a natureza jurídica de um contrato de prestação de serviços atípico e inominado, sujeito às regras constantes dos artigos 1156º, mas a que se poderão eventualmente aplicar por analogia o regime do contrato de empreitada, sempre que tal analogia se justificar.</p>
         <p>II – Tendo o contrato um objectivo muito específico, que tanto a A. como a Ré sabiam perfeitamente que deveria ser satisfeito na sua integralidade, estamos claramente perante uma obrigação de resultado que foi, expressa e indiscutivelmente, assumida pela empresa contratada e não face a uma obrigação de meios.</p>
@@ -307,7 +346,7 @@
         <li>Directiva comunitária</li>
         <li>Protecção de programas de computador</li>
       </ul>
-      <details class="sumario" open>
+      <details class="sumario">
         <summary class="sumario-label">Sumário</summary>
         <p>I - O DL 252/94 de 20.10 que transpôs a Diretiva 91/250/CEE de 14 de maio de 1991 para o direito nacional estende aos programas de computador o regime legal análogo ao regime vigente para a proteção dos direitos de autor.</p>
         <p>II - A interpretação deste diploma deve fazer-se à luz do texto da Diretiva de acordo com a interpretação dada ao artigo 189º nº 3 do TUE pelo TJUE.</p>
@@ -321,7 +360,7 @@
         <li>Enriquecimento sem causa</li>
         <li>Indemnização</li>
       </ul>
-      <details class="sumario" open>
+      <details class="sumario">
         <summary class="sumario-label">Sumário</summary>
         <p>I) Se a ré utiliza há 6 anos domínios de páginas web, previamente criados pelo autor, tendo prometido a este a celebração de contrato de trabalho/uma participação social, que não se vieram a concretizar, mas tendo o autor, por isso, disponibilizado à ré a utilização de tais domínios e colaborado durante mais de 9 meses, diariamente, na atividade e nas instalações da ré, encontram-se verificados todos os requisitos de que depende a obrigação de indemnizar pelo instituto do enriquecimento sem causa, em conformidade com o disposto no artigo 473.º CC:<br>
         a) O enriquecimento da ré, na medida em que não despendeu o custo inerente à atividade do autor e ao custo de criação e de utilização dos domínios, de que beneficiou em termos patrimoniais;<br>
@@ -343,7 +382,7 @@
         <li>Protecção dos dados pessoais</li>
         <li>Direito ao esquecimento</li>
       </ul>
-      <details class="sumario" open>
+      <details class="sumario">
         <summary class="sumario-label">Sumário</summary>
         <p>I - A publicação pela Wikipédia de biografia em linha do requerente integra o tratamento conjunto de dados pessoais para efeitos do disposto no Regulamento (EU) 2016/679 (Regulamento Geral de Proteção de Dados).</p>
         <p>II - O respeito pela vida privada e familiar (Artigo 7.º da Carta dos Direitos Fundamentais) tem o mesmo sentido e alcance que o sentido e o alcance conferidos ao artigo 8.º, n.º 1, da CEDH, conforme interpretado pela jurisprudência do Tribunal Europeu dos Direitos Humanos.</p>
@@ -377,7 +416,7 @@
       <ul class="descritores">
         <li>Plataforma informática</li>
       </ul>
-      <details class="sumario" open>
+      <details class="sumario">
         <summary class="sumario-label">Sumário</summary>
         <p>I. Em sede dos direitos patrimoniais incidentes sobre programas de computador, o estabelecido pelo DL. n.º 252/94, prevê um regime diverso do CDADC em matéria de atribuição do direito no âmbito de obras criadas por encomenda. A titularidade de programas de computador efetuados por encomenda é atribuída, consoante o disposto no artigo 3.º, n.º 3 do aludido decreto-lei, ao respetivo destinatário, salvo estipulação em contrário ou se outra coisa resultar das finalidades do contrato.</p>
         <p>II. O Tribunal de Propriedade Intelectual e, consequentemente, a presente Secção do Tribunal da Relação de Lisboa, no que se refere ao instituto da concorrência desleal, é apenas competente para conhecer das questões relativas a "[a]ções em que a causa de pedir verse sobre a prática de atos de concorrência desleal ou de infração de segredos comerciais em matéria de propriedade industrial". O direito de autor não constitui matéria de propriedade industrial.</p>
@@ -393,7 +432,7 @@
         <li>Internet</li>
         <li>Bloqueio de acesso</li>
       </ul>
-      <details class="sumario" open>
+      <details class="sumario">
         <summary class="sumario-label">Sumário</summary>
         <p>I. Num quadro de violação de direitos de autor através da concessão de acesso a conteúdo ilícito num determinado endereço de Internet, tendo-se provado a titularidade de tais direitos, a violação dos mesmos, a representação pela Requerente da providência cautelar dos respectivos titulares atingidos e a potencialidade de a intervenção da Requerida corresponder a uma importante via de bloqueio da ilicitude, é irrelevante a questão de saber se existem mais agentes e operadores em condições de bloquear outras vias de acesso, já que o que importa é ter presente que nenhuma das vias de reacção e supressão do ilícito pode ser prescindida, sob pena de claudicação do sistema de resposta à ilegal violação dos direitos de autor;</p>
         <p>II. Este circunstancialismo configura um quadro de aparência da existência do direito brandido e justificabilidade do decretamento da providência;</p>
@@ -410,7 +449,7 @@
         <li>Direito de autor</li>
         <li>Comunicação ao público</li>
       </ul>
-      <details class="sumario" open>
+      <details class="sumario">
         <summary class="sumario-label">Sumário</summary>
         <p>1. O conceito de «comunicação ao público», na aceção do artigo 3.º, n. 1, da Diretiva 2001/29/CE, associa dois elementos cumulativos: i. um ato de comunicação de uma obra e ii. a comunicação desta última a um público, e o apuramento destes elementos implica sempre uma apreciação individualizada.</p>
         <p>2. As pessoas que exploram designadamente um café‑restaurante praticam um ato de comunicação quando transmitem intencionalmente obras protegidas aos seus clientes, ao distribuírem voluntariamente um sinal através de recetores de televisão ou de rádio que instalaram nos seus estabelecimentos.</p>
@@ -422,7 +461,7 @@
     <li class="jur-court">Primeira instância</li>
 
     <li class="writing-item"><a href="jurisprudencia/btuga - Violacao Digital dos Direitos Autoriais A Internet e a Partilha de Conteudos Protegidos nas Redes P2P Atraves do Protocolo Bittorrent.pdf" target="_blank" rel="noopener">Proc. 1386/06.9JFLSB (condenação penal e-mule)</a>
-      <details class="sumario" open>
+      <details class="sumario">
         <summary class="sumario-label">Sumário</summary>
         <p>1. O serviço Internet BTUGA era acedível pelo endereço www.btuga.pt e consistia numa rede (um "sistema") de partilha de ficheiros P2P, assente no protocolo Bittorrent, dedicado à partilha de conteúdos fonográficos e videográficos, sem autorização dos respectivos titulares dos direitos de autor e dos direitos conexos.</p>
         <p>2. Constituíram-se seis assistentes, entre eles a AUDIOGEST e a SPA, deduzindo um pedido único de indemnização civil "peticionando com base nos factos daquela descritos, a condenação do arguido/demandado a pagar-lhes o valor correspondente ao preço das obras protegidas e que representam os respectivos direitos constantes de lista de downloads efectuada" (cerca de € 1 milhão) e a 2% do valor total do decréscimo de vendas que tiveram em resultado da sua conduta, por esse ser "o mínimo imputável ao site Btuga" (€ 180.000).</p>
@@ -433,6 +472,8 @@
 
 
 </main>
+
+<script src="jur.js"></script>
 
 <script data-goatcounter="https://gasparsequeira.goatcounter.com/count"
         async src="//gc.zgo.at/count.js"></script>
