@@ -193,6 +193,10 @@ body {
                                         INfront usava #7e8b94 (3,0:1 aqui). */
 
 .infront {
+  /* no index há a sobreposição CRT a z-index 20; a faixa sobe acima dela para
+     a navegação ter o mesmo aspecto em todas as páginas */
+  position: relative;
+  z-index: 21;
   padding: 14px 28px 13px;
   background: transparent;
   border-bottom: 1px solid rgba(107, 119, 128, 0.35);
@@ -205,6 +209,44 @@ body {
   max-width: 1240px;
   margin: 0 auto;
 }
+
+/* ═══ o botão de início ═══════════════════════════════════════════════════
+   Uma casa de píxeis, desenhada de raiz em rectângulos — mesma técnica das
+   cruzes do fundo. Não é o ícone de nenhum sistema operativo: esses são obra
+   de terceiros e não se copiam. É só o registo — 1 bit, arestas duras.
+
+   Vive numa caixa alta à esquerda da grelha, como o separador do logótipo na
+   barra da Apple de 2001. O invólucro .infront-nav existe para a caixa ter
+   exactamente a altura da grelha, tenha ela uma fila ou duas.               */
+
+.infront-nav {
+  display: flex;
+  align-items: stretch;
+  gap: 2px;                 /* o mesmo espaçador das caixas */
+  min-width: 0;
+}
+
+.inicio {
+  flex: 0 0 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #e0e1db;
+  border: 1px solid rgba(107, 119, 128, 0.5);
+  color: var(--infront-ink);
+  text-decoration: none;
+  transition: none;
+}
+
+.inicio:hover,
+.inicio:focus-visible {
+  background: var(--infront-ink);
+  border-color: var(--infront-ink);
+  color: #fff;
+}
+
+.inicio svg { display: block; }
+.inicio svg rect { fill: currentColor; }
 
 .infront-grid {
   display: grid;
@@ -223,7 +265,10 @@ body {
   width: 100%;
   min-height: 22px;
   padding: 3px 6px;         /* 6px à esquerda, como no GIF */
-  background: #fff;         /* branco, como no original — e só aqui */
+  /* Não branco: o tom que as caixas do index já pareciam ter, por estarem
+     debaixo das riscas da CRT. #dcddd7 era o valor à vista, mas dá 4,42:1
+     com a tinta das etiquetas e falha o AA; este dá 4,59. */
+  background: #e0e1db;
   border: 1px solid rgba(107, 119, 128, 0.5);
   font-family: Verdana, Geneva, "DejaVu Sans", sans-serif;
   font-size: 10px;
@@ -283,9 +328,6 @@ body {
   text-indent: -9999px;
   overflow: hidden;
 }
-
-a.infront-mark:hover,
-a.infront-mark:focus-visible { border-left-color: var(--blue); }
 
 .infront-words { text-align: right; }
 
