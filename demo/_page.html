@@ -1,0 +1,1717 @@
+<html lang="en">
+<head>
+<title>Phrack Magazine</title>
+
+<!-- Without this, phones use a 980px fallback layout viewport and shrink-to-fit, which
+     scaled the whole demo down ~2.5x and left the page ~2100px tall on a 390px screen. -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<meta name="description" content="Phrack is both a technical journal and a cultural document. Like all zines, it represents a snapshot of the scene at the time.">
+<!-- Canonicalizes to '/', not to this file's own path: gen-media.mjs copies this file's
+     bytes over _site/index.html when site.yaml's homepage is 'hacktro' (true today). If
+     that setting ever changes, this tag should move with it. -->
+<link rel="canonical" href="https://phrack.org/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Phrack Magazine">
+<meta property="og:description" content="Phrack is both a technical journal and a cultural document. Like all zines, it represents a snapshot of the scene at the time.">
+<meta property="og:url" content="https://phrack.org/">
+<meta property="og:image" content="https://phrack.org/images/phrack-new.webp">
+<meta property="og:site_name" content="Phrack">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@phrack">
+<meta name="twitter:account_id" content="1745261389168496640">
+<meta name="twitter:title" content="Phrack Magazine">
+<meta name="twitter:description" content="Phrack is both a technical journal and a cultural document. Like all zines, it represents a snapshot of the scene at the time.">
+<meta name="twitter:image" content="https://phrack.org/images/phrack-new.webp">
+
+<!-- the --intro-* and --hacktro-* tokens this page paints with; css/palette.css is a
+     symlink to the active theme in css/themes/ -->
+<link href="/css/palette.css" rel="stylesheet" type="text/css">
+
+<style>
+/* Where the hacktro deviates from the shared intro tokens: a muted chassis instead
+   of the CFP page's cyan-on-black. The values come from the active theme's
+   --hacktro-* tokens, so this works whichever theme css/palette.css points at. */
+:root {
+  --intro-ascii-fg: var(--hacktro-ascii-fg);
+  --intro-button-bg: var(--hacktro-button-bg);
+  --intro-button-fg: var(--intro-outline);
+  --intro-button-border: var(--intro-outline);
+  --intro-button-hover-bg: var(--hacktro-button-hover-bg);
+}
+body {
+  background-color: var(--intro-bg);
+  color: var(--intro-fg);
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 14px;
+  margin: 0;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  /* justify-content needs something to centre within; without a height the demo
+     sat at the top of a very tall page. dvh keeps it right under mobile browser chrome. */
+  min-height: 100vh;
+  min-height: 100dvh;
+  box-sizing: border-box;
+  overflow-x: hidden;
+}
+
+.ascii-container {
+  background-color: var(--intro-bg);
+  white-space: pre;
+  line-height: 1.1;
+}
+
+/* The demo draws into a fixed 640x480 backing store (see DEMO_CONFIG.view) and is shown at
+   that size. CSS only letterboxes it *down* to viewports smaller than 640x480 rather than
+   letting it overflow them - the canvas keeps its internal resolution either way, so no demo
+   code is affected, and pixelated preserves the crunchy look the 2d context already opts into
+   via imageSmoothingEnabled = false. */
+#main,
+#myscreen {
+  max-width: 100%;
+}
+
+#main canvas {
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  /* room for the body padding, the trailing <br> still in flow, and the fixed Skip To Site
+     button underneath - a short landscape phone is the tight case. */
+  max-height: calc(100dvh - 8rem);
+  image-rendering: pixelated;
+}
+
+/* The logo is 70 monospace columns (~590px at 14px), shown until the demo takes over.
+   Scale it to the viewport so it never forces a sideways scroll on a phone. */
+#ascii {
+  font-size: min(14px, 1.9vw);
+  margin: 0;
+}
+
+.ascii-line {
+  display: block;
+  transition: color 0.3s linear;
+}
+
+.ascii-color-0 { color: var(--intro-ascii-fg); }
+.bascii-color-0 { color: var(--intro-glow); box-shadow: 0 0 10px var(--intro-glow); border: 1px solid var(--intro-outline); }
+
+button,
+input[type="button"],
+input[type="submit"],
+input[type="reset"],
+.skip-to-site
+{
+  background-color: var(--intro-button-bg);
+  color: var(--intro-button-fg);
+  border: 1px solid var(--intro-button-border);
+  padding: 10px 20px;
+  font-family: 'Courier New', monospace;
+  font-size: 13px;
+  cursor: pointer;
+  border-radius: 2px;
+  transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s;
+  box-shadow: 0 0 6px var(--intro-glow);
+  width: auto;
+  margin: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+button:hover,
+input[type="button"]:hover,
+input[type="submit"]:hover,
+input[type="reset"]:hover,
+.skip-to-site:hover
+{
+  background-color: var(--intro-button-hover-bg);
+  transform: scale(1.06);
+  box-shadow: 0 0 12px var(--intro-glow), 0 0 24px var(--intro-glow);
+}
+
+button:active,
+input[type="button"]:active,
+input[type="submit"]:active,
+input[type="reset"]:active,
+.skip-to-site:active
+{
+  transform: scale(0.97);
+  box-shadow: 0 0 6px var(--intro-glow), inset 0 0 4px var(--intro-glow);
+}
+
+/* "Skip To Site" - the demo's only exit. Wears the shared button chassis above (the
+   --intro-button-* / --hacktro-* tokens), pinned opposite the mute button so the two
+   overlays bracket the demo. Revealed a few seconds in; see the setTimeout at the
+   bottom of <body>. */
+.skip-to-site {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+  display: inline-block;
+  text-decoration: none;
+  /* The shared chassis paints button text --intro-button-fg (= --intro-outline here),
+     which is the same value as the border and unreadable on the muted --hacktro-button-bg.
+     This is the anchor --intro-button-link-fg exists for; phrack_CFP.html colours its own
+     "Skip To Site" the same way. */
+  color: var(--intro-button-link-fg);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.6s ease, background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s;
+}
+
+.skip-to-site.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* The shared :hover/:active rules set a bare scale(), which would drop the
+   translateX(-50%) that centres the button - restate both together. */
+.skip-to-site:hover {
+  transform: translateX(-50%) scale(1.06);
+}
+
+.skip-to-site:active {
+  transform: translateX(-50%) scale(0.97);
+}
+
+.mute-unmute-button {
+  position: fixed;
+  top: 12px;
+  right: 12px;
+  width: 32px;
+  z-index: 1000;
+  cursor: pointer;
+  line-height: 0;
+}
+
+.mute-unmute-button img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+@media (max-width: 600px), (pointer: coarse) {
+  body {
+    /* extra room at the foot so the fixed button never sits on the demo - it is only
+       ~16px clear of the canvas on a short landscape phone otherwise. */
+    padding: 1rem 1rem 4.5rem;
+  }
+
+  .mute-unmute-button {
+    top: 10px;
+    right: 10px;
+    width: 40px;
+  }
+
+  .skip-to-site {
+    bottom: 16px;
+    /* >= 44px tall, the minimum comfortable touch target */
+    padding: 13px 22px;
+    font-size: 14px;
+  }
+}
+
+</style>
+
+</head>
+<body bgcolor="#000" onload="prepare();">
+
+<!-- Kept above the <script src> tags on purpose: those are render-blocking, so nothing below
+     them gets parsed until they have all arrived. On a throttled connection that left the page
+     completely blank with no escape hatch. Parsed first, the ASCII art and Skip To Site button
+     show up about a second in. -->
+<div class="mute-unmute-button">
+    <img id="unmute-button" src="plugins/images/unmute.svg" alt="mute-unmute-button" onclick="toggleMusic();">
+    <img style="display: none;" id="mute-button" src="plugins/images/mute.svg" alt="mute-unmute-button"
+        onclick="toggleMusic();">
+</div>
+
+<pre id="ascii" class="ascii-color-0">
+
+    _______ ____ ____    _______     _______________  _____   _____
+ ._\\____  \\   |    |__\\__    \  _\\__    /\    __//_\    | /    /
+ :    |/   >>   :    :    :/    /./    /    |    |    /.    !/    /
+ |    :    /         |    /     \|    __    |    |    |    /      \
+ |    ____/|    |    |    \       \      |    |__  :    |    \       \
+ |    |/// |____|    |_____\     |\___ |    ://\      !_____\       \
+ |    :    /////|////\\____|////\\___/.   \\____://///\\_____/
+ |___/ e-zine   /////:     //////|     ////       /////       //////
+ ////                .            :               x0^67^aMi5H^iMP!
+
+                            . ...
+  </pre>
+
+<br>
+
+<a id="skip-to-site" class="skip-to-site" href="/index_latest.html">Skip To Site</a>
+
+<noscript>
+    <style type="text/css">
+        /* No JS, no reveal timer - show the escape hatch straight away. */
+        #skip-to-site {
+            opacity: 1;
+            pointer-events: auto;
+        }
+    </style>
+</noscript>
+
+<script>
+    // The demo has no exit of its own - fade the escape hatch in a few seconds after load,
+    // once the intro has had a moment to land. Mirrors phrack_CFP.html's nav-button reveal.
+    setTimeout(() => {
+        document.getElementById("skip-to-site").classList.add("visible");
+    }, 3000);
+</script>
+
+<script src="plugins/demo/pt.js"></script>
+<script src="plugins/demo/ft2.js"></script>
+<script src="plugins/demo/player.js"></script>
+
+<center>
+<div id="myscreen"></div>
+<div id="main"></div>
+</center>
+
+<script>
+
+/**
+
+
+
+    _______ ____ ____    _______     _______________  _____   _____
+ ._\\____  \\   |    |__\\__    \  _\\__    /\    __//_\    | /    /
+ :    |/   >>   :    :    :/    /./    /    |    |    /.    !/    /
+ |    :    /         |    /     \|    __    |    |    |    /      \
+ |    ____/|    |    |    \       \      |    |__  :    |    \       \
+ |    |/// |____|    |_____\     |\___ |    ://\      !_____\       \
+ |    :    /////|////\\____|////\\___/.   \\____://///\\_____/
+ |___/ e-zine   /////:     //////|     ////       /////       //////
+ ////                .            :               x0^67^aMi5H^iMP!
+
+                            . ...
+
+
+
+
+
+ Well, some peeps call it a hacktro and others name it as cracktro, but this time it's a phracktro (cheers Ali :D).
+ 
+ 
+:: credits ::
+
+ music:          LHS
+ code & gfx:     @piotrbania
+
+ + some of the general rendering functions are based on codef engine 
+   (Copyright (c) 2011 Antoine Santo Aka NoNameNo)
+
+**/
+
+
+// ============================================================
+//  ENGINE
+// ============================================================
+
+window.HACKTRO = window.requestAnimationFrame       ||
+                 window.webkitRequestAnimationFrame ||
+                 window.mozRequestAnimationFrame    ||
+                 window.oRequestAnimationFrame      ||
+                 window.msRequestAnimationFrame     ||
+                 function(cb) { window.setTimeout(cb, 1000 / 60); };
+
+// ------------------------------------------------------------------
+// DemoCanvas  -  thin wrapper around an HTML5 canvas element
+// ------------------------------------------------------------------
+function DemoCanvas(w, h, divname) {
+    this.width  = w;
+    this.height = h;
+    this.canvas = document.createElement('canvas');
+    this.canvas.setAttribute('width',  w);
+    this.canvas.setAttribute('height', h);
+    this.canvas.id = 'maincanvas';
+    if (divname) document.getElementById(divname).appendChild(this.canvas);
+    this.contex      = this.canvas.getContext('2d');
+    this.tile_width  = 0;
+    this.tile_height = 0;
+    this.tile_start  = 0;
+
+    this.fill = function(color) {
+        var s = this.contex.fillStyle, a = this.contex.globalAlpha;
+        this.contex.globalAlpha = 1;
+        this.contex.fillStyle   = color;
+        this.contex.fillRect(0, 0, this.width, this.height);
+        this.contex.fillStyle   = s;
+        this.contex.globalAlpha = a;
+    };
+
+    this.clear = function() {
+        this.contex.clearRect(0, 0, this.width, this.height);
+    };
+
+    this.initTile = function(tile_width, tile_height, tile_start) {
+        this.tile_width  = tile_width;
+        this.tile_height = tile_height;
+        if (tile_start !== undefined) this.tile_start = tile_start;
+    };
+
+    // draw the whole canvas onto dst, optionally with alpha / scale / rotation
+    this.draw = function(dst, x, y, alpha, sx, sy, rot) {
+        var ctx = dst.contex;
+        var savedAlpha = ctx.globalAlpha;
+        ctx.globalAlpha = alpha !== undefined ? alpha : 1;
+
+        var needXform = rot || (sx !== undefined && (sx !== 1 || sy !== 1));
+        if (needXform) {
+            ctx.save();
+            ctx.translate(x, y);
+            if (rot) ctx.rotate(rot * Math.PI / 180);
+            if (sx !== undefined) ctx.scale(sx, sy);
+            ctx.drawImage(this.canvas, 0, 0);
+            ctx.restore();
+        } else {
+            ctx.drawImage(this.canvas, x, y);
+        }
+        ctx.globalAlpha = savedAlpha;
+    };
+
+    // draw a rectangular region of this canvas onto dst
+    this.drawPart = function(dst, x, y, partx, party, partw, parth, alpha, zx, zy, rot) {
+        if (partx < 0) { x -= partx; partw += partx; partx = 0; }
+        else partw = Math.min(partw, this.width  - partx);
+        if (party < 0) { y -= party; parth += party; party = 0; }
+        else parth = Math.min(parth, this.height - party);
+        if (partw <= 0 || parth <= 0) return;
+
+        var ctx = dst.contex;
+        var savedAlpha = ctx.globalAlpha;
+        ctx.globalAlpha = alpha !== undefined ? alpha : 1;
+
+        if (rot || zx !== undefined) {
+            ctx.save();
+            ctx.translate(x, y);
+            if (rot) ctx.rotate(rot * Math.PI / 180);
+            if (zx !== undefined) ctx.scale(zx, zy);
+            ctx.drawImage(this.canvas, partx, party, partw, parth, 0, 0, partw, parth);
+            ctx.restore();
+        } else {
+            ctx.drawImage(this.canvas, partx, party, partw, parth, x, y, partw, parth);
+        }
+        ctx.globalAlpha = savedAlpha;
+    };
+
+    this.drawTile = function(dst, nb, x, y, alpha, w, h, rot) {
+        var cols = Math.floor(this.canvas.width / this.tile_width);
+        var tx   = Math.floor(nb % cols) * this.tile_width;
+        var ty   = Math.floor(nb / cols) * this.tile_height;
+        this.drawPart(dst, x, y, tx, ty, this.tile_width, this.tile_height, alpha, w, h, rot);
+    };
+
+    return this;
+}
+
+// ------------------------------------------------------------------
+// DemoImage  -  loader / drawer for external image files
+// ------------------------------------------------------------------
+function DemoImage(src) {
+    this.img         = new Image();
+    this.img.src     = src;
+    this.tile_width  = 0;
+    this.tile_height = 0;
+    this.tile_start  = 0;
+
+    this.initTile = function(tile_width, tile_height, tile_start) {
+        this.tile_width  = tile_width;
+        this.tile_height = tile_height;
+        if (tile_start !== undefined) this.tile_start = tile_start;
+    };
+
+    this.draw = function(dst, x, y, alpha, sx, sy, rot) {
+        var ctx = dst.contex;
+        var savedAlpha = ctx.globalAlpha;
+        ctx.globalAlpha = alpha !== undefined ? alpha : 1;
+
+        var needXform = rot || (sx !== undefined && (sx !== 1 || sy !== 1));
+        if (needXform) {
+            ctx.save();
+            ctx.translate(x, y);
+            if (rot) ctx.rotate(rot * Math.PI / 180);
+            if (sx !== undefined) ctx.scale(sx, sy);
+            ctx.drawImage(this.img, 0, 0);
+            ctx.restore();
+        } else {
+            ctx.drawImage(this.img, x, y);
+        }
+        ctx.globalAlpha = savedAlpha;
+    };
+
+    this.drawPart = function(dst, x, y, partx, party, partw, parth, alpha, zx, zy, rot) {
+        if (partx < 0) { x -= partx; partw += partx; partx = 0; }
+        else partw = Math.min(partw, this.img.width  - partx);
+        if (party < 0) { y -= party; parth += party; party = 0; }
+        else parth = Math.min(parth, this.img.height - party);
+        if (partw <= 0 || parth <= 0) return;
+
+        var ctx = dst.contex;
+        var savedAlpha = ctx.globalAlpha;
+        ctx.globalAlpha = alpha !== undefined ? alpha : 1;
+
+        if (rot || zx !== undefined) {
+            ctx.save();
+            ctx.translate(x, y);
+            if (rot) ctx.rotate(rot * Math.PI / 180);
+            if (zx !== undefined) ctx.scale(zx, zy);
+            ctx.drawImage(this.img, partx, party, partw, parth, 0, 0, partw, parth);
+            ctx.restore();
+        } else {
+            ctx.drawImage(this.img, partx, party, partw, parth, x, y, partw, parth);
+        }
+        ctx.globalAlpha = savedAlpha;
+    };
+
+    this.drawTile = function(dst, nb, x, y, alpha, w, h, rot) {
+        var cols = Math.floor(this.img.width / this.tile_width);
+        var tx   = Math.floor(nb % cols) * this.tile_width;
+        var ty   = Math.floor(nb / cols) * this.tile_height;
+        this.drawPart(dst, x, y, tx, ty, this.tile_width, this.tile_height, alpha, w, h, rot);
+    };
+
+    return this;
+}
+
+// ------------------------------------------------------------------
+// HorizScroller  -  tile-font horizontal text scroller
+// this scroller was inspired by the codef's engine text scroller 
+// ------------------------------------------------------------------
+function HorizScroller() {
+    this.speed     = 1;
+    this.baseSpeed = 1;
+    this.font      = null;
+    this.scrtxt    = ' ';
+    this._slots    = [];      // [{x, code}, ...]
+    this._readPos  = 0;
+    this._pauseLeft = 0;      // frames remaining in pause
+
+    this.init = function(dst, font, speed) {
+        this.dst   = dst;
+        this.font  = font;
+        this.speed = speed;
+        this.fontw = font.tile_width;
+
+        var capacity = Math.ceil(dst.canvas.width / this.fontw) + 2;
+        this._slots = [];
+        for (var i = 0; i < capacity; i++) {
+            this._slots.push({ x: dst.canvas.width + i * this.fontw, code: this._pull() });
+        }
+    };
+
+    // pause option 
+    this._pull = function() {
+        var txt = this.scrtxt;
+        while (txt.charAt(this._readPos) === '^') {
+            var cmd = txt.charAt(this._readPos + 1);
+            if (cmd === 'P') {
+                this._pauseLeft = parseInt(txt.charAt(this._readPos + 2), 10) * 60;
+                this._readPos  += 3;
+            } else {
+                this._readPos++;   // unknown command
+            }
+        }
+        var code = txt.charCodeAt(this._readPos);
+        this._readPos = (this._readPos + 1) % txt.length;
+        return code;
+    };
+
+    this.draw = function(posy) {
+        var frozen = this._pauseLeft > 0;
+        if (frozen) this._pauseLeft--;
+
+        var spd   = frozen ? 0 : this.speed;
+        var slots = this._slots;
+        var n     = slots.length;
+        var fw    = this.fontw;
+
+        // advance all positionz
+        for (var i = 0; i < n; i++) slots[i].x -= spd;
+
+        // recycle any slot that left the screen to the right side
+        for (var i = 0; i < n; i++) {
+            if (slots[i].x < -fw) {
+                var maxX = slots[0].x;
+                for (var k = 1; k < n; k++) if (slots[k].x > maxX) maxX = slots[k].x;
+                slots[i].x    = maxX + fw;
+                slots[i].code = this._pull();
+            }
+        }
+
+        // sort left-to-right so drawTile calls happen in visual order
+        slots.sort(function(a, b) { return a.x - b.x; });
+
+        var ctx = this.dst.contex;
+        var savedAlpha = ctx.globalAlpha;
+        ctx.globalAlpha = 1;
+
+        var start = this.font.tile_start;
+        for (var i = 0; i < n; i++) {
+            this.font.drawTile(this.dst, slots[i].code - start, slots[i].x, posy);
+        }
+
+        ctx.globalAlpha = savedAlpha;
+    };
+
+    return this;
+}
+
+// ------------------------------------------------------------------
+// WaveScroll  -  vertical sine-wave distortion applied column by column
+// ------------------------------------------------------------------
+
+
+// just a tiny bit
+var scrollRibbonMargin = 30;
+var scrollRibbonDepth  = 15;
+
+
+
+function WaveScroll(src, dst, params) {
+    this.src    = src;
+    this.dst    = dst;
+    this.params = params;
+
+    this.siny = function(posx, posy) {
+        var ctx    = this.dst.contex;
+        var params = this.params;
+        var np     = params.length;
+        var W      = this.src.canvas.width;
+        var H      = this.src.canvas.height;
+        var srcCvs = this.src.canvas;
+
+        var phases = new Array(np);
+        for (var p = 0; p < np; p++) phases[p] = params[p].value;
+
+        // pre-compute vertical sine offset for every column
+        var offsets = new Float32Array(W);
+        for (var col = 0; col < W; col++) {
+            var dy = 0;
+            for (var p = 0; p < np; p++) {
+                dy        += Math.sin(phases[p]) * params[p].amp;
+                phases[p] += params[p].inc;
+            }
+            offsets[col] = dy;
+        }
+
+        // blit columns, adding ribbon curl at edges
+        var savedAlpha = ctx.globalAlpha;
+        for (var col = 0; col < W; col++) {
+            var edgeDist = col < W - col ? col : W - 1 - col; // dist from nearest edge
+            var ribbonY  = 0;
+            var alpha    = 1.0;
+            if (edgeDist < scrollRibbonMargin) {
+                var t   = edgeDist / scrollRibbonMargin; 
+                ribbonY = scrollRibbonDepth * (1 - t * t);
+                alpha   = t * t;
+            }
+            ctx.globalAlpha = alpha;
+            ctx.drawImage(srcCvs, col, 0, 1, H, col + posx, offsets[col] + ribbonY + posy, 1, H);
+        }
+        ctx.globalAlpha = savedAlpha;
+
+        // advance global phase by one frame's worth of offset
+        for (var p = 0; p < np; p++) params[p].value += params[p].offset;
+    };
+}
+
+// ------------------------------------------------------------------
+// applyGradient  -  fill a canvas with a linear gradient in one call
+// ------------------------------------------------------------------
+
+function applyGradient(dst, stops, horizontal) {
+    var ctx = dst.contex;
+    var lg  = horizontal
+        ? ctx.createLinearGradient(0, 0, dst.canvas.width, 0)
+        : ctx.createLinearGradient(0, 0, 0, dst.canvas.height);
+    for (var i = 0; i < stops.length; i++) lg.addColorStop(stops[i].offset, stops[i].color);
+    var saved   = ctx.fillStyle;
+    ctx.fillStyle = lg;
+    ctx.fillRect(0, 0, dst.canvas.width, dst.canvas.height);
+    ctx.fillStyle = saved;
+}
+
+// ------------------------------------------------------------------
+// SoftRenderer3D  -  flat-shaded Lambert renderer (Canvas 2D)
+//   Euler ZYX rotation, painter's-algorithm depth sort
+// ------------------------------------------------------------------
+function _hex2rgbf(hex) {
+    return {
+        r: ((hex >> 16) & 0xff) / 255,
+        g: ((hex >>  8) & 0xff) / 255,
+        b: ( hex        & 0xff) / 255
+    };
+}
+
+function SoftRenderer3D(dst, camZ, fov) {
+    this._dst       = dst;
+    this._camZ      = camZ;
+    this._fov       = fov;
+    this._verts     = [];
+    this._faces     = [];
+    this._dbl       = false;
+    this._ambient   = [];
+    this._dirLights = [];
+
+    this.group = { rotation: { x: 0, y: 0, z: 0 } };
+
+    this.faces = function(verts, faces, doubleSided) {
+        this._verts = verts.slice();
+        this._faces = faces.slice();
+        this._dbl   = !!doubleSided;
+    };
+
+    this.addAmbiLight = function(colorHex) {
+        this._ambient.push(_hex2rgbf(colorHex));
+        return { color: colorHex };
+    };
+
+    this.addDirLight = function(x, y, z, colorHex) {
+        var len = Math.sqrt(x*x + y*y + z*z) || 1;
+        this._dirLights.push({
+            dir:   { x: x/len, y: y/len, z: z/len },
+            color: _hex2rgbf(colorHex)
+        });
+        return { position: { x, y, z } };
+    };
+
+    this.draw = function() {
+        var ctx    = this._dst.contex;
+        var W      = this._dst.width;
+        var H      = this._dst.height;
+        var focal  = (H / 2) / Math.tan(this._fov * Math.PI / 360);
+        var camZ   = this._camZ;
+
+        var rx = this.group.rotation.x, cX = Math.cos(rx), sX = Math.sin(rx);
+        var ry = this.group.rotation.y, cY = Math.cos(ry), sY = Math.sin(ry);
+        var rz = this.group.rotation.z, cZ = Math.cos(rz), sZ = Math.sin(rz);
+
+        // rotate each vertex: Z then Y then X.
+        var tv = this._verts.map(function(v) {
+            var x = v.x, y = v.y, z = v.z, t;
+            t = x * cZ - y * sZ;  y = x * sZ + y * cZ;  x = t;
+            t = x * cY + z * sY;  z = -x * sY + z * cY; x = t;
+            t = y * cX - z * sX;  z =  y * sX + z * cX; y = t;
+            return { x, y, z };
+        });
+
+       
+        var pv = tv.map(function(v) {
+            var d = Math.max(camZ - v.z, 0.01);
+            var s = focal / d;
+            return { x: v.x * s + W / 2, y: -v.y * s + H / 2, z: v.z };
+        });
+
+        // bbuild face data: normal, average depth.
+        var ambient   = this._ambient;
+        var dirLights = this._dirLights;
+        var dbl       = this._dbl;
+
+        var fdata = this._faces.map(function(face) {
+            var v0 = tv[face.p1], v1 = tv[face.p2], v2 = tv[face.p3];
+            var ax = v1.x-v0.x, ay = v1.y-v0.y, az = v1.z-v0.z;
+            var bx = v2.x-v0.x, by = v2.y-v0.y, bz = v2.z-v0.z;
+            var nx = ay*bz-az*by, ny = az*bx-ax*bz, nz = ax*by-ay*bx;
+            var len = Math.sqrt(nx*nx+ny*ny+nz*nz) || 1;
+            return {
+                face, pv,
+                nx: nx/len, ny: ny/len, nz: nz/len,
+                avgZ: (v0.z + v1.z + v2.z) / 3
+            };
+        });
+
+        // painter's algorithm: back to front
+        fdata.sort(function(a, b) { return a.avgZ - b.avgZ; });
+
+        for (var fi = 0; fi < fdata.length; fi++) {
+            var fd   = fdata[fi];
+            if (!dbl && fd.nz <= 0) continue;
+
+            var face = fd.face;
+            var p0   = pv[face.p1], p1 = pv[face.p2], p2 = pv[face.p3];
+            var mc   = _hex2rgbf(face.params.color);
+
+            var r = 0, g = 0, b = 0;
+            for (var ai = 0; ai < ambient.length; ai++) {
+                r += ambient[ai].r * mc.r;
+                g += ambient[ai].g * mc.g;
+                b += ambient[ai].b * mc.b;
+            }
+            for (var di = 0; di < dirLights.length; di++) {
+                var dl  = dirLights[di];
+                var dot = fd.nx*dl.dir.x + fd.ny*dl.dir.y + fd.nz*dl.dir.z;
+                var d   = dbl ? Math.abs(dot) : Math.max(0, dot);
+                r += dl.color.r * mc.r * d;
+                g += dl.color.g * mc.g * d;
+                b += dl.color.b * mc.b * d;
+            }
+
+            ctx.beginPath();
+            ctx.moveTo(p0.x, p0.y);
+            ctx.lineTo(p1.x, p1.y);
+            ctx.lineTo(p2.x, p2.y);
+            ctx.closePath();
+            ctx.fillStyle = 'rgb(' + (Math.min(255,r*255)|0) + ',' +
+                                     (Math.min(255,g*255)|0) + ',' +
+                                     (Math.min(255,b*255)|0) + ')';
+            ctx.fill();
+        }
+    };
+}
+
+// ============================================================
+//  DEMO CODE
+// ============================================================
+
+var dt                 = 1;
+var lastFrameTimestamp = 0;
+
+var DEMO_WIDTH  = 640;
+var DEMO_HEIGHT = 480;
+
+const DEMO_CONFIG = {
+    basePath: 'plugins/demo/',
+    view: { width: DEMO_WIDTH, height: DEMO_HEIGHT },
+};
+
+const DEMO_ASSETS = {
+    textures: {
+        overlay: new DemoImage(DEMO_CONFIG.basePath + 'gfx/tramage.webp'),
+        logo:    new DemoImage(DEMO_CONFIG.basePath + 'gfx/phrack_logo.webp'),
+        logo2:   new DemoImage(DEMO_CONFIG.basePath + 'gfx/phrack_logo2.webp'),
+        logo3:   new DemoImage(DEMO_CONFIG.basePath + 'gfx/phrack_logo3.webp'),
+        logo4:   new DemoImage(DEMO_CONFIG.basePath + 'gfx/phrack_logo4.webp'),
+        boat:    new DemoImage(DEMO_CONFIG.basePath + 'gfx/boat4.webp'),
+        fonts: {
+            main:    new DemoImage(DEMO_CONFIG.basePath + 'gfx/font.png'),
+            scroll:  new DemoImage(DEMO_CONFIG.basePath + 'gfx/font4.png'),
+            scroll2: new DemoImage(DEMO_CONFIG.basePath + 'gfx/font6.png'),
+        }
+    }
+};
+
+
+//
+// MAIN SCROLLER TEXT
+//
+
+const phrackText = `
+For 40 years, Phrack has published papers that have reflected and shaped hacker culture.
+The knowledge shared in Phrack has laid the foundation for many fields of study, providing insight,
+a shared language, resources and tools, as well as context and history. Phrack is written by hackers,
+for hackers, and offers a glimpse into the world just beyond what most people see.
+
+Phrack is both a technical journal and a cultural document. Like all zines, it represents a snapshot
+of the scene at the time. We share not just our discoveries, but the stories of how we came to know things
+and the context in which we existed. We share our triumphs, failures, and lessons learned.
+By fostering a culture of communal idea sharing, we learn how to solve problems creatively,
+and make the most of our current situation.
+
+Over the past 40 years, hacking has evolved, splintered, and mutated into a variety of forms.
+Phrack has documented many of the key innovations in hacking since its first issue:
+From showcasing ways to manipulate the phone system and other large computers, to pioneering vulnerability scanning,
+to generalizing security concepts such as buffer overflows, ROP, and heap exploitation, to bringing it all together
+within complex ecosystems that seemed like just a fantasy in years past. Each generation builds off the previous
+and offers us new perspectives, remixing with older ideas and demonstrating how they can be reapplied to new situations.
+When Phrack was first published in the mid-80s, our relationship with technology was quite different.
+Many of our challenges involved simply getting and staying online. Today we face entirely new challenges based on what is,
+what was, and what will be.
+
+The hacker ethos remains the same - be curious about your world, make do with what you have,
+and show how things can be better.
+
+What was done before us, and the knowledge shared, provides the base for us to build off of and evolve from.
+As hackers, we pass on our best characteristics by teaching others. We document how and why we did things
+based on what was available at the time. We expand on previous generations' work and piece together our own understanding,
+informed by our own personal experience. The reward is the beauty of what we discover and create,
+and the joy of sharing and inspiring others. Over time, all of our most beloved and reliable techniques and tools
+become common knowledge, and new permutations pop up. As circumstances change, so do our needs.
+What's old becomes new again, new ideas recontextualize the old. The cycle continues.
+
+Knowledge is the hacker DNA. Our instincts and curiosity are complimented by the stories of how things were accomplished before.
+Like hackers and humans before us, we adapt to our environment, and figure out how to meet our needs and achieve our goals.
+As technology becomes more optimized and abstracted, it can be easy to lose track of the fundamentals.
+Just because tech has evolved doesn't mean the foundation has changed. We still use AT commands to control our modems.
+We still activate the A20 line to access memory beyond 1MB on x86 CPUs. In-band signaling is still a pathway into the toughest systems.
+Weird machines still manifest throughout it all, waiting to be discovered by a hacker like you.
+
+Everything is in a state of flux, and the only constant is change. Yet, if we position ourselves correctly,
+our actions can influence the future. Things mutate. There are happy accidents. The world is chaos, and out of chaos emerges hackers.
+
+Hacking has no choice but to evolve, and hacker zines like Phrack evolve with it.
+We look back at our foundation for inspiration, while we also look forward towards uncharted territory,
+unafraid of going beyond. We venture into the deepest darkest rabbit holes that few dare to tread,
+where we see the light that leads us to the most amazing treasures. We address the needs of our communities,
+find ways to grow together, and encourage each other to keep exploring. We maintain projects like Phrack
+because it gives a platform for the unadulterated voice of the hacker.
+
+Humans are hackers. We were put here to figure things out.
+Hacking is an innate skill to be tapped into and developed.
+The hacker spirit guides us through situations once thought hopeless.
+Hacking is a way to answer your own burning questions, a way to discover your own potential,
+and a way to create a world you want to live in.
+
+There is a hacker born every day. It's our duty to share things that can inform them of the past and present,
+and give them hope for a better tomorrow. After all, we're all alike.
+`;
+
+const SCROLL_CONFIG = {
+    text: phrackText
+};
+
+const SCROLL_CONFIG2 = {
+    text: "                        sINCE 1985!    ^P2                 40th ANNIVERSARY!                  HACKTRO CREDITS:               CODE: PIOTRBANIA          MUSIC: LHS/DFS              GRAPHICS: PIOTRBANIA              ",
+};
+
+const hearts = {
+    meshes: [null, null, null], vertices: [], faces: [],
+    canvases: [null, null, null],
+    states: [
+        { y: 40, velocityY:  0.0, gravity: 0.015, floorY: 240, scale: 0.5, initialHeight: 180, flashAlpha: 0, speedBoost: 0 },
+        { y: 40, velocityY: -0.2, gravity: 0.015, floorY: 240, scale: 0.5, initialHeight: 180, flashAlpha: 0, speedBoost: 0 },
+        { y: 40, velocityY:  0.2, gravity: 0.015, floorY: 240, scale: 0.5, initialHeight: 180, flashAlpha: 0, speedBoost: 0 }
+    ]
+};
+
+var musicPlayer = 0;
+
+let renderTargets = { main: null, terrain: null };
+
+const loadingState = { current: 0, required: 9, framesReady: true };
+
+var angleLogo      = 0;
+var logoGfx        = DEMO_ASSETS.textures.logo;
+var sceneNum       = -1;
+var lastTimeChange = -1;
+var logoAlpha      = 0;
+var logoYPos       = 200;
+var logoYPosFin    = -80;
+var logoXPos       = 0;
+var logoWidthPre   = 0;
+var currentLogo    = 0;
+var terrainAlpha = 0;
+
+var lightning_context = 0;
+var lightning_canvas  = 0;
+
+var logos = [
+    DEMO_ASSETS.textures.logo,  DEMO_ASSETS.textures.logo2,
+    DEMO_ASSETS.textures.logo,  DEMO_ASSETS.textures.logo,
+    DEMO_ASSETS.textures.logo,  DEMO_ASSETS.textures.logo3,
+    DEMO_ASSETS.textures.logo,  DEMO_ASSETS.textures.logo4,
+    DEMO_ASSETS.textures.logo,  DEMO_ASSETS.textures.logo
+];
+
+var highNote = 0;
+
+
+
+// sec between bolts 
+var lightningIntervalSec  = 1.1;
+var lightningLineWidth    = 1.3;   // stroke width of each bolt in pixels
+
+var lightnings            = [];          // all active bolt instances
+var lightningSpeed        = 1;
+var lastLightningSpawnTime = (-lightningIntervalSec) * 1000;
+var lGradient             = 0;
+var lGradient2            = 0;
+
+// Hihat-sync: spawn a lightning bolt whenever the hihat/clap channel triggers
+// interval-based spawning is disabled when this works 
+
+var lightningHihatChannel    = 4;   // channel 5 in OpenMPT (0-based)
+var lightningHihatInstrument = 1;   // instrument 01 in OpenMPT (1-based)
+var lightningHihatSync       = false;
+
+function spawnLightningBolt() {
+    var cvs = lightning_canvas;
+    lightnings.push(createLightning(
+        rand(logoXPos + 60, cvs.width - logoXPos - 30),
+        220, 355,
+        rand(5, 15), 8
+    ));
+}
+
+function setupLightningHihatSync() {
+    var ft = musicPlayer && musicPlayer.player;
+    if (!ft) return;
+
+    lightningHihatSync = true;
+
+	// channel 5, instrument 1 is the hihat (or clap which i've named hihat :|) (in our .xm that is)
+    ft.onRow = function(position, row) {
+        if (terrainAlpha < 1) return;
+        var pn = ft.patterntable[position];
+        if (pn === undefined || !ft.pattern[pn]) return;
+        var base = row * ft.channels * 5 + lightningHihatChannel * 5;
+        var note = ft.pattern[pn][base + 0];   // 255=empty, 254=note-off
+        var inst = ft.pattern[pn][base + 1];   // 0=no change, 1..N=instrument
+        if (note && note !== 255 && note !== 254) {
+            if (lightningHihatInstrument === 0 || inst === lightningHihatInstrument) {
+				console.log("debug: spawn bolt!");
+                spawnLightningBolt();
+            }
+        }
+    };
+}
+
+var numColumns = 50;
+var numRows    = 50;
+var scaleRatio = 80;
+var terrainHeight = 1.0;
+
+var terrainScrollX = 0;
+
+var centerX = DEMO_CONFIG.view.width / 2;
+var centerY = 4;
+
+var tableX = [], tableY = [], tableZ = [];
+
+var renderHeightScale = 1.0;
+var heightAnimTime    = 0.0;
+var heightAnimSpeed   = 0.02;
+var heightAnimAmp     = 0.1;
+
+var boatXStart   = 500;
+var boatX        = boatXStart;
+var boatOn       = false;
+var boatDelaySec = 15 * 1000;
+
+setTimeout(() => { boatOn = true; }, boatDelaySec);
+
+
+function drawBoat(x, y, angle, scale) {
+    if (!boatOn) return;
+
+    DEMO_ASSETS.textures.boat.draw(renderTargets.main, boatX + x, y, 1, 0.3, 0.3, angle);
+    boatX -= 1.3 * dt;
+
+    if (boatX < -boatXStart) {
+        boatX  = boatXStart;
+        boatOn = false;
+        setTimeout(() => { boatOn = true; }, boatDelaySec);
+    }
+}
+
+function precalcTerrain() {
+    let angleA = 0, angleB = 0;
+
+    for (let i = 0; i < numColumns; i++) {
+
+        tableX[i] = [];
+        tableY[i] = [];
+        tableZ[i] = [];
+
+        for (let j = 0; j < numRows; j++) {
+
+		
+            tableX[i][j] = j;
+            tableY[i][j] = 10 + terrainHeight * (
+                Math.cos(angleA / 2) +
+                Math.sin(angleB * 3) +
+                Math.cos(angleB * 2) +
+                Math.sin(angleA * 2)
+            );
+            tableZ[i][j] = 4 + i / 4;
+            angleA += (4 * Math.PI) / (numColumns - 1);
+        }
+        angleB += (2 * Math.PI) / (numRows - 1);
+    }
+}
+
+function drawTerrain(do_flash) {
+    var flashChance  = do_flash ? Math.random() * 0.5 : 0;
+    var n_scaleRatio = scaleRatio;
+
+    heightAnimTime    = (heightAnimTime + heightAnimSpeed * dt) % (Math.PI * 2);
+    renderHeightScale = 1.0 + Math.sin(heightAnimTime) * heightAnimAmp;
+
+    var ctx = renderTargets.terrain.contex;
+
+    var colorGroups = {
+        "#666666": [], "#999999": [], "#CCCCCC": [],
+        "#DDDDDD": [], "#FFFFFF": [], "#f7f9fa": []
+    };
+
+    // advance the single global scroll offset - no per-cell mutation
+    terrainScrollX += 0.2 * dt;
+    if (terrainScrollX >= numRows) terrainScrollX -= numRows;
+
+    for (var i = numColumns - 1; i >= 0; i--) {
+        for (var j = 0; j < numRows; j++) { // numRows - 1 (will lead to empty row on each cycle) 
+            var tx = tableX[i][j] - terrainScrollX;
+            if (tx < 0) tx += numRows;
+            var screenX = (centerX + ((tx - numRows * 0.5) / tableZ[i][j]) * n_scaleRatio) | 0;
+            var screenY = (centerY + ((tableY[i][j] * renderHeightScale) / tableZ[i][j]) * n_scaleRatio) | 0;
+
+            var color = "#FFFFFF";
+            if      (tableY[i][j] >= 10) color = "#666666";
+            else if (tableY[i][j] >=  9) color = "#999999";
+            else if (tableY[i][j] >=  8) color = "#CCCCCC";
+            else if (tableY[i][j] >=  7) color = "#DDDDDD";
+
+            if (do_flash && Math.random() < flashChance) {
+                if      (tableY[i][j] >= 10) color = "#f7f9fa";
+                else if (tableY[i][j] >=  7) color = "#FFFFFF";
+            }
+
+            if (colorGroups[color]) colorGroups[color].push(screenX, screenY);
+        }
+    }
+
+    for (var col in colorGroups) {
+        var pts = colorGroups[col];
+        if (pts.length === 0) continue;
+        ctx.fillStyle = col;
+        for (var k = 0; k < pts.length; k += 2) {
+            ctx.fillRect(pts[k], pts[k+1], 1, 1);
+        }
+    }
+
+    var boatI = Math.floor(numColumns / 2);
+    var boatJ = Math.floor(numRows    / 2);
+    var boatBaseY   = DEMO_CONFIG.view.height - (DEMO_CONFIG.view.height / 3) - 25;
+    var boatScreenY = boatBaseY + ((tableY[boatI][boatJ] * renderHeightScale) / tableZ[boatI][boatJ]) * n_scaleRatio;
+    var dy          = tableY[boatI][boatJ+1] - tableY[boatI][boatJ-1];
+    var boatAngle   = Math.atan2(dy, 2);
+
+    drawBoat(centerX, boatScreenY, boatAngle, 0.5);
+
+}
+
+
+function initializeHeartCanvases() {
+    hearts.canvases = [
+        new DemoCanvas(416, 276),
+        new DemoCanvas(416, 276),
+        new DemoCanvas(416, 276)
+    ];
+
+    var heartMaterial = { color: 0x949494 };
+    generateHeartGeometry(heartMaterial);
+
+    hearts.meshes = hearts.canvases.map(c => {
+        const mesh = new SoftRenderer3D(c, 600, 90);
+        mesh.faces(hearts.vertices, hearts.faces, true);
+        mesh.addAmbiLight(0xffffff);
+        mesh.addDirLight(0, 0, 1, 0xfff);
+        return mesh;
+    });
+
+    hearts.canvases.forEach(c => {
+        c.contex.fillStyle = "#000000";
+        c.contex.fillRect(0, 0, 1, 1);
+        c.clear();
+    });
+}
+
+function generateHeartGeometry(material) {
+    const heartShape = [
+        { x:    0, y:    0, z: -100 },
+        { x:   60, y:   60, z: -100 },
+        { x:  120, y:    0, z: -100 },
+        { x:    0, y: -120, z: -100 },
+        { x: -120, y:    0, z: -100 },
+        { x:  -60, y:   60, z: -100 },
+        { x:    0, y:    0, z:  -60 },
+        { x:   60, y:   60, z:  -60 },
+        { x:  120, y:    0, z:  -60 },
+        { x:    0, y: -120, z:  -60 },
+        { x: -120, y:    0, z:  -60 },
+        { x:  -60, y:   60, z:  -60 }
+    ];
+    hearts.vertices = [...heartShape];
+    hearts.faces = [
+        { p1: 0,  p2: 1,  p3: 2,  params: material },
+        { p1: 0,  p2: 2,  p3: 3,  params: material },
+        { p1: 0,  p2: 3,  p3: 4,  params: material },
+        { p1: 0,  p2: 4,  p3: 5,  params: material },
+        { p1: 6,  p2: 7,  p3: 8,  params: material },
+        { p1: 6,  p2: 8,  p3: 9,  params: material },
+        { p1: 6,  p2: 9,  p3: 10, params: material },
+        { p1: 6,  p2: 10, p3: 11, params: material },
+        { p1: 0,  p2: 6,  p3: 7,  params: material },
+        { p1: 0,  p2: 7,  p3: 1,  params: material },
+        { p1: 1,  p2: 7,  p3: 8,  params: material },
+        { p1: 1,  p2: 8,  p3: 2,  params: material },
+        { p1: 2,  p2: 8,  p3: 9,  params: material },
+        { p1: 2,  p2: 9,  p3: 3,  params: material },
+        { p1: 3,  p2: 9,  p3: 10, params: material },
+        { p1: 3,  p2: 10, p3: 4,  params: material },
+        { p1: 4,  p2: 10, p3: 11, params: material },
+        { p1: 4,  p2: 11, p3: 5,  params: material },
+        { p1: 5,  p2: 11, p3: 6,  params: material },
+        { p1: 5,  p2: 6,  p3: 0,  params: material }
+    ];
+}
+
+// ------------------------------------------------------------------
+// De-crunch intro effect (Atari-style)
+// ------------------------------------------------------------------
+var DECRUNCH_DURATION = 1400;   // ms
+var DECRUNCH_MAX_BAR  = 20;     // max height of a single color bar in px
+var DECRUNCH_PALETTE  = ['#a0b000','#a0a000','#a02010','#a02090',
+                         '#a0c030','#a0d0a0','#a04000','#a080a0',
+                         '#a08000','#a000f0','#a0d060','#a0a0a0'];
+var decrunchStartTime = -1;
+
+function renderDecrunch(timestamp) {
+    if (decrunchStartTime < 0) decrunchStartTime = timestamp;
+    var ctx = renderTargets.main.contex;
+    var w   = DEMO_CONFIG.view.width;
+    var h   = DEMO_CONFIG.view.height;
+    var y   = 0;
+    var np  = DECRUNCH_PALETTE.length;
+    while (y <= h) {
+        var barh = 1 + Math.round(Math.random() * DECRUNCH_MAX_BAR);
+        ctx.fillStyle = DECRUNCH_PALETTE[Math.round(Math.random() * (np - 1))];
+        ctx.fillRect(0, y, w, barh);
+        y += barh;
+    }
+    return (timestamp - decrunchStartTime) >= DECRUNCH_DURATION;
+}
+
+// ------------------------------------------------------------------
+// Music controls (phrack.org). The demo auto-starts on page load, but WebAudio stays
+// suspended until the visitor interacts, so the first click anywhere resumes the context;
+// the overlay button toggles playback from then on.
+// ------------------------------------------------------------------
+let hasTriggeredMusicOnce = false;
+window.addEventListener('click', () => {
+    if (hasTriggeredMusicOnce) return;
+    if (window.audioCtx && window.audioCtx.state === "suspended") { window.audioCtx.resume(); }
+    if (window.musicPlayer == undefined) return;   // demo not up yet - let the next click do it
+    hasTriggeredMusicOnce = true;
+    if (!isMusicPlaying) toggleMusic();
+});
+
+let isMusicPlaying = false;
+function toggleMusic() {
+    if (window.musicPlayer == undefined) {
+        return;
+    }
+
+    if (isMusicPlaying) {
+        window.musicShouldPlay = false;
+        window.musicPlayer.pause();
+    } else {
+        // the module may still be loading - musicShouldPlay makes onReady start it for us
+        window.musicShouldPlay = true;
+        window.musicPlayer.play();
+    }
+
+    isMusicPlaying = !isMusicPlaying;
+
+    document.getElementById(isMusicPlaying ? "mute-button" : "unmute-button").style.display = "block";
+    document.getElementById(isMusicPlaying ? "unmute-button" : "mute-button").style.display = "none";
+}
+
+function initializeDemo() {
+    document.getElementById("ascii").style.display  = "none";
+
+    // The demo auto-starts here, so upstream's click-to-start buttons are not in the
+    // markup - look them up defensively instead of assuming they exist.
+    var fs1   = document.getElementById('fs1');
+    var fsbut = document.getElementById('fsbut');
+    if (fs1)   fs1.style.display   = "none";
+    if (fsbut) fsbut.style.display = "none";
+
+    console.log("Starting demo initialization");
+    if (!window.audioCtx) { window.audioCtx = new AudioContext(); }
+    if (window.audioCtx.state === "suspended") { window.audioCtx.resume(); }
+
+    musicPlayer        = new Modplayer();
+    musicPlayer.repeat = true;
+
+    musicPlayer.onReady = () => {
+        console.log("Music loaded.");
+        setupLightningHihatSync();
+        if (window.musicShouldPlay) musicPlayer.play();
+    };
+    window.musicShouldPlay = false;
+
+    musicPlayer.load(DEMO_CONFIG.basePath + 'music/reloaded.xm');
+
+    try {
+        initializeAssets();
+        console.log("Assets initialized");
+        initializeCanvases();
+        console.log("Canvases initialized");
+        initializeScrollText();
+        console.log("Scroll text initialized");
+
+        precalcTerrain();
+
+        console.log("Pre-warming JIT engine...");
+        for (let i = 0; i < 100; i++) {
+            hearts.states.forEach((state, index) => {
+                hearts.meshes[index].group.rotation.y += 0.1;
+                hearts.meshes[index].draw();
+            });
+        }
+
+        logoWidthPre = logoGfx.img.width / 6;
+        console.log("JIT warmed up.");
+
+        setTimeout(startDemo, 500);
+
+    } catch (error) {
+        console.error("Error during initialization:", error);
+    }
+}
+
+function prepare() {
+    console.log("preparing!\n");
+    initializeAssets();
+    // phrack.org runs the hacktro as the splash screen - no click-to-start gate.
+    initializeDemo();
+}
+
+var init_assets_done = false;
+function initializeAssets() {
+    if (init_assets_done) return;
+    init_assets_done = true;
+
+    console.log("Starting asset initialization");
+    loadingState.current = 0;
+
+    const incrementLoadCounter = () => {
+        loadingState.current++;
+        console.log(`Asset loaded. Progress: ${loadingState.current}/${loadingState.required}`);
+    };
+
+    function setupTextureHandlers(textures) {
+        Object.values(textures).forEach(texture => {
+            if (texture instanceof DemoImage) {
+                texture.img.onload = incrementLoadCounter;
+                if (texture.img.complete) { incrementLoadCounter(); }
+            } else if (typeof texture === 'object') {
+                setupTextureHandlers(texture);
+            }
+        });
+    }
+
+    setupTextureHandlers(DEMO_ASSETS.textures);
+    try {
+        DEMO_ASSETS.textures.fonts.main.initTile(32, 14, 32);
+        DEMO_ASSETS.textures.fonts.scroll.initTile(8, 16, 32);
+        DEMO_ASSETS.textures.fonts.scroll2.initTile(16, 16, 32);
+        console.log("Font tiles initialized");
+    } catch (error) { console.error("Error initializing font tiles:", error); }
+}
+
+function initializeCanvases() {
+    renderTargets.main      = new DemoCanvas(DEMO_CONFIG.view.width, DEMO_CONFIG.view.height, "main");
+    renderTargets.terrain = new DemoCanvas(DEMO_CONFIG.view.width, DEMO_CONFIG.view.height);
+    renderTargets.lightning = new DemoCanvas(DEMO_CONFIG.view.width, DEMO_CONFIG.view.height);
+
+    renderTargets.main.contex.imageSmoothingEnabled    = false;
+    renderTargets.main.contex.mozImageSmoothingEnabled = false;
+    renderTargets.main.contex.oImageSmoothingEnabled   = false;
+
+    renderTargets.scrollText  = new DemoCanvas(DEMO_CONFIG.view.width,     DEMO_CONFIG.view.height);
+    renderTargets.scrollText2 = new DemoCanvas(DEMO_CONFIG.view.width / 3, DEMO_CONFIG.view.height);
+
+    initializeHeartCanvases();
+
+    lightning_canvas  = renderTargets.lightning.canvas;
+    lightning_context = renderTargets.lightning.contex;
+}
+
+function renderWireframeObjects() {
+    hearts.canvases.forEach(c => c.clear());
+    updateHearts();
+}
+
+
+var heartLightningHitRadius = 90;
+var heartLightningBoostDuration = 60;
+var heartLightningBoostMult = 1.3;
+
+function checkHeartLightningHit(hx, hy) {
+    var r2 = heartLightningHitRadius * heartLightningHitRadius;
+    for (var bi = 0; bi < lightnings.length; bi++) {
+        var bolt = lightnings[bi];
+        if (bolt.fading) continue;   // bolt already past its peak
+        var idx = Math.floor(bolt.currentIndex);
+        var dx = bolt.xStart - hx, dy = bolt.yStart - hy;
+        if (dx * dx + dy * dy < r2) return true;
+        for (var si = 0; si <= idx && si < bolt.segments.length; si++) {
+            dx = bolt.segments[si].x - hx;
+            dy = bolt.segments[si].y - hy;
+            if (dx * dx + dy * dy < r2) return true;
+        }
+    }
+    return false;
+}
+
+function updateHearts() {
+    const xOffset = logoXPos - logoWidthPre;
+    const ctx     = renderTargets.main.contex;
+
+    ctx.globalCompositeOperation = 'source-over'; // reset? (not sure if this works, problem was after the card stays inactive for few hours the scroller turned to dark navy colour)
+    ctx.globalCompositeOperation = 'lighter';
+
+    hearts.states.forEach((state, index) => {
+        state.velocityY += state.gravity * dt;
+        state.y         += state.velocityY * 2 * dt;
+        if (state.y > state.floorY) {
+            state.y         = state.floorY;
+            state.velocityY = -Math.sqrt(2 * state.gravity * (state.floorY - state.initialHeight));
+        }
+
+        var hx = xOffset + index * 120 + 208, hy = state.y + 138;
+        if (checkHeartLightningHit(hx, hy)) {
+            var maxFlash = (index === 1) ? 0.5 : 0.35; // flash poower
+            state.flashAlpha = Math.min(state.flashAlpha + 0.35 * dt, maxFlash);
+            state.speedBoost = heartLightningBoostDuration;
+        }
+
+        var rotMult = state.speedBoost > 0
+            ? 1 + (heartLightningBoostMult - 1) * (state.speedBoost / heartLightningBoostDuration)
+            : 1;
+        if (state.speedBoost > 0) state.speedBoost -= dt;
+
+        hearts.meshes[index].group.rotation.y += (0.05 + (index * 0.02)) * dt * rotMult;
+        hearts.meshes[index].group.rotation.x += (0.03 + (index * 0.01)) * dt * rotMult;
+        hearts.meshes[index].draw();
+
+        var drawX = xOffset + index * 120;
+        hearts.canvases[index].draw(renderTargets.main, drawX, state.y, 1);
+        if (state.flashAlpha > 0) {
+            hearts.canvases[index].draw(renderTargets.main, drawX, state.y, state.flashAlpha);
+            state.flashAlpha = Math.max(0, state.flashAlpha - 0.025 * dt);
+        }
+    });
+
+    ctx.globalCompositeOperation = 'source-over';
+}
+
+
+function rand(min, max) {
+    return Math.random() * (max - min) + min;
+}
+
+function createLightning(xStart, yStart, yEnd, segmentLength = 10, zigzagWidth = 8) {
+    let x = xStart, y = yStart;
+    let segments = [];
+
+    while (y < yEnd) {
+        x += rand(-zigzagWidth, zigzagWidth);
+        y += rand(segmentLength / 2, segmentLength);
+        segments.push({ x, y });
+    }
+
+    return { xStart, yStart, segments, currentIndex: 0, done: false, fading: false, alpha: 1.0 };
+}
+
+function drawLightning(lightning, ctx) {
+    const idx = Math.floor(lightning.currentIndex);
+    if (idx < 1) lightning.currentIndex = 1;
+
+    ctx.beginPath();
+    ctx.moveTo(lightning.xStart, lightning.yStart);
+    for (let i = 0; i <= idx && i < lightning.segments.length; i++) {
+        ctx.lineTo(lightning.segments[i].x, lightning.segments[i].y);
+    }
+
+    if (lGradient == 0) {
+        let cvs   = renderTargets.main.canvas;
+        lGradient = ctx.createLinearGradient(0, 0, 0, cvs.height);
+        lGradient.addColorStop(0,   'white');
+        lGradient.addColorStop(0.2, 'lightyellow');
+        lGradient.addColorStop(0.5, 'deepskyblue');
+        lGradient.addColorStop(1,   'transparent');
+
+        lGradient2 = ctx.createLinearGradient(0, 0, 0, cvs.height);
+        lGradient2.addColorStop(0,   'white');
+        lGradient2.addColorStop(0.2, '#d9d9d9');
+        lGradient2.addColorStop(0.5, '#a6a6a6');
+        lGradient2.addColorStop(1,   'transparent');
+    }
+
+    ctx.strokeStyle = Math.random() < 0.5 ? lGradient : lGradient2;
+    ctx.lineWidth   = lightningLineWidth;
+    ctx.stroke();
+
+    lightning.currentIndex += lightningSpeed * dt;
+    if (lightning.currentIndex >= lightning.segments.length) lightning.done = true;
+}
+
+function animateLightning(timestamp) {
+    var ctx = lightning_context;
+    var cvs = lightning_canvas;
+
+    // never accumulate, clear it 
+    ctx.clearRect(0, 0, cvs.width, cvs.height);
+
+    for (var i = lightnings.length - 1; i >= 0; i--) {
+        var bolt = lightnings[i];
+
+        // after animation ends, bolt fades out via its own alpha
+        if (bolt.fading) {
+            bolt.alpha -= 0.07 * dt;
+            if (bolt.alpha <= 0) { lightnings.splice(i, 1); continue; }
+        }
+
+        ctx.globalAlpha = bolt.fading ? bolt.alpha : 1.0;
+        drawLightning(bolt, ctx);
+        ctx.globalAlpha = 1.0;
+
+        // on first completion: trigger terrain flash, start fade
+        if (bolt.done && !bolt.fading) {
+            bolt.fading = true;
+            var segs = bolt.segments;
+        }
+    }
+
+    if (terrainAlpha < 1) {
+        lastLightningSpawnTime = timestamp;
+    } else if (!lightningHihatSync &&
+               (timestamp - lastLightningSpawnTime) / 1000 >= lightningIntervalSec) {
+        spawnLightningBolt();
+        lastLightningSpawnTime = timestamp;
+    }
+
+    renderTargets.lightning.draw(renderTargets.main, 0, 0, 1, 1, 1, 0);
+}
+
+function renderFrame(timestamp) {
+    try {
+        if (!timestamp) timestamp = performance.now();
+        if (!lastFrameTimestamp) lastFrameTimestamp = timestamp;
+
+        var ms = timestamp - lastFrameTimestamp;
+        lastFrameTimestamp = timestamp;
+
+        dt = ms / 16.666;
+        if (dt > 2.0) dt = 1.0;
+        if (dt < 0.1) dt = 1.0;
+
+        renderTargets.terrain.clear();
+        renderTargets.main.clear();
+        renderTargets.main.fill('#000000');
+
+        if (sceneNum == -1) {
+            if (renderDecrunch(timestamp)) {
+                sceneNum = 0;
+                lastTimeChange = -1;
+                // Upstream starts the music here, but it gates the whole demo behind a
+                // CLICK ME button, so a gesture already exists by this point. We auto-start
+                // instead, so playback is owned by the first-click handler above - starting
+                // it here would only flip the overlay icon while WebAudio is still suspended.
+            }
+        } else {
+
+        if (lastTimeChange == -1) lastTimeChange = Date.now();
+
+        let currentTime     = Date.now();
+        let elapsed         = currentTime - lastTimeChange;
+        var displayDuration = 1200;
+
+        if (logoXPos == 0) {
+            logoXPos = ((DEMO_CONFIG.view.width) / 2) - (logoGfx.img.width / 2) + 35;
+            console.log(logoGfx.img.width);
+        }
+
+        if (sceneNum == 0) {
+            if (elapsed > displayDuration) {
+                lastTimeChange = currentTime;
+                sceneNum = 1;
+            } else {
+                logoGfx.draw(renderTargets.main, logoXPos, logoYPosFin + logoYPos, logoAlpha, 0.9, 0.9);
+                DEMO_ASSETS.textures.overlay.draw(renderTargets.main, 0, 0, 0.3);
+                logoAlpha += 0.02 * dt;
+            }
+        } else if (sceneNum == 1) {
+            if (elapsed > displayDuration) {
+                sceneNum          = 2;
+                lastTimeChange    = currentTime;
+                lastLightningSpawnTime = timestamp;
+            } else {
+                logoGfx.draw(renderTargets.main, logoXPos, logoYPosFin + logoYPos, logoAlpha, 0.9, 0.9);
+                DEMO_ASSETS.textures.overlay.draw(renderTargets.main, 0, 0, 0.3);
+                if (logoYPos > 0) logoYPos -= 3 * dt;
+            }
+        } else if (sceneNum == 2) {
+            let rotLogo = 0.4 + Math.sin(angleLogo);
+            angleLogo  += 0.1 * dt;
+
+            if (elapsed > displayDuration) {
+                currentLogo    = Math.floor(Math.random() * logos.length);
+                lastTimeChange = currentTime;
+                logoAlpha      = 0;
+                highNote       = 0;
+            }
+
+            logoGfx.draw(renderTargets.main, logoXPos, logoYPosFin, 1, 0.9, 0.9);
+            logos[currentLogo].draw(renderTargets.main, logoXPos, logoYPosFin, 1 - logoAlpha, 0.9, 0.9);
+            logoAlpha += 0.01 * dt;
+
+            var ft = musicPlayer.player;
+            if (ft.onHighNote == undefined) {
+                ft.onHighNote = function(ch, chState, note) { highNote = 1; };
+            }
+
+            drawTerrain(highNote ? 1 : 0);
+            renderTargets.terrain.draw(renderTargets.main, 0, 300, terrainAlpha, 1, 1);
+
+            if (terrainAlpha >= 1) terrainAlpha = 1;
+            else terrainAlpha += 0.01 * dt;
+
+            DEMO_ASSETS.textures.overlay.draw(renderTargets.main, 0, 0, 0.1);
+
+            if (terrainAlpha == 1) {
+                renderWireframeObjects();
+                renderScrollingText();
+            }
+
+            lightningSpeed = 0.7 + Math.random() * 0.8;
+            animateLightning(timestamp);
+        }
+
+        } // end else (sceneNum >= 0)
+
+        HACKTRO(renderFrame);
+    } catch (error) {
+        console.error("Error in render loop:", error);
+    }
+}
+
+function renderScrollingText() {
+    // ensure clean composite state
+    renderTargets.main.contex.globalCompositeOperation    = 'source-over';
+    renderTargets.scrollText.contex.globalCompositeOperation = 'source-over';
+
+    renderTargets.scrollText.clear();
+    renderTargets.scrollText2.clear();
+
+    if (window.gScroll) {
+        if (window.gScroll.speed !== 0) {
+            window.gScroll.speed = window.gScroll.baseSpeed * dt;
+        }
+        window.gScroll.draw(14);
+
+        var myscroll1fxcanvas = renderTargets.scrollText;
+        myscroll1fxcanvas.contex.globalCompositeOperation = 'source-atop';
+        myscroll1fxcanvas.contex.drawImage(myscroll1gradcanvas.canvas, 0, 0);
+        myscroll1fxcanvas.contex.globalCompositeOperation = 'source-over';
+
+        myscroll1fx.siny(0, DEMO_HEIGHT / 2 + 15 + 15);
+    }
+
+    if (window.gScroll2) {
+        if (window.gScroll2.speed !== 0) {
+            window.gScroll2.speed = window.gScroll2.baseSpeed * dt;
+        }
+        window.gScroll2.draw(4);
+        renderTargets.scrollText2.draw(renderTargets.main, logoXPos + (logoGfx.img.width / 3) - 20, 50, 0.3, 0.7, 0.7, 1);
+    }
+}
+
+function startDemo() {
+    console.log("Starting demo...");
+    console.log("Loading state:", loadingState.current, "/", loadingState.required);
+    console.log("Frames ready:", loadingState.framesReady);
+
+    const allTexturesLoaded = Object.values(DEMO_ASSETS.textures).every(texture => {
+        if (texture instanceof DemoImage) { return texture.img.complete; }
+        return true;
+    });
+    console.log("All textures loaded:", allTexturesLoaded);
+
+    if (loadingState.current === loadingState.required && loadingState.framesReady) {
+        console.log("All assets loaded, starting render loop");
+        renderFrame();
+    } else {
+        console.log("Still waiting for assets. Retrying in 100ms...");
+        setTimeout(startDemo, 100);
+    }
+}
+
+var myscroll1fx;
+var myscroll1gradcanvas;
+var myscroll1fxparam = [
+    { value: 0, amp: 5, inc: 0.001, offset: 0.01 }
+];
+
+var myscroll1gradcolor = [
+    { color: 'rgb(50,50,50)',    offset: 0.10 },
+    { color: 'rgb(150,150,150)', offset: 0.95 },
+    { color: 'rgb(255,255,255)', offset: 0.50 }
+];
+
+function initializeScrollText() {
+    myscroll1gradcanvas = new DemoCanvas(640, 64);
+    applyGradient(myscroll1gradcanvas, myscroll1gradcolor, true);
+
+    window.gScroll        = new HorizScroller();
+    window.gScroll.scrtxt = SCROLL_CONFIG.text;
+    window.gScroll.init(renderTargets.scrollText, DEMO_ASSETS.textures.fonts.scroll, 1);
+    window.gScroll.baseSpeed = 0.8;
+
+    window.gScroll2        = new HorizScroller();
+    window.gScroll2.scrtxt = SCROLL_CONFIG2.text;
+    window.gScroll2.init(renderTargets.scrollText2, DEMO_ASSETS.textures.fonts.scroll2, 1);
+    window.gScroll2.baseSpeed = 1;
+
+    myscroll1fx = new WaveScroll(renderTargets.scrollText, renderTargets.main, myscroll1fxparam);
+}
+
+document.addEventListener('webkitfullscreenchange', fsHandler, false);
+document.addEventListener('mozfullscreenchange',    fsHandler, false);
+document.addEventListener('fullscreenchange',       fsHandler, false);
+document.addEventListener('MSFullscreenChange',     fsHandler, false);
+
+
+// clear accumulated bolts and reset the spawn timer
+// (otherwise boltz will accumulate and it will look like shit)
+
+
+document.addEventListener('visibilitychange', function() {
+    if (!document.hidden) {
+        lightnings             = [];
+        lastLightningSpawnTime = performance.now();
+        lastFrameTimestamp     = 0;   // dt clamp kicks in for first resumed frame
+    }
+});
+
+function fsHandler() {
+    var elem  = document.getElementById("main");
+    var state = document.fullScreen || document.mozFullScreen || document.webkitIsFullScreen;
+    if (state) {
+        elem.style.width  = "100%";
+        elem.style.height = "100%";
+        elem.children[0].style.width  = "100%";
+        elem.children[0].style.height = "100%";
+    } else {
+        elem.style.width  = "";
+        elem.style.height = "";
+        elem.children[0].style.width  = "";
+        elem.children[0].style.height = "";
+    }
+}
+
+function fullscr(elemId) {
+    var elem = document.getElementById("main");
+    if      (elem.requestFullscreen)       { elem.requestFullscreen(); }
+    else if (elem.mozRequestFullScreen)    { elem.mozRequestFullScreen(); }
+    else if (elem.webkitRequestFullScreen) { elem.webkitRequestFullScreen(Element.ALLOW_KEYBOARD_INPUT); }
+    initializeDemo();
+}
+</script>
+
+
+<!-- Cloudflare Pages Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "d2d1781c40ba474f9b1495557de1faa0"}'></script><!-- Cloudflare Pages Analytics --></body>
+</html>
