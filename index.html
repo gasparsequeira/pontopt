@@ -183,32 +183,64 @@ details > p {
   color: #5f5f5f;
 }
 
-/* A capa do disco, que abre a canção no YouTube. Sem moldura: numa coluna onde
-   tudo encosta à mesma aresta, os 6px do passe-partout eram a fotografia a
-   ficar desalinhada. */
-.home-fig {
-  /* a mesma largura que o parágrafo de apresentação ocupava (max-width: 46ch
-     a 14px), para a coluna ficar alinhada de cima a baixo */
-  max-width: 406px;
+/* A arte em blocos, na mesma caixa de 406×406 que a capa ocupava.
+   São 47 linhas por 88 colunas — um rectângulo deitado metido num quadrado.
+   Por isso o corpo e a entrelinha andam separados: o corpo faz as 88 colunas
+   darem 406px de largura, a entrelinha faz as 47 linhas darem 406px de altura.
+   Os valores saíram de medir o avanço real dos blocos no browser. */
+.home-ascii {
+  width: 406px;
+  height: 359px;
   margin: 20px 0 0;
+  font-family: ui-monospace, SFMono-Regular, Menlo, "DejaVu Sans Mono", monospace;
+  font-size: 7.663px;       /* 88 colunas × 0,602 de avanço = 406px */
+  line-height: 7.638px;     /* 359 ÷ 47 linhas — a arte cede 47px de altura
+                             à citação, para as duas darem 406 no total */
+  color: #6b7780;
+  white-space: pre;
+  overflow: hidden;
+  user-select: none;
 }
 
-.home-fig a {
-  display: block;
-  outline-offset: 3px;
+/* A citação vive por baixo da arte, dentro da mesma caixa de 406 de largura.
+   A arte encolhe em altura o suficiente para as duas juntas darem 406 — ver a
+   entrelinha, que é calculada a partir disso. */
+.home-cite {
+  width: 406px;
+  margin: 12px 0 0;
 }
 
-.home-fig img {
-  display: block;
-  width: 100%;
-  height: auto;
-  /* a mesma ideia dos ícones da direita: apagado em repouso, vivo ao passar */
-  filter: saturate(0.88);
-  transition: none;
+.home-cite blockquote {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 12px;
+  line-height: 1.55;
+  color: #3d3d3d;
+  text-wrap: pretty;
 }
 
-.home-fig a:hover img,
-.home-fig a:focus-visible img { filter: none; }
+/* A citação é ligação, mas fica da cor que estava: aqui o azul não entra.
+   Como a cor deixa de assinalar que é clicável, o sublinhado ao passar o rato
+   faz esse trabalho. */
+.home-cite a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.home-cite a:hover,
+.home-cite a:focus-visible {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.home-cite figcaption {
+  margin-top: 5px;
+  font-family: Verdana, Geneva, "DejaVu Sans", sans-serif;
+  font-size: 9px;
+  letter-spacing: 0.17em;
+  text-transform: uppercase;
+  color: #5a646c;
+}
 
 /* ── destinos ── */
 .home-dest { list-style: none; margin: 0; padding: 0; }
@@ -354,14 +386,63 @@ details > p {
           </p>
         </details>
 
-        <!-- a legenda saiu: o disco já se apresenta sozinho. o alt fica, que é
-             o que descreve a imagem a quem não a vê -->
-        <figure class="home-fig">
-          <a href="https://youtu.be/uwORril5wCQ" target="_blank" rel="noopener"
-             title="ouvir «Aquela Janela Virada P&#39;ro Mar»">
-            <img src="imagens/tristao-da-silva.jpg" width="960" height="955" loading="lazy"
-                 alt="Capa do disco «Aquela Janela Virada P&#39;ro Mar», de Tristão da Silva, na etiqueta Orfeu: fotografia do Porto, com a ponte Luís I sobre o Douro vista das Fontainhas. Abre a canção no YouTube.">
-          </a>
+        <!-- arte em blocos, na mesma caixa de 406×406. O corpo e a entrelinha
+             estão calculados para as 88 colunas e as 47 linhas darem
+             exactamente 406px em cada direcção. -->
+        <pre class="home-ascii" role="img"
+             aria-label="Ilustração composta com blocos de texto.">                                        ▓▓▓▓▓▓                                          
+                                    ▓▓▓▓░░░░░░▓▓▓▓                                      
+                                ▓▓▓▓░░░░░░░░░░░░▒▒▓▓██                                  
+                            ▒▒▒▒▓▓▒▒░░░░░░░░░░░░░░▒▒▒▒▒▒▒▒                              
+                        ████░░░░░░░░░░░░░░░░░░░░░░░░░░░░▒▒██                            
+                    ████░░░░░░░░░░░░░░░░░░░░░░░░░░░░▒▒▒▒░░░░██                          
+                ▓▓▓▓░░░░░░░░░░░░░░░░░░░░░░░░░░░░▒▒░░░░░░░░░░░░██                        
+            ██▓▓░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░▓▓▓▓░░░░░░░░░░██                      
+        ████░░░░░░░░░░░░░░░░░░░░░░░░░░░░▒▒▒▒▒▒████▓▓▓▓██░░░░░░░░██                      
+      ██░░░░░░░░░░░░░░░░░░░░░░░░░░░░▒▒▒▒░░████▓▓▓▓▓▓▓▓██░░░░██░░██                      
+    ██░░▒▒▒▒░░░░░░░░░░░░░░░░░░░░▒▒▒▒░░████▓▓▓▓▓▓▓▓▓▓▓▓██░░████░░██                      
+    ██░░░░░░▒▒▒▒░░░░░░░░░░░░▒▒▒▒░░████▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓██░░██░░░░██                      
+    ██░░░░░░░░░░░░░░░░░░░░░░░░██▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓██░░░░▒▒░░██                      
+    ██░░░░░░░░░░░░░░▒▒▒▒░░████▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓██░░▒▒░░░░██                      
+    ██░░░░░░░░░░░░░░░░░░██▓▓▓▓▓▓░░░░▓▓░░▓▓▓▓▓▓▓▓▓▓▓▓▓▓██░░░░██░░██                      
+    ██░░░░░░░░░░░░░░░░░░██▓▓▓▓░░▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓██░░████░░██                      
+    ██░░░░░░░░░░░░░░░░░░██▓▓▓▓░░▓▓▓▓▓▓░░▓▓▓▓▓▓▓▓▓▓▓▓▓▓██░░████░░██                      
+    ██░░░░░░░░░░░░░░░░░░██▓▓▓▓▒▒░░░░▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓██░░██░░░░██                      
+    ██░░░░░░░░░░░░░░░░░░██▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓██░░░░░░░░██                      
+    ██░░░░░░░░░░░░░░░░░░██▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓██░░░░░░░░██                      
+    ██░░░░░░░░░░░░░░░░░░██▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓████░░░░░░████                        
+    ██░░░░░░░░░░░░░░░░░░██▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓████░░░░░░████▒▒██                        
+    ██░░░░░░░░░░░░░░░░░░██▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓████░░░░░░▓▓▓▓▒▒▒▒▒▒██████                    
+    ██░░░░░░░░░░░░░░░░░░██▓▓▓▓▓▓▓▓▓▓▓▓████░░░░░░▓▓▓▓▒▒▒▒▒▒████░░░░░░▓▓                  
+    ██░░░░░░░░░░░░░░░░░░██▓▓▓▓▓▓▓▓██▓▓░░░░░░▓▓▓▓▒▒▒▒▒▒████░░░░░░▓▓▓▓██                  
+    ████░░░░░░░░░░░░░░░░██▓▓▓▓████░░░░░░████▒▒▒▒▒▒████░░░░░░████░░░░░░██                
+      ██████░░░░░░░░░░░░░░████░░░░░░████▒▒▒▒▒▒████░░░░░░████░░░░████░░░░██              
+    ██▒▒▒▒▒▒████░░░░░░░░░░░░░░░░████▒▒▒▒▒▒██▓▓░░░░░░████░░░░████░░░░▓▓░░░░██            
+    ██████▒▒▒▒▒▒▓▓██░░░░░░░░▓▓██▒▒▒▒▒▒████░░░░░░▓▓██░░░░▓▓▓▓░░░░░░░░░░██░░░░▓▓          
+    ██░░░░████▒▒▒▒▒▒████████▒▒▒▒▒▒████░░░░░░██▓▓░░░░████░░░░░░░░░░░░░░░░██░░░░██        
+    ██░░░░░░░░████▒▒▒▒▒▒▒▒▒▒▒▒████░░░░░░████░░░░████░░░░░░░░░░░░░░░░░░░░░░██░░░░██      
+    ██░░░░░░░░░░░░████████████░░░░░░████░░░░██▓▓░░░░░░░░░░░░░░░░░░░░░░░░░░░░██░░░░██    
+  ██░░░░░░░░░░░░░░░░░░░░░░░░░░░░████░░░░████░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░██░░░░██  
+  ██░░░░░░░░░░░░░░░░░░░░░░░░████░░░░████░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░████░░░░██████
+  ██░░░░░░░░░░░░░░░░░░░░░░▓▓░░██░░░░██░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░▓▓▓▓░░░░▓▓▓▓░░░░██
+  ████░░░░░░░░░░░░░░░░░░▓▓░░░░░░██░░░░██░░░░░░░░░░░░░░░░░░░░░░░░░░████░░░░████░░░░░░░░██
+      ████░░░░░░░░░░░░░░▓▓░░░░░░░░██░░░░██░░░░░░░░░░░░░░░░░░░░████░░░░████░░░░░░░░░░░░██
+          ████░░░░░░░░░░▓▓░░░░░░░░░░██░░░░██░░░░░░░░░░░░░░████░░░░████░░░░░░░░░░░░████  
+              ████░░░░░░▓▓░░░░░░░░░░░░██░░░░██░░░░░░░░████░░░░████░░░░░░░░░░░░████      
+                  ▓▓██░░▓▓░░░░░░░░░░░░░░██░░░░▓▓░░▓▓▓▓░░░░▓▓██░░░░░░░░░░░░████          
+                      ██▓▓░░░░░░░░░░░░░░▒▒▓▓░░░░██░░▒▒▓▓▓▓░░░░░░░░░░░░▓▓██              
+                        ░░▓▓▓▓░░░░░░░░░░░░▒▒▒▒░░▒▒▓▓▓▓▒▒░░░░░░░░░░▓▓▒▒░░                
+                              ████░░░░░░░░░░▒▒████░░░░░░░░░░░░████                      
+                                  ████░░░░░░░░░░░░░░░░░░░░████                          
+                                      ████░░░░░░░░░░░░████                              
+                                          ▓▓▓▓░░░░▓▓██                                  
+                                          ░░░░▓▓▓▓░░</pre>
+
+        <figure class="home-cite">
+          <blockquote><a href="https://www.goodreads.com/quotes/search?q=edward+tufte"
+             target="_blank" rel="noopener">&ldquo;There are only two industries that refer to
+            their customers as &lsquo;users&rsquo;.&rdquo;</a></blockquote>
+          <figcaption>Edward Tufte</figcaption>
         </figure>
       </div>
       <span class="panel-label panel-label--on">© 2026 Diogo Gaspar Sequeira</span>
@@ -414,6 +495,7 @@ details > p {
 
   </div>
 </main>
+
 
 
 <script data-goatcounter="https://gasparsequeira.goatcounter.com/count"
