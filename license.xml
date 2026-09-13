@@ -1,33 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <rsl xmlns="https://rslstandard.org/rsl">
+
+  <!-- Site-wide. "/" is an RFC 9309 path prefix: it matches every asset on the
+       origin, including /writings/ and /perguntas/. Add a narrower <content>
+       block only to express terms that DIFFER from these.
+       Posture: AI training PROHIBITED · attributed retrieval/citation PERMITTED. -->
+
   <content url="/">
     <license>
       <permits type="usage">search ai-input ai-index</permits>
       <prohibits type="usage">ai-train</prohibits>
       <payment type="attribution"/>
     </license>
-    <copyright type="text">Diogo Gaspar Sequeira</copyright>
-    <terms>https://gasparsequeira.pt/</terms>
+    <copyright type="person" contactUrl="https://gasparsequeira.pt/about.html">Diogo Gaspar Sequeira</copyright>
+    <terms>https://gasparsequeira.pt/v2gasparsequeirawebsite_humanreadablelicense_20260827.pdf</terms>
   </content>
 
-  <!-- Authored studies (PDF): attributed citation with a link back is welcome; training is not. -->
-  <content url="/writings/">
-    <license>
-      <permits type="usage">search ai-input ai-index</permits>
-      <prohibits type="usage">ai-train</prohibits>
-      <payment type="attribution"/>
-    </license>
-    <copyright type="text">Diogo Gaspar Sequeira</copyright>
-    <terms>https://gasparsequeira.pt/</terms>
-  </content>
-
-  <!-- Citation lane: pages built to be quoted and linked by answer engines. -->
-  <content url="/perguntas/">
-    <license>
-      <permits type="usage">search ai-input ai-index</permits>
-      <prohibits type="usage">ai-train</prohibits>
-      <payment type="attribution"/>
-    </license>
-    <copyright type="text">Diogo Gaspar Sequeira</copyright>
-    <terms>https://gasparsequeira.pt/</terms>
-  </content>
 </rsl>

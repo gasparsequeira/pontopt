@@ -24,3 +24,6 @@ _backup_*/
 
 # original da capa: pesado e não servido pelo sítio
 imagens/Tristão da Silva.png
+
+# Python
+.venv/

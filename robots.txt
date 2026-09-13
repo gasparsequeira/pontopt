@@ -4,6 +4,12 @@
 
 Sitemap: https://gasparsequeira.pt/sitemap.xml
 
+# ── Really Simple Licensing — site-wide, deliberately outside every ──
+# ── User-agent group: a group-scoped License: is only seen by the   ──
+# ── clients that select that group (RSL 1.0 §4.4, RFC 9309).        ──
+
+License: https://gasparsequeira.pt/license.xml
+
 # ── AI TRAINING & BULK-SCRAPE BOTS — blocked ───────────────────────
 
 User-agent: GPTBot
@@ -118,10 +124,6 @@ Allow: /
 User-agent: *
 Content-Signal: ai-train=no, search=yes, ai-input=yes
 Allow: /
-
-# ── Really Simple Licensing ────────────────────────────────────────
-
-License: https://gasparsequeira.pt/license.xml
 
 # ── traditional + AI-grounding search engines ─────────────────────
 
